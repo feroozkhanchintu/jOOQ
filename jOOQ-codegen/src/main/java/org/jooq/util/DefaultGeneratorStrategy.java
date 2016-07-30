@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -47,7 +47,7 @@ import org.jooq.tools.StringUtils;
 // ...
 
 /**
- * The default naming strategy for the {@link JavaGenerator}
+ * The default naming strategy for the {@link JavaGenerator}.
  *
  * @author Lukas Eder
  */
@@ -57,9 +57,11 @@ public class DefaultGeneratorStrategy extends AbstractGeneratorStrategy {
     private String  targetPackage;
     private boolean instanceFields = true;
 
-    // -------------------------------------------------------------------------
-    // Initialisation
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Initialisation
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final void setInstanceFields(boolean instanceFields) {
@@ -91,9 +93,11 @@ public class DefaultGeneratorStrategy extends AbstractGeneratorStrategy {
         this.targetPackage = packageName;
     }
 
-    // -------------------------------------------------------------------------
-    // Strategy methods
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Strategy methods
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public String getJavaIdentifier(Definition definition) {

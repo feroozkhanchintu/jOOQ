@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -47,15 +47,17 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Common base class for convenience method abstraction
+ * Common base class for convenience method abstraction.
  *
  * @author Lukas Eder
  */
 public abstract class AbstractGeneratorStrategy implements GeneratorStrategy {
 
-    // -------------------------------------------------------------------------
-    // Strategy methods
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Strategy methods
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final String getFileName(Definition definition) {
@@ -199,9 +201,11 @@ public abstract class AbstractGeneratorStrategy implements GeneratorStrategy {
         return sb.toString();
     }
 
-    // -------------------------------------------------------------------------
-    // List methods
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * List methods
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final List<String> getJavaIdentifiers(Collection<? extends Definition> definitions) {
@@ -235,7 +239,7 @@ public abstract class AbstractGeneratorStrategy implements GeneratorStrategy {
         return getFullJavaIdentifiers(Arrays.asList(definitions));
     }
 
-    private static final <T> List<T> nonNull(Collection<? extends T> collection) {
+    private static <T> List<T> nonNull(Collection<? extends T> collection) {
         List<T> result = new ArrayList<T>();
 
         for (T t : collection) {

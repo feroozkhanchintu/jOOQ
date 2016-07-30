@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -44,44 +44,44 @@ package org.jooq.util;
 import javax.annotation.Generated;
 
 /**
- * The Generator provides a basic interface for java code generation
+ * The Generator provides a basic interface for java code generation.
  *
  * @author Lukas Eder
  */
 public interface Generator {
 
     /**
-     * Do the code generation
+     * Do the code generation.
      */
     void generate(Database database);
 
     /**
-     * Set a naming strategy to this generator
+     * Set a naming strategy to this generator.
      */
     void setStrategy(GeneratorStrategy strategy);
 
     /**
-     * Get this generator's underlying naming strategy
+     * Get this generator's underlying naming strategy.
      */
     GeneratorStrategy getStrategy();
 
     /**
-     * Whether deprecated code should be generated
+     * Whether deprecated code should be generated.
      */
     boolean generateDeprecated();
 
     /**
-     * Whether deprecated code should be generated
+     * Whether deprecated code should be generated.
      */
     void setGenerateDeprecated(boolean generateDeprecated);
 
     /**
-     * Whether foreign key relations should be resolved
+     * Whether foreign key relations should be resolved.
      */
     boolean generateRelations();
 
     /**
-     * Whether foreign key relations should be resolved
+     * Whether foreign key relations should be resolved.
      */
     void setGenerateRelations(boolean generateRelations);
 
@@ -96,22 +96,22 @@ public interface Generator {
     void setGenerateTableValuedFunctions(boolean generateTableValuedFunctions);
 
     /**
-     * Whether instance fields should be generated (as opposed to static fields)
+     * Whether instance fields should be generated (as opposed to static fields).
      */
     boolean generateInstanceFields();
 
     /**
-     * Whether instance fields should be generated (as opposed to static fields)
+     * Whether instance fields should be generated (as opposed to static fields).
      */
     void setGenerateInstanceFields(boolean generateInstanceFields);
 
     /**
-     * Whether the {@link Generated} annotation should be generated
+     * Whether the {@link Generated} annotation should be generated.
      */
     boolean generateGeneratedAnnotation();
 
     /**
-     * Whether the {@link Generated} annotation should be generated
+     * Whether the {@link Generated} annotation should be generated.
      */
     void setGenerateGeneratedAnnotation(boolean generateGeneratedAnnotation);
 
@@ -121,240 +121,240 @@ public interface Generator {
     void setUseCatalogVersionProvider(boolean useCatalogVersionProvider);
 
     /**
-     * Whether TableRecords should be generated in addition to tables
+     * Whether TableRecords should be generated in addition to tables.
      */
     boolean generateRecords();
 
     /**
-     * Whether TableRecords should be generated in addition to tables
+     * Whether TableRecords should be generated in addition to tables.
      */
     void setGenerateRecords(boolean generateRecords);
 
     /**
-     * Whether POJO's should be generated in addition to records
+     * Whether POJO's should be generated in addition to records.
      */
     boolean generatePojos();
 
     /**
-     * Whether POJO's should be generated in addition to records
+     * Whether POJO's should be generated in addition to records.
      */
     void setGeneratePojos(boolean generatePojos);
 
     /**
-     * Whether immutable POJO's should be generated in addition to records
+     * Whether immutable POJO's should be generated in addition to records.
      */
     boolean generateImmutablePojos();
 
     /**
-     * Whether immutable POJO's should be generated in addition to records
+     * Whether immutable POJO's should be generated in addition to records.
      */
     void setGenerateImmutablePojos(boolean generateImmutablePojos);
 
     /**
      * Whether interfaces should be generated to be implemented by records and
-     * POJO's
+     * POJO's.
      */
     boolean generateInterfaces();
 
     /**
      * Whether interfaces should be generated to be implemented by records and
-     * POJO's
+     * POJO's.
      */
     void setGenerateInterfaces(boolean generateInterfaces);
 
     /**
-     * Whether immutable interfaces should be generated in addition to records
+     * Whether immutable interfaces should be generated in addition to records.
      */
     boolean generateImmutableInterfaces();
 
     /**
-     * Whether immutable interfaces should be generated in addition to records
+     * Whether immutable interfaces should be generated in addition to records.
      */
     void setGenerateImmutableInterfaces(boolean generateImmutableInterfaces);
 
     /**
-     * Whether DAO's should be generated in addition to pojos
+     * Whether DAO's should be generated in addition to pojos.
      */
     boolean generateDaos();
 
     /**
-     * Whether DAO's should be generated in addition to pojos
+     * Whether DAO's should be generated in addition to pojos.
      */
     void setGenerateDaos(boolean generateDaos);
 
     /**
-     * Whether POJO's and records should be annotated with JPA annotations
+     * Whether POJO's and records should be annotated with JPA annotations.
      */
     boolean generateJPAAnnotations();
 
     /**
-     * Whether POJO's and records should be annotated with JPA annotations
+     * Whether POJO's and records should be annotated with JPA annotations.
      */
     void setGenerateJPAAnnotations(boolean generateJPAAnnotations);
 
     /**
      * Whether POJO's and records should be annotated with JSR-303 validation
-     * annotations
+     * annotations.
      */
     boolean generateValidationAnnotations();
 
     /**
      * Whether POJO's and records should be annotated with JSR-303 validation
-     * annotations
+     * annotations.
      */
     void setGenerateValidationAnnotations(boolean generateValidationAnnotations);
 
     /**
      * Whether DAOs should be annotated with useful spring annotations such as
-     * <code>@Repository</code> or <code>@Autowired</code>
+     * <code>@Repository</code> or <code>@Autowired</code>.
      */
     boolean generateSpringAnnotations();
 
     /**
      * Whether DAOs should be annotated with useful spring annotations such as
-     * <code>@Repository</code> or <code>@Autowired</code>
+     * <code>@Repository</code> or <code>@Autowired</code>.
      */
     void setGenerateSpringAnnotations(boolean generateSpringAnnotations);
 
     /**
-     * Whether global object references should be generated
+     * Whether global object references should be generated.
      */
     boolean generateGlobalObjectReferences();
 
     /**
-     * Whether global object references should be generated
+     * Whether global object references should be generated.
      */
     void setGenerateGlobalObjectReferences(boolean generateGlobalObjectReferences);
 
     /**
-     * Whether global catalog references should be generated
+     * Whether global catalog references should be generated.
      */
     boolean generateGlobalCatalogReferences();
 
     /**
-     * Whether global catalog references should be generated
+     * Whether global catalog references should be generated.
      */
     void setGenerateGlobalCatalogReferences(boolean globalCatalogReferences);
 
     /**
-     * Whether global schema references should be generated
+     * Whether global schema references should be generated.
      */
     boolean generateGlobalSchemaReferences();
 
     /**
-     * Whether global schema references should be generated
+     * Whether global schema references should be generated.
      */
     void setGenerateGlobalSchemaReferences(boolean globalSchemaReferences);
 
     /**
-     * Whether global routine references should be generated
+     * Whether global routine references should be generated.
      */
     boolean generateGlobalRoutineReferences();
 
     /**
-     * Whether global routine references should be generated
+     * Whether global routine references should be generated.
      */
     void setGenerateGlobalRoutineReferences(boolean globalRoutineReferences);
 
     /**
-     * Whether global sequence references should be generated
+     * Whether global sequence references should be generated.
      */
     boolean generateGlobalSequenceReferences();
 
     /**
-     * Whether global sequence references should be generated
+     * Whether global sequence references should be generated.
      */
     void setGenerateGlobalSequenceReferences(boolean globalSequenceReferences);
 
     /**
-     * Whether global table references should be generated
+     * Whether global table references should be generated.
      */
     boolean generateGlobalTableReferences();
 
     /**
-     * Whether global table references should be generated
+     * Whether global table references should be generated.
      */
     void setGenerateGlobalTableReferences(boolean globalTableReferences);
 
     /**
-     * Whether global UDT references should be generated
+     * Whether global UDT references should be generated.
      */
     boolean generateGlobalUDTReferences();
 
     /**
-     * Whether global UDT references should be generated
+     * Whether global UDT references should be generated.
      */
     void setGenerateGlobalUDTReferences(boolean globalUDTReferences);
 
     /**
-     * Whether global queue references should be generated
+     * Whether global queue references should be generated.
      */
     boolean generateGlobalQueueReferences();
 
     /**
-     * Whether global queue references should be generated
+     * Whether global queue references should be generated.
      */
     void setGenerateGlobalQueueReferences(boolean globalQueueReferences);
 
     /**
-     * Whether global link references should be generated
+     * Whether global link references should be generated.
      */
     boolean generateGlobalLinkReferences();
 
     /**
-     * Whether global link references should be generated
+     * Whether global link references should be generated.
      */
     void setGenerateGlobalLinkReferences(boolean globalLinkReferences);
 
     /**
-     * Whether queue related code should be generated
+     * Whether queue related code should be generated.
      */
     boolean generateQueues();
 
     /**
-     * Whether queue related code should be generated
+     * Whether queue related code should be generated.
      */
     void setGenerateQueues(boolean queues);
 
     /**
-     * Whether link related code should be generated
+     * Whether link related code should be generated.
      */
     boolean generateLinks();
 
     /**
-     * Whether link related code should be generated
+     * Whether link related code should be generated.
      */
     void setGenerateLinks(boolean links);
 
     /**
-     * Whether fluent setters should be generated
+     * Whether fluent setters should be generated.
      */
     boolean fluentSetters();
 
     /**
-     * Whether fluent setters should be generated
+     * Whether fluent setters should be generated.
      */
     void setFluentSetters(boolean fluentSetters);
 
     /**
      * Whether <code>equals()</code> and <code>hashCode()</code> methods should
-     * be generated on POJOs
+     * be generated on POJOs.
      */
     boolean generatePojosEqualsAndHashCode();
 
     /**
      * Whether <code>equals()</code> and <code>hashCode()</code> methods should
-     * be generated on POJOs
+     * be generated on POJOs.
      */
     void setGeneratePojosEqualsAndHashCode(boolean generatePojosEqualsAndHashCode);
 
     /**
-     * Whether a <code>toString()</code> method should be generated on POJOs
+     * Whether a <code>toString()</code> method should be generated on POJOs.
      */
     boolean generatePojosToString();
 
     /**
-     * Whether a <code>toString()</code> method should be generated on POJOs
+     * Whether a <code>toString()</code> method should be generated on POJOs.
      */
     void setGeneratePojosToString(boolean generatePojosToString);
 
@@ -410,22 +410,22 @@ public interface Generator {
     void setGenerateEmptySchemas(boolean generateEmptySchemas);
 
     /**
-     * The target directory
+     * The target directory.
      */
     String getTargetDirectory();
 
     /**
-     * Initialise the target directory
+     * Initialise the target directory.
      */
     void setTargetDirectory(String directory);
 
     /**
-     * The target encoding
+     * The target encoding.
      */
     String getTargetEncoding();
 
     /**
-     * Initialise the target encoding
+     * Initialise the target encoding.
      */
     void setTargetEncoding(String encoding);
 
@@ -435,7 +435,7 @@ public interface Generator {
     String getTargetPackage();
 
     /**
-     * Initialise the target package name
+     * Initialise the target package name.
      */
     void setTargetPackage(String packageName);
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -68,7 +68,7 @@ import org.jooq.tools.StringUtils;
 public abstract class GeneratorWriter<W extends GeneratorWriter<W>> {
 
     /**
-     * A pattern to be used with "list" expressions
+     * A pattern to be used with "list" expressions.
      */
     private static final Pattern PATTERN_LIST = Pattern.compile(
         "\\[" +
@@ -129,8 +129,9 @@ public abstract class GeneratorWriter<W extends GeneratorWriter<W>> {
         string = string.replaceAll("\t", tabString);
 
         if (newline && indentTabs > 0) {
-            for (int i = 0; i < indentTabs; i++)
-                sb.append(tabString);
+            for (int i = 0; i < indentTabs; i++) {
+				sb.append(tabString);
+			}
 
             newline = false;
             indentTabs = 0;
@@ -252,8 +253,9 @@ public abstract class GeneratorWriter<W extends GeneratorWriter<W>> {
         String newContent = beforeClose(sb.toString());
 
         // [#4626] Don't write empty files
-        if (StringUtils.isBlank(newContent))
-            return false;
+        if (StringUtils.isBlank(newContent)) {
+			return false;
+		}
 
         try {
             // [#3756] Regenerate files only if there is a difference
@@ -268,8 +270,9 @@ public abstract class GeneratorWriter<W extends GeneratorWriter<W>> {
                     oldContent = new String(oldBytes, encoding());
                 }
                 finally {
-                    if (old != null)
-                        old.close();
+                    if (old != null) {
+						old.close();
+					}
                 }
             }
 

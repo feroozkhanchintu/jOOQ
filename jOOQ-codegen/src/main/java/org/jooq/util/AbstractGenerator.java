@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -51,7 +51,7 @@ import org.jooq.tools.JooqLogger;
 
 
 /**
- * A common base implementation for {@link Generator} objects
+ * A common base implementation for {@link Generator} objects.
  *
  * @author Lukas Eder
  */
@@ -63,19 +63,19 @@ abstract class AbstractGenerator implements Generator {
     boolean                            generateRelations                = true;
     boolean                            generateInstanceFields           = true;
     boolean                            generateGeneratedAnnotation      = true;
-    boolean                            useSchemaVersionProvider         = false;
-    boolean                            useCatalogVersionProvider        = false;
+    boolean                            useSchemaVersionProvider;
+    boolean                            useCatalogVersionProvider;
     boolean                            generateRecords                  = true;
-    boolean                            generatePojos                    = false;
-    boolean                            generatePojosEqualsAndHashCode   = false;
+    boolean                            generatePojos;
+    boolean                            generatePojosEqualsAndHashCode;
     boolean                            generatePojosToString            = true;
-    boolean                            generateImmutablePojos           = false;
-    boolean                            generateInterfaces               = false;
-    boolean                            generateImmutableInterfaces      = false;
-    boolean                            generateDaos                     = false;
-    boolean                            generateJPAAnnotations           = false;
-    boolean                            generateValidationAnnotations    = false;
-    boolean                            generateSpringAnnotations        = false;
+    boolean                            generateImmutablePojos;
+    boolean                            generateInterfaces;
+    boolean                            generateImmutableInterfaces;
+    boolean                            generateDaos;
+    boolean                            generateJPAAnnotations;
+    boolean                            generateValidationAnnotations;
+    boolean                            generateSpringAnnotations;
     boolean                            generateQueues                   = true;
     boolean                            generateLinks                    = true;
     boolean                            generateGlobalObjectReferences   = true;
@@ -87,11 +87,11 @@ abstract class AbstractGenerator implements Generator {
     boolean                            generateGlobalUDTReferences      = true;
     boolean                            generateGlobalQueueReferences    = true;
     boolean                            generateGlobalLinkReferences     = true;
-    boolean                            fluentSetters                    = false;
+    boolean                            fluentSetters;
     String                             generateFullyQualifiedTypes      = "";
-    boolean                            generateTableValuedFunctions     = false;
-    boolean                            generateEmptyCatalogs            = false;
-    boolean                            generateEmptySchemas             = false;
+    boolean                            generateTableValuedFunctions;
+    boolean                            generateEmptyCatalogs;
+    boolean                            generateEmptySchemas;
 
     protected GeneratorStrategyWrapper strategy;
     protected String                   targetEncoding                   = "UTF-8";
@@ -110,8 +110,9 @@ abstract class AbstractGenerator implements Generator {
         try {
             Connection connection = db.getConnection();
 
-            if (connection != null)
-                url = connection.getMetaData().getURL();
+            if (connection != null) {
+				url = connection.getMetaData().getURL();
+			}
         }
         catch (SQLException ignore) {}
 
@@ -135,20 +136,25 @@ abstract class AbstractGenerator implements Generator {
         log.info("Generation remarks");
         log.info("----------------------------------------------------------");
 
-        if (contains(db.getIncludes(), ',') && db.getIncluded().isEmpty())
-            log.info("  includes", "The <includes/> element takes a Java regular expression, not a comma-separated list. This might be why no objects were included.");
+        if (contains(db.getIncludes(), ',') && db.getIncluded().isEmpty()) {
+			log.info("  includes", "The <includes/> element takes a Java regular expression, not a comma-separated list. This might be why no objects were included.");
+		}
 
-        if (contains(db.getExcludes(), ',') && db.getExcluded().isEmpty())
-            log.info("  excludes", "The <excludes/> element takes a Java regular expression, not a comma-separated list. This might be why no objects were excluded.");
+        if (contains(db.getExcludes(), ',') && db.getExcluded().isEmpty()) {
+			log.info("  excludes", "The <excludes/> element takes a Java regular expression, not a comma-separated list. This might be why no objects were excluded.");
+		}
     }
 
     private boolean contains(String[] array, char c) {
-        if (array == null)
-            return false;
+        if (array == null) {
+			return false;
+		}
 
-        for (String string : array)
-            if (string != null && string.indexOf(c) > -1)
-                return true;
+        for (String string : array) {
+			if (string != null && string.indexOf(c) > -1) {
+				return true;
+			}
+		}
 
         return false;
     }
@@ -515,7 +521,7 @@ abstract class AbstractGenerator implements Generator {
         this.generateEmptySchemas = generateEmptySchemas;
     }
 
-    // ----
+    /** ----. */
 
     @Override
     public void setTargetDirectory(String directory) {
@@ -569,11 +575,9 @@ abstract class AbstractGenerator implements Generator {
                         empty(child, suffix, keep);
                     }
                 }
-            } else {
-                if (file.getName().endsWith(suffix) && !keep.contains(file)) {
-                    file.delete();
-                }
-            }
+            } else if (file.getName().endsWith(suffix) && !keep.contains(file)) {
+			    file.delete();
+			}
         }
     }
 }

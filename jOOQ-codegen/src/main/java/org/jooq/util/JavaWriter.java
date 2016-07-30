@@ -18,7 +18,7 @@ import org.jooq.tools.StringUtils;
  * A wrapper for a {@link PrintWriter}
  * <p>
  * This wrapper adds Java printing features to the general
- * {@link GeneratorWriter}
+ * {@link GeneratorWriter}.
  *
  * @author Lukas Eder
  */
@@ -48,10 +48,11 @@ public class JavaWriter extends GeneratorWriter<JavaWriter> {
         this.isScala = file.getName().endsWith(".scala");
         this.fullyQualifiedTypes = fullyQualifiedTypes == null ? null : Pattern.compile(fullyQualifiedTypes);
 
-        if (isJava)
-            tabString("    ");
-        else if (isScala)
-            tabString("  ");
+        if (isJava) {
+			tabString("    ");
+		} else if (isScala) {
+			tabString("  ");
+		}
     }
 
     public JavaWriter print(Class<?> clazz) {
@@ -70,9 +71,11 @@ public class JavaWriter extends GeneratorWriter<JavaWriter> {
         // [#3450] [#4575] Must not print */ inside Javadoc
         String escaped = escapeJavadoc(string);
         Object[] escapedArgs = Arrays.copyOf(args, args.length);
-        for (int i = 0; i < escapedArgs.length; i++)
-            if (escapedArgs[i] instanceof String)
-                escapedArgs[i] = escapeJavadoc((String) escapedArgs[i]);
+        for (int i = 0; i < escapedArgs.length; i++) {
+			if (escapedArgs[i] instanceof String) {
+				escapedArgs[i] = escapeJavadoc((String) escapedArgs[i]);
+			}
+		}
 
         tab(t).println();
         tab(t).println("/**");
@@ -152,8 +155,9 @@ public class JavaWriter extends GeneratorWriter<JavaWriter> {
         String pkg = "";
 
         Matcher m = Pattern.compile("(?s:^.*?[\\r\\n]+package\\s+(.*?);?[\\r\\n]+.*?$)").matcher(string);
-        if (m.find())
-            pkg = m.group(1);
+        if (m.find()) {
+			pkg = m.group(1);
+		}
 
         Pattern samePackagePattern = Pattern.compile(pkg + "\\.[^\\.]+");
 
@@ -162,21 +166,25 @@ public class JavaWriter extends GeneratorWriter<JavaWriter> {
 
             // [#4021] For Scala interoperability, we better also import
             // java.lang types
-            if (isJava && imp.startsWith("java.lang."))
-                continue;
+            if (isJava && imp.startsWith("java.lang.")) {
+				continue;
+			}
 
             // Don't import the class itself
-            if (imp.endsWith("." + className))
-                continue;
+            if (imp.endsWith("." + className)) {
+				continue;
+			}
 
             // [#4229] [#4531] Avoid warnings due to unnecessary same-package imports
-            if (pkg.length() > 0 && samePackagePattern.matcher(imp).matches())
-                continue;
+            if (pkg.length() > 0 && samePackagePattern.matcher(imp).matches()) {
+				continue;
+			}
 
             String topLevelPackage = imp.split("\\.")[0];
 
-            if (!topLevelPackage.equals(previous))
-                importString.append("\n");
+            if (!topLevelPackage.equals(previous)) {
+				importString.append("\n");
+			}
 
             importString.append("import ")
                         .append(imp)
@@ -186,8 +194,7 @@ public class JavaWriter extends GeneratorWriter<JavaWriter> {
         }
 
         string = string.replaceAll(IMPORT_STATEMENT, Matcher.quoteReplacement(importString.toString()));
-        string = string.replaceAll(SERIAL_STATEMENT, Matcher.quoteReplacement(String.valueOf(string.hashCode())));
-        return string;
+        return string.replaceAll(SERIAL_STATEMENT, Matcher.quoteReplacement(String.valueOf(string.hashCode())));
     }
 
     @Override
@@ -198,42 +205,38 @@ public class JavaWriter extends GeneratorWriter<JavaWriter> {
             for (String c : clazz) {
 
                 // Skip unqualified and primitive types
-                if (c.contains(".")) {
+                if (c.contains(".") && (fullyQualifiedTypes == null || !fullyQualifiedTypes.matcher(c).matches())) {
+				    Matcher m = REF_PATTERN.matcher(c);
 
-                    // com.example.Table.TABLE.COLUMN (with keepSegments = 3)
-                    if (fullyQualifiedTypes == null || !fullyQualifiedTypes.matcher(c).matches()) {
-                        Matcher m = REF_PATTERN.matcher(c);
+				    if (m.find()) {
 
-                        if (m.find()) {
+				        // [com, example, Table, TABLE, COLUMN]
+				        List<String> split = Arrays.asList(m.group(1).split("\\."));
 
-                            // [com, example, Table, TABLE, COLUMN]
-                            List<String> split = Arrays.asList(m.group(1).split("\\."));
+				        // com.example.Table
+				        String qualifiedType = StringUtils.join(split.subList(0, split.size() - keepSegments + 1).toArray(), ".");
 
-                            // com.example.Table
-                            String qualifiedType = StringUtils.join(split.subList(0, split.size() - keepSegments + 1).toArray(), ".");
+				        // Table
+				        String unqualifiedType = split.get(split.size() - keepSegments);
 
-                            // Table
-                            String unqualifiedType = split.get(split.size() - keepSegments);
+				        // Table.TABLE.COLUMN
+				        String remainder = StringUtils.join(split.subList(split.size() - keepSegments, split.size()).toArray(), ".");
 
-                            // Table.TABLE.COLUMN
-                            String remainder = StringUtils.join(split.subList(split.size() - keepSegments, split.size()).toArray(), ".");
+				        if (!className.equals(unqualifiedType) &&
+				           (!unqualifiedTypes.containsKey(unqualifiedType) || qualifiedType.equals(unqualifiedTypes.get(unqualifiedType)))) {
 
-                            if (!className.equals(unqualifiedType) &&
-                               (!unqualifiedTypes.containsKey(unqualifiedType) || qualifiedType.equals(unqualifiedTypes.get(unqualifiedType)))) {
+				            unqualifiedTypes.put(unqualifiedType, qualifiedType);
+				            qualifiedTypes.add(qualifiedType);
+				            String generic = m.group(2);
 
-                                unqualifiedTypes.put(unqualifiedType, qualifiedType);
-                                qualifiedTypes.add(qualifiedType);
-                                String generic = m.group(2);
-
-                                // Consider importing generic type arguments, recursively
-                                c = remainder
-                                  + (PLAIN_GENERIC_TYPE_PATTERN.matcher(generic).matches()
-                                  ?  generic.substring(0, 1) + ref(generic.substring(1, generic.length() - 1)) + generic.substring(generic.length() - 1)
-                                  :  generic);
-                            }
-                        }
-                    }
-                }
+				            // Consider importing generic type arguments, recursively
+				            c = remainder
+				              + (PLAIN_GENERIC_TYPE_PATTERN.matcher(generic).matches()
+				              ?  generic.substring(0, 1) + ref(generic.substring(1, generic.length() - 1)) + generic.substring(generic.length() - 1)
+				              :  generic);
+				        }
+				    }
+				}
 
                 // If any of the above tests fail, c will remain the unchanged,
                 // fully qualified type name.

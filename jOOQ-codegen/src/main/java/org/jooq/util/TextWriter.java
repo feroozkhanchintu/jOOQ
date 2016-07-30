@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -47,7 +47,7 @@ import java.io.PrintWriter;
  * A wrapper for a {@link PrintWriter}
  * <p>
  * This wrapper adds text printing features to the general
- * {@link GeneratorWriter}
+ * {@link GeneratorWriter}.
  *
  * @author Lukas Eder
  */

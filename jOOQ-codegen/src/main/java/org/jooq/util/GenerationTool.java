@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -135,8 +135,9 @@ public class GenerationTool {
     }
 
     public static void main(String[] args) throws Exception {
-        if (args.length < 1)
-            error();
+        if (args.length < 1) {
+			error();
+		}
 
         argsLoop: for (String arg : args) {
             InputStream in = GenerationTool.class.getResourceAsStream(arg);
@@ -144,12 +145,14 @@ public class GenerationTool {
 
                 // [#2932] Retry loading the file, if it wasn't found. This may be helpful
                 // to some users who were unaware that this file is loaded from the classpath
-                if (in == null && !arg.startsWith("/"))
-                    in = GenerationTool.class.getResourceAsStream("/" + arg);
+                if (in == null && !arg.startsWith("/")) {
+					in = GenerationTool.class.getResourceAsStream("/" + arg);
+				}
 
                 // [#3668] Also check the local file system for configuration files
-                if (in == null && new File(arg).exists())
-                    in = new FileInputStream(new File(arg));
+                if (in == null && new File(arg).exists()) {
+					in = new FileInputStream(new File(arg));
+				}
 
                 if (in == null) {
                     log.error("Cannot find " + arg + " on classpath, or in directory " + new File(".").getCanonicalPath());
@@ -225,10 +228,12 @@ public class GenerationTool {
         errorIfNull(g, "The <generator/> tag is mandatory.");
 
         // Some default values for optional elements to avoid NPE's
-        if (g.getStrategy() == null)
-            g.setStrategy(new Strategy());
-        if (g.getTarget() == null)
-            g.setTarget(new Target());
+        if (g.getStrategy() == null) {
+			g.setStrategy(new Strategy());
+		}
+        if (g.getTarget() == null) {
+			g.setTarget(new Target());
+		}
 
         try {
 
@@ -244,10 +249,12 @@ public class GenerationTool {
                     Class<? extends Driver> driver = (Class<? extends Driver>) loadClass(driverClass(j));
 
                     Properties properties = properties(j.getProperties());
-                    if (!properties.containsKey("user"))
-                        properties.put("user", defaultString(defaultString(j.getUser(), j.getUsername())));
-                    if (!properties.containsKey("password"))
-                        properties.put("password", defaultString(j.getPassword()));
+                    if (!properties.containsKey("user")) {
+						properties.put("user", defaultString(defaultString(j.getUser(), j.getUsername())));
+					}
+                    if (!properties.containsKey("password")) {
+						properties.put("password", defaultString(j.getPassword()));
+					}
 
                     connection = driver.newInstance().connect(defaultString(j.getUrl()), properties);
                 }
@@ -350,11 +357,9 @@ public class GenerationTool {
 
             }
 
-            if (schemata.size() == 1) {
-                if (StringUtils.isBlank(schemata.get(0).getInputSchema())) {
-                    log.info("No <inputSchema/> was provided. Generating ALL available schemata instead!");
-                }
-            }
+            if (schemata.size() == 1 && StringUtils.isBlank(schemata.get(0).getInputSchema())) {
+			    log.info("No <inputSchema/> was provided. Generating ALL available schemata instead!");
+			}
 
             database.setConnection(connection);
             database.setConfiguredSchemata(schemata);
@@ -378,8 +383,9 @@ public class GenerationTool {
             database.setConfiguredEnumTypes(d.getEnumTypes());
             database.setConfiguredForcedTypes(d.getForcedTypes());
 
-            if (d.getRegexFlags() != null)
-                database.setRegexFlags(d.getRegexFlags());
+            if (d.getRegexFlags() != null) {
+				database.setRegexFlags(d.getRegexFlags());
+			}
 
             SchemaVersionProvider svp = null;
             CatalogVersionProvider cvp = null;
@@ -416,117 +422,163 @@ public class GenerationTool {
                 }
             }
 
-            if (svp == null)
-                svp = new ConstantSchemaVersionProvider(null);
-            if (cvp == null)
-                cvp = new ConstantCatalogVersionProvider(null);
+            if (svp == null) {
+				svp = new ConstantSchemaVersionProvider(null);
+			}
+            if (cvp == null) {
+				cvp = new ConstantCatalogVersionProvider(null);
+			}
 
             database.setSchemaVersionProvider(svp);
             database.setCatalogVersionProvider(cvp);
 
-            if (d.getEnumTypes().size() > 0)
-                log.warn("DEPRECATED", "The configuration property /configuration/generator/database/enumTypes is experimental and deprecated and will be removed in the future.");
-            if (Boolean.TRUE.equals(d.isDateAsTimestamp()))
-                log.warn("DEPRECATED", "The configuration property /configuration/generator/database/dateAsTimestamp is deprecated as it is superseded by custom bindings and converters. It will thus be removed in the future.");
+            if (d.getEnumTypes().size() > 0) {
+				log.warn("DEPRECATED", "The configuration property /configuration/generator/database/enumTypes is experimental and deprecated and will be removed in the future.");
+			}
+            if (Boolean.TRUE.equals(d.isDateAsTimestamp())) {
+				log.warn("DEPRECATED", "The configuration property /configuration/generator/database/dateAsTimestamp is deprecated as it is superseded by custom bindings and converters. It will thus be removed in the future.");
+			}
 
-            if (d.isDateAsTimestamp() != null)
-                database.setDateAsTimestamp(d.isDateAsTimestamp());
-            if (d.isUnsignedTypes() != null)
-                database.setSupportsUnsignedTypes(d.isUnsignedTypes());
-            if (d.isIgnoreProcedureReturnValues() != null)
-                database.setIgnoreProcedureReturnValues(d.isIgnoreProcedureReturnValues());
+            if (d.isDateAsTimestamp() != null) {
+				database.setDateAsTimestamp(d.isDateAsTimestamp());
+			}
+            if (d.isUnsignedTypes() != null) {
+				database.setSupportsUnsignedTypes(d.isUnsignedTypes());
+			}
+            if (d.isIgnoreProcedureReturnValues() != null) {
+				database.setIgnoreProcedureReturnValues(d.isIgnoreProcedureReturnValues());
+			}
 
-            if (Boolean.TRUE.equals(d.isIgnoreProcedureReturnValues()))
-                log.warn("DEPRECATED", "The <ignoreProcedureReturnValues/> flag is deprecated and used for backwards-compatibility only. It will be removed in the future.");
+            if (Boolean.TRUE.equals(d.isIgnoreProcedureReturnValues())) {
+				log.warn("DEPRECATED", "The <ignoreProcedureReturnValues/> flag is deprecated and used for backwards-compatibility only. It will be removed in the future.");
+			}
 
-            if (StringUtils.isBlank(g.getTarget().getPackageName()))
-                g.getTarget().setPackageName("org.jooq.generated");
-            if (StringUtils.isBlank(g.getTarget().getDirectory()))
-                g.getTarget().setDirectory("target/generated-sources/jooq");
-            if (StringUtils.isBlank(g.getTarget().getEncoding()))
-                g.getTarget().setEncoding("UTF-8");
+            if (StringUtils.isBlank(g.getTarget().getPackageName())) {
+				g.getTarget().setPackageName("org.jooq.generated");
+			}
+            if (StringUtils.isBlank(g.getTarget().getDirectory())) {
+				g.getTarget().setDirectory("target/generated-sources/jooq");
+			}
+            if (StringUtils.isBlank(g.getTarget().getEncoding())) {
+				g.getTarget().setEncoding("UTF-8");
+			}
 
             generator.setTargetPackage(g.getTarget().getPackageName());
             generator.setTargetDirectory(g.getTarget().getDirectory());
             generator.setTargetEncoding(g.getTarget().getEncoding());
 
             // [#1394] The <generate/> element should be optional
-            if (g.getGenerate() == null)
-                g.setGenerate(new Generate());
-            if (g.getGenerate().isRelations() != null)
-                generator.setGenerateRelations(g.getGenerate().isRelations());
-            if (g.getGenerate().isDeprecated() != null)
-                generator.setGenerateDeprecated(g.getGenerate().isDeprecated());
-            if (g.getGenerate().isInstanceFields() != null)
-                generator.setGenerateInstanceFields(g.getGenerate().isInstanceFields());
-            if (g.getGenerate().isGeneratedAnnotation() != null)
-                generator.setGenerateGeneratedAnnotation(g.getGenerate().isGeneratedAnnotation());
-            if (g.getGenerate().isRecords() != null)
-                generator.setGenerateRecords(g.getGenerate().isRecords());
-            if (g.getGenerate().isPojos() != null)
-                generator.setGeneratePojos(g.getGenerate().isPojos());
-            if (g.getGenerate().isImmutablePojos() != null)
-                generator.setGenerateImmutablePojos(g.getGenerate().isImmutablePojos());
-            if (g.getGenerate().isInterfaces() != null)
-                generator.setGenerateInterfaces(g.getGenerate().isInterfaces());
-            if (g.getGenerate().isImmutableInterfaces() != null)
-                generator.setGenerateImmutableInterfaces(g.getGenerate().isImmutableInterfaces());
-            if (g.getGenerate().isDaos() != null)
-                generator.setGenerateDaos(g.getGenerate().isDaos());
-            if (g.getGenerate().isJpaAnnotations() != null)
-                generator.setGenerateJPAAnnotations(g.getGenerate().isJpaAnnotations());
-            if (g.getGenerate().isValidationAnnotations() != null)
-                generator.setGenerateValidationAnnotations(g.getGenerate().isValidationAnnotations());
-            if (g.getGenerate().isSpringAnnotations() != null)
-                generator.setGenerateSpringAnnotations(g.getGenerate().isSpringAnnotations());
-            if (g.getGenerate().isQueues() != null)
-                generator.setGenerateQueues(g.getGenerate().isQueues());
-            if (g.getGenerate().isLinks() != null)
-                generator.setGenerateLinks(g.getGenerate().isLinks());
-            if (g.getGenerate().isGlobalLinkReferences() != null)
-                generator.setGenerateGlobalLinkReferences(g.getGenerate().isGlobalLinkReferences());
-            if (g.getGenerate().isGlobalObjectReferences() != null)
-                generator.setGenerateGlobalObjectReferences(g.getGenerate().isGlobalObjectReferences());
-            if (g.getGenerate().isGlobalCatalogReferences() != null)
-                generator.setGenerateGlobalCatalogReferences(g.getGenerate().isGlobalCatalogReferences());
-            if (g.getGenerate().isGlobalSchemaReferences() != null)
-                generator.setGenerateGlobalSchemaReferences(g.getGenerate().isGlobalSchemaReferences());
-            if (g.getGenerate().isGlobalRoutineReferences() != null)
-                generator.setGenerateGlobalRoutineReferences(g.getGenerate().isGlobalRoutineReferences());
-            if (g.getGenerate().isGlobalSequenceReferences() != null)
-                generator.setGenerateGlobalSequenceReferences(g.getGenerate().isGlobalSequenceReferences());
-            if (g.getGenerate().isGlobalTableReferences() != null)
-                generator.setGenerateGlobalTableReferences(g.getGenerate().isGlobalTableReferences());
-            if (g.getGenerate().isGlobalUDTReferences() != null)
-                generator.setGenerateGlobalUDTReferences(g.getGenerate().isGlobalUDTReferences());
-            if (g.getGenerate().isGlobalQueueReferences() != null)
-                generator.setGenerateGlobalQueueReferences(g.getGenerate().isGlobalQueueReferences());
-            if (g.getGenerate().isGlobalLinkReferences() != null)
-                generator.setGenerateGlobalLinkReferences(g.getGenerate().isGlobalLinkReferences());
-            if (g.getGenerate().isFluentSetters() != null)
-                generator.setFluentSetters(g.getGenerate().isFluentSetters());
-            if (g.getGenerate().isPojosEqualsAndHashCode() != null)
-                generator.setGeneratePojosEqualsAndHashCode(g.getGenerate().isPojosEqualsAndHashCode());
-            if (g.getGenerate().isPojosToString() != null)
-                generator.setGeneratePojosToString(g.getGenerate().isPojosToString());
-            if (g.getGenerate().getFullyQualifiedTypes() != null)
-                generator.setGenerateFullyQualifiedTypes(g.getGenerate().getFullyQualifiedTypes());
-            if (g.getGenerate().isEmptyCatalogs() != null)
-                generator.setGenerateEmptyCatalogs(g.getGenerate().isEmptyCatalogs());
-            if (g.getGenerate().isEmptySchemas() != null)
-                generator.setGenerateEmptySchemas(g.getGenerate().isEmptySchemas());
+            if (g.getGenerate() == null) {
+				g.setGenerate(new Generate());
+			}
+            if (g.getGenerate().isRelations() != null) {
+				generator.setGenerateRelations(g.getGenerate().isRelations());
+			}
+            if (g.getGenerate().isDeprecated() != null) {
+				generator.setGenerateDeprecated(g.getGenerate().isDeprecated());
+			}
+            if (g.getGenerate().isInstanceFields() != null) {
+				generator.setGenerateInstanceFields(g.getGenerate().isInstanceFields());
+			}
+            if (g.getGenerate().isGeneratedAnnotation() != null) {
+				generator.setGenerateGeneratedAnnotation(g.getGenerate().isGeneratedAnnotation());
+			}
+            if (g.getGenerate().isRecords() != null) {
+				generator.setGenerateRecords(g.getGenerate().isRecords());
+			}
+            if (g.getGenerate().isPojos() != null) {
+				generator.setGeneratePojos(g.getGenerate().isPojos());
+			}
+            if (g.getGenerate().isImmutablePojos() != null) {
+				generator.setGenerateImmutablePojos(g.getGenerate().isImmutablePojos());
+			}
+            if (g.getGenerate().isInterfaces() != null) {
+				generator.setGenerateInterfaces(g.getGenerate().isInterfaces());
+			}
+            if (g.getGenerate().isImmutableInterfaces() != null) {
+				generator.setGenerateImmutableInterfaces(g.getGenerate().isImmutableInterfaces());
+			}
+            if (g.getGenerate().isDaos() != null) {
+				generator.setGenerateDaos(g.getGenerate().isDaos());
+			}
+            if (g.getGenerate().isJpaAnnotations() != null) {
+				generator.setGenerateJPAAnnotations(g.getGenerate().isJpaAnnotations());
+			}
+            if (g.getGenerate().isValidationAnnotations() != null) {
+				generator.setGenerateValidationAnnotations(g.getGenerate().isValidationAnnotations());
+			}
+            if (g.getGenerate().isSpringAnnotations() != null) {
+				generator.setGenerateSpringAnnotations(g.getGenerate().isSpringAnnotations());
+			}
+            if (g.getGenerate().isQueues() != null) {
+				generator.setGenerateQueues(g.getGenerate().isQueues());
+			}
+            if (g.getGenerate().isLinks() != null) {
+				generator.setGenerateLinks(g.getGenerate().isLinks());
+			}
+            if (g.getGenerate().isGlobalLinkReferences() != null) {
+				generator.setGenerateGlobalLinkReferences(g.getGenerate().isGlobalLinkReferences());
+			}
+            if (g.getGenerate().isGlobalObjectReferences() != null) {
+				generator.setGenerateGlobalObjectReferences(g.getGenerate().isGlobalObjectReferences());
+			}
+            if (g.getGenerate().isGlobalCatalogReferences() != null) {
+				generator.setGenerateGlobalCatalogReferences(g.getGenerate().isGlobalCatalogReferences());
+			}
+            if (g.getGenerate().isGlobalSchemaReferences() != null) {
+				generator.setGenerateGlobalSchemaReferences(g.getGenerate().isGlobalSchemaReferences());
+			}
+            if (g.getGenerate().isGlobalRoutineReferences() != null) {
+				generator.setGenerateGlobalRoutineReferences(g.getGenerate().isGlobalRoutineReferences());
+			}
+            if (g.getGenerate().isGlobalSequenceReferences() != null) {
+				generator.setGenerateGlobalSequenceReferences(g.getGenerate().isGlobalSequenceReferences());
+			}
+            if (g.getGenerate().isGlobalTableReferences() != null) {
+				generator.setGenerateGlobalTableReferences(g.getGenerate().isGlobalTableReferences());
+			}
+            if (g.getGenerate().isGlobalUDTReferences() != null) {
+				generator.setGenerateGlobalUDTReferences(g.getGenerate().isGlobalUDTReferences());
+			}
+            if (g.getGenerate().isGlobalQueueReferences() != null) {
+				generator.setGenerateGlobalQueueReferences(g.getGenerate().isGlobalQueueReferences());
+			}
+            if (g.getGenerate().isGlobalLinkReferences() != null) {
+				generator.setGenerateGlobalLinkReferences(g.getGenerate().isGlobalLinkReferences());
+			}
+            if (g.getGenerate().isFluentSetters() != null) {
+				generator.setFluentSetters(g.getGenerate().isFluentSetters());
+			}
+            if (g.getGenerate().isPojosEqualsAndHashCode() != null) {
+				generator.setGeneratePojosEqualsAndHashCode(g.getGenerate().isPojosEqualsAndHashCode());
+			}
+            if (g.getGenerate().isPojosToString() != null) {
+				generator.setGeneratePojosToString(g.getGenerate().isPojosToString());
+			}
+            if (g.getGenerate().getFullyQualifiedTypes() != null) {
+				generator.setGenerateFullyQualifiedTypes(g.getGenerate().getFullyQualifiedTypes());
+			}
+            if (g.getGenerate().isEmptyCatalogs() != null) {
+				generator.setGenerateEmptyCatalogs(g.getGenerate().isEmptyCatalogs());
+			}
+            if (g.getGenerate().isEmptySchemas() != null) {
+				generator.setGenerateEmptySchemas(g.getGenerate().isEmptySchemas());
+			}
 
 
             // [#3669] Optional Database element
-            if (g.getDatabase() == null)
-                g.setDatabase(new org.jooq.util.jaxb.Database());
-            if (!StringUtils.isBlank(g.getDatabase().getSchemaVersionProvider()))
-                generator.setUseSchemaVersionProvider(true);
-            if (!StringUtils.isBlank(g.getDatabase().getCatalogVersionProvider()))
-                generator.setUseCatalogVersionProvider(true);
-            if (g.getDatabase().isTableValuedFunctions() != null)
-                generator.setGenerateTableValuedFunctions(g.getDatabase().isTableValuedFunctions());
-            else {
+            if (g.getDatabase() == null) {
+				g.setDatabase(new org.jooq.util.jaxb.Database());
+			}
+            if (!StringUtils.isBlank(g.getDatabase().getSchemaVersionProvider())) {
+				generator.setUseSchemaVersionProvider(true);
+			}
+            if (!StringUtils.isBlank(g.getDatabase().getCatalogVersionProvider())) {
+				generator.setUseCatalogVersionProvider(true);
+			}
+            if (g.getDatabase().isTableValuedFunctions() != null) {
+				generator.setGenerateTableValuedFunctions(g.getDatabase().isTableValuedFunctions());
+			} else {
                 generator.setGenerateTableValuedFunctions(true);
 
 
@@ -589,8 +641,9 @@ public class GenerationTool {
     }
 
     private Class<? extends Database> databaseClass(String url) {
-        if (isBlank(url))
-            throw new RuntimeException("No JDBC URL configured.");
+        if (isBlank(url)) {
+			throw new RuntimeException("No JDBC URL configured.");
+		}
 
         Class<? extends Database> result = Databases.databaseClass(JDBCUtils.dialect(url));
         log.info("Database", "Inferring database " + result.getName() + " from URL " + url);
@@ -631,7 +684,7 @@ public class GenerationTool {
     }
 
     private static String trim(String string) {
-        return (string == null ? null : string.trim());
+        return string == null ? null : string.trim();
     }
 
     private static void errorIfNull(Object o, String message) {
@@ -672,7 +725,7 @@ public class GenerationTool {
     }
 
     /**
-     * Load a jOOQ codegen configuration file from an input stream
+     * Load a jOOQ codegen configuration file from an input stream.
      */
     public static Configuration load(InputStream in) throws IOException {
         // [#1149] If there is no namespace defined, add the default one

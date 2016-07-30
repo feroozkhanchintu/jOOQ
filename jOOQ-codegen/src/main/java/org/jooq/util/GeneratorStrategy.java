@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -45,19 +45,19 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * A strategy for naming various artefacts generated from {@link Definition}'s
+ * A strategy for naming various artefacts generated from {@link Definition}'s.
  *
  * @author Lukas Eder
  */
 public interface GeneratorStrategy {
 
     /**
-     * The target directory
+     * The target directory.
      */
     String getTargetDirectory();
 
     /**
-     * Initialise the target directory
+     * Initialise the target directory.
      */
     void setTargetDirectory(String directory);
 
@@ -67,17 +67,17 @@ public interface GeneratorStrategy {
     String getTargetPackage();
 
     /**
-     * Initialise the target package name
+     * Initialise the target package name.
      */
     void setTargetPackage(String packageName);
 
     /**
-     * Whether fields are instance fields (as opposed to static fields)
+     * Whether fields are instance fields (as opposed to static fields).
      */
     void setInstanceFields(boolean instanceFields);
 
     /**
-     * Whether fields are instance fields (as opposed to static fields)
+     * Whether fields are instance fields (as opposed to static fields).
      */
     boolean getInstanceFields();
 
@@ -90,14 +90,8 @@ public interface GeneratorStrategy {
      */
     String getJavaIdentifier(Definition definition);
 
-    /**
-     * @see #getJavaIdentifier(Definition)
-     */
     List<String> getJavaIdentifiers(Collection<? extends Definition> definitions);
 
-    /**
-     * @see #getJavaIdentifier(Definition)
-     */
     List<String> getJavaIdentifiers(Definition... definitions);
 
     /**
@@ -109,14 +103,8 @@ public interface GeneratorStrategy {
      */
     String getFullJavaIdentifier(Definition definition);
 
-    /**
-     * @see #getFullJavaIdentifier(Definition)
-     */
     List<String> getFullJavaIdentifiers(Collection<? extends Definition> definitions);
 
-    /**
-     * @see #getFullJavaIdentifier(Definition)
-     */
     List<String> getFullJavaIdentifiers(Definition... definitions);
 
     /**
@@ -342,7 +330,7 @@ public interface GeneratorStrategy {
     String getOverloadSuffix(Definition definition, Mode mode, String overloadIndex);
 
     /**
-     * The "mode" by which an artefact should be named
+     * The "mode" by which an artefact should be named.
      */
     enum Mode {
 
@@ -365,7 +353,7 @@ public interface GeneratorStrategy {
         POJO,
 
         /**
-         * the interface mode. This is used when a {@link TableDefinition}'s
+         * The interface mode. This is used when a {@link TableDefinition}'s
          * interface is being rendered
          */
         INTERFACE,

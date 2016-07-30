@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -64,7 +64,7 @@ import org.jooq.util.AbstractGenerator.Language;
 
 /**
  * A wrapper for generator strategies preventing some common compilation errors
- * resulting from badly generated source code
+ * resulting from badly generated source code.
  *
  * @author Lukas Eder
  */
@@ -116,16 +116,13 @@ class GeneratorStrategyWrapper extends AbstractGeneratorStrategy {
     public String getJavaIdentifier(Definition definition) {
 
         // [#1473] Identity identifiers should not be renamed by custom strategies
-        if (definition instanceof IdentityDefinition)
-            return "IDENTITY_" + getJavaIdentifier(((IdentityDefinition) definition).getColumn().getContainer());
-
-        // [#2032] Intercept default Catalog
-        else if (definition instanceof CatalogDefinition && ((CatalogDefinition) definition).isDefaultCatalog())
-            return "DEFAULT_CATALOG";
-
-        // [#2089] Intercept default schema
-        else if (definition instanceof SchemaDefinition && ((SchemaDefinition) definition).isDefaultSchema())
-            return "DEFAULT_SCHEMA";
+        if (definition instanceof IdentityDefinition) {
+			return "IDENTITY_" + getJavaIdentifier(((IdentityDefinition) definition).getColumn().getContainer());
+		} else if (definition instanceof CatalogDefinition && ((CatalogDefinition) definition).isDefaultCatalog()) {
+			return "DEFAULT_CATALOG";
+		} else if (definition instanceof SchemaDefinition && ((SchemaDefinition) definition).isDefaultSchema()) {
+			return "DEFAULT_SCHEMA";
+		}
 
         String identifier = convertToIdentifier(delegate.getJavaIdentifier(definition), language);
 
@@ -135,19 +132,22 @@ class GeneratorStrategyWrapper extends AbstractGeneratorStrategy {
 
             TypedElementDefinition<?> e = (TypedElementDefinition<?>) definition;
 
-            if (identifier.equals(getJavaIdentifier(e.getContainer())))
-                return identifier + "_";
+            if (identifier.equals(getJavaIdentifier(e.getContainer()))) {
+				return identifier + "_";
+			}
 
             // [#2781] Disambiguate collisions with the leading package name
-            if (identifier.equals(getJavaPackageName(e.getContainer()).replaceAll("\\..*", "")))
-                return identifier + "_";
+            if (identifier.equals(getJavaPackageName(e.getContainer()).replaceAll("\\..*", ""))) {
+				return identifier + "_";
+			}
         }
 
         else if (definition instanceof TableDefinition) {
             SchemaDefinition schema = definition.getSchema();
 
-            if (identifier.equals(getJavaIdentifier(schema)))
-                return identifier + "_";
+            if (identifier.equals(getJavaIdentifier(schema))) {
+				return identifier + "_";
+			}
         }
 
         return identifier;
@@ -177,7 +177,7 @@ class GeneratorStrategyWrapper extends AbstractGeneratorStrategy {
     }
 
     /**
-     * [#1358] Add an overload suffix if needed
+     * [#1358] Add an overload suffix if needed.
      */
     private String overload(Definition definition, Mode mode, String identifier) {
         if (!StringUtils.isBlank(definition.getOverload())) {
@@ -189,7 +189,7 @@ class GeneratorStrategyWrapper extends AbstractGeneratorStrategy {
 
     /**
      * [#182] Method name disambiguation is important to avoid name clashes due
-     * to pre-existing getters / setters in super classes
+     * to pre-existing getters / setters in super classes.
      */
     private String disambiguateMethod(Definition definition, String method) {
         Set<String> reserved = null;
@@ -232,11 +232,12 @@ class GeneratorStrategyWrapper extends AbstractGeneratorStrategy {
 
     /**
      * [#182] Find all column names that are reserved because of the extended
-     * class hierarchy of a generated class
+     * class hierarchy of a generated class.
      */
     private Set<String> reservedColumns(Class<?> clazz) {
-        if (clazz == null)
-            return Collections.emptySet();
+        if (clazz == null) {
+			return Collections.emptySet();
+		}
 
         Set<String> result = reservedColumns.get(clazz);
 
@@ -246,18 +247,23 @@ class GeneratorStrategyWrapper extends AbstractGeneratorStrategy {
 
             // Recurse up in class hierarchy
             result.addAll(reservedColumns(clazz.getSuperclass()));
-            for (Class<?> c : clazz.getInterfaces())
-                result.addAll(reservedColumns(c));
+            for (Class<?> c : clazz.getInterfaces()) {
+				result.addAll(reservedColumns(c));
+			}
 
-            for (Method m : clazz.getDeclaredMethods())
-                if (m.getParameterTypes().length == 0)
-                    result.add(m.getName());
+            for (Method m : clazz.getDeclaredMethods()) {
+				if (m.getParameterTypes().length == 0) {
+					result.add(m.getName());
+				}
+			}
 
             // [#5457] In Scala, we must not "override" any inherited members, even if they're private
             //         or package private, and thus not visible
-            if (language == Language.SCALA)
-                for (Field f : clazz.getDeclaredFields())
-                    result.add(f.getName());
+            if (language == Language.SCALA) {
+				for (Field f : clazz.getDeclaredFields()) {
+					result.add(f.getName());
+				}
+			}
         }
 
         return result;
@@ -313,9 +319,7 @@ class GeneratorStrategyWrapper extends AbstractGeneratorStrategy {
 
         className = delegate.getJavaClassName(definition, mode);
         className = overload(definition, mode, className);
-        className = convertToIdentifier(className, language);
-
-        return className;
+        return convertToIdentifier(className, language);
     }
 
     @Override

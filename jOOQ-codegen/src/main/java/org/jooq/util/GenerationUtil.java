@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -251,35 +251,40 @@ class GenerationUtil {
      *
      */
     public static String convertToIdentifier(String literal, Language language) {
-        if (language == JAVA && JAVA_KEYWORDS.contains(literal))
-            return literal + "_";
-        if (language == SCALA && SCALA_KEYWORDS.contains(literal))
-            return "`" + literal + "`";
+        if (language == JAVA && JAVA_KEYWORDS.contains(literal)) {
+			return literal + "_";
+		}
+        if (language == SCALA && SCALA_KEYWORDS.contains(literal)) {
+			return "`" + literal + "`";
+		}
 
         StringBuilder sb = new StringBuilder();
 
-        if ("".equals(literal))
-            if (language == SCALA)
-                return "`_`";
-            else
-                return "_";
+        if ("".equals(literal)) {
+			if (language == SCALA) {
+				return "`_`";
+			} else {
+				return "_";
+			}
+		}
 
         for (int i = 0; i < literal.length(); i++) {
             char c = literal.charAt(i);
 
             // [#5424] Scala setters, by convention, end in "property_=", where "=" is an operator and "_" precedes it
-            if (language == SCALA && i == literal.length() - 1 && literal.length() >= 2 && literal.charAt(i - 1) == '_' && isScalaOperator(c))
-                    sb.append(c);
-            else if (language == SCALA && !isScalaIdentifierPart(c))
-                sb.append(escape(c));
-            else if (language == JAVA && !Character.isJavaIdentifierPart(c))
-                    sb.append(escape(c));
-            else if (language == SCALA && i == 0 && !isScalaIdentifierStart(c))
-                sb.append("_").append(c);
-            else if (language == JAVA && i == 0 && !Character.isJavaIdentifierStart(c))
-                sb.append("_").append(c);
-            else
-                sb.append(c);
+            if (language == SCALA && i == literal.length() - 1 && literal.length() >= 2 && literal.charAt(i - 1) == '_' && isScalaOperator(c)) {
+				sb.append(c);
+			} else if (language == SCALA && !isScalaIdentifierPart(c)) {
+				sb.append(escape(c));
+			} else if (language == JAVA && !Character.isJavaIdentifierPart(c)) {
+				sb.append(escape(c));
+			} else if (language == SCALA && i == 0 && !isScalaIdentifierStart(c)) {
+				sb.append("_").append(c);
+			} else if (language == JAVA && i == 0 && !Character.isJavaIdentifierStart(c)) {
+				sb.append("_").append(c);
+			} else {
+				sb.append(c);
+			}
         }
 
         return sb.toString();
@@ -294,27 +299,28 @@ class GenerationUtil {
     }
 
     private static String escape(char c) {
-        if (c == ' ' || c == '-' || c == '.')
-            return "_";
-        else
-            return "_" + Integer.toHexString(c);
+        if (c == ' ' || c == '-' || c == '.') {
+			return "_";
+		} else {
+			return "_" + Integer.toHexString(c);
+		}
     }
 
     /**
-     * Take a qualified Java type and make it a simple type
+     * Take a qualified Java type and make it a simple type.
      *
      * @see Class#getSimpleName()
      */
     static String getSimpleJavaType(String qualifiedJavaType) {
-        if (qualifiedJavaType == null) {
-            return null;
+        if (qualifiedJavaType != null) {
+            return qualifiedJavaType.replaceAll(".*\\.", "");
         }
 
-        return qualifiedJavaType.replaceAll(".*\\.", "");
+        return null;
     }
 
     /**
-     * Gets the base type for an array type, depending on the RDBMS dialect
+     * Gets the base type for an array type, depending on the RDBMS dialect.
      */
     static String getArrayBaseType(SQLDialect dialect, String t, String u) {
 
@@ -362,7 +368,7 @@ class GenerationUtil {
     }
 
     /**
-     * Generate a range between two bounds
+     * Generate a range between two bounds.
      *
      * @param from The lower bound (inclusive)
      * @param to The upper bound (inclusive)
