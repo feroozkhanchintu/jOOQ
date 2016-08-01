@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -51,7 +51,7 @@ package org.jooq;
 public interface Parameter<T> extends QueryPart {
 
     /**
-     * The name of this parameter
+     * The name of this parameter.
      */
     String getName();
 
@@ -75,12 +75,12 @@ public interface Parameter<T> extends QueryPart {
     Binding<?, T> getBinding();
 
     /**
-     * The type of this parameter (might not be dialect-specific)
+     * The type of this parameter (might not be dialect-specific).
      */
     DataType<T> getDataType();
 
     /**
-     * The dialect-specific type of this parameter
+     * The dialect-specific type of this parameter.
      */
     DataType<T> getDataType(Configuration configuration);
 

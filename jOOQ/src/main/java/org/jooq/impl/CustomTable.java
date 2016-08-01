@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -79,7 +79,7 @@ import org.jooq.UniqueKey;
 public abstract class CustomTable<R extends TableRecord<R>> extends TableImpl<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 4300737872863697213L;
 
@@ -98,14 +98,16 @@ public abstract class CustomTable<R extends TableRecord<R>> extends TableImpl<R>
     /**
      * Subclasses must implement this method
      * <hr/>
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public abstract Class<? extends R> getRecordType();
 
-    // -------------------------------------------------------------------------
-    // Further overrides allowed
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Further overrides allowed
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public Identity<R, ?> getIdentity() {
@@ -127,9 +129,11 @@ public abstract class CustomTable<R extends TableRecord<R>> extends TableImpl<R>
         return super.getReferences();
     }
 
-    // -------------------------------------------------------------------------
-    // No further overrides allowed
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * No further overrides allowed
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final boolean declaresFields() {

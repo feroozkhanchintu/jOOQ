@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -52,14 +52,14 @@ import org.jooq.Table;
 
 /**
  * A <code>QualifiedTable</code> is a {@link Table} that always renders a table
- * name or alias as a literal using {@link RenderContext#literal(String)}
+ * name or alias as a literal using {@link RenderContext#literal(String)}.
  *
  * @author Lukas Eder
  */
 final class QualifiedTable extends AbstractTable<Record> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 6937002867156868761L;
     private static final Clause[] CLAUSES          = { TABLE, TABLE_REFERENCE };
@@ -72,9 +72,11 @@ final class QualifiedTable extends AbstractTable<Record> {
         this.name = name;
     }
 
-    // ------------------------------------------------------------------------
-    // Table API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Table API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final void accept(Context<?> ctx) {

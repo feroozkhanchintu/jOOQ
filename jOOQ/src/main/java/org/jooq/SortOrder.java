@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -42,20 +42,20 @@
 package org.jooq;
 
 /**
- * The sorting order used in OrderByFieldLists
+ * The sorting order used in OrderByFieldLists.
  *
  * @author Lukas Eder
  */
 public enum SortOrder {
 
     /**
-     * Ascending sort order
+     * Ascending sort order.
      */
     @Support
     ASC("asc"),
 
     /**
-     * Descending sort order
+     * Descending sort order.
      */
     @Support
     DESC("desc");

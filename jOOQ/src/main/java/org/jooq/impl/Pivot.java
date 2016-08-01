@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -76,7 +76,7 @@ implements
     PivotInStep<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = -7918219502110473521L;
 
@@ -92,9 +92,11 @@ implements
         this.aggregateFunctions = new SelectFieldList(aggregateFunctions);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Table API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Table API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final Class<? extends Record> getRecordType() {
@@ -127,12 +129,12 @@ implements
     }
 
     /**
-     * A emulation of Oracle's <code>PIVOT</code> table
+     * A emulation of Oracle's <code>PIVOT</code> table.
      */
     private class DefaultPivotTable extends DialectPivotTable {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -5930286639571867314L;
 
@@ -167,12 +169,10 @@ implements
 
             // This loop finds all fields qualify for GROUP BY clauses
             for (Field<?> field : table.fields()) {
-                if (!aggregatedFields.contains(field)) {
-                    if (!on.equals(field)) {
-                        aliasedGroupingFields.add(pivot.field(field));
-                        groupingFields.add(field);
-                    }
-                }
+                if (!aggregatedFields.contains(field) && !on.equals(field)) {
+				    aliasedGroupingFields.add(pivot.field(field));
+				    groupingFields.add(field);
+				}
             }
 
             // The product {aggregateFunctions} x {in}
@@ -196,17 +196,13 @@ implements
                 }
             }
 
-            // This is the complete select
-            Table<Record> select =
-            using(configuration)
+            return using(configuration)
                     .select(aliasedGroupingFields)
                     .select(aggregationSelects)
                     .from(pivot)
                     .where(pivot.field(on).in(in.toArray(EMPTY_FIELD)))
                     .groupBy(aliasedGroupingFields)
                     .asTable();
-
-            return select;
         }
     }
 
@@ -255,12 +251,12 @@ implements
 
 
     /**
-     * A base class for dialect-specific implementations of the pivot table
+     * A base class for dialect-specific implementations of the pivot table.
      */
     private abstract class DialectPivotTable extends AbstractTable<Record> {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = 2662639259338694177L;
 
@@ -291,7 +287,7 @@ implements
 
 
     /**
-     * Extracted method for type-safety
+     * Extracted method for type-safety.
      */
     private <Z> Condition condition(Table<?> pivot, Field<Z> field) {
         return field.equal(pivot.field(field));

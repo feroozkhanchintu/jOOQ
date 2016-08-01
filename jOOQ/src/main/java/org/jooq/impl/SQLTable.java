@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -60,9 +60,11 @@ final class SQLTable extends AbstractTable<Record> {
         this.delegate = delegate;
     }
 
-    // ------------------------------------------------------------------------
-    // SQLTable API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * SQLTable API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final Class<? extends Record> getRecordType() {

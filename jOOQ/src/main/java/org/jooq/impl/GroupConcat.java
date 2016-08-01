@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -67,7 +67,7 @@ import org.jooq.WindowSpecification;
 final class GroupConcat extends AbstractFunction<String> implements GroupConcatOrderByStep {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long   serialVersionUID = -6884415527559632960L;
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -152,7 +152,7 @@ public interface Context<C extends Context<C>> extends Scope {
     C subquery(boolean subquery);
 
     /**
-     * whether the current context is rendering a string literal.
+     * Whether the current context is rendering a string literal.
      */
     boolean stringLiteral();
 

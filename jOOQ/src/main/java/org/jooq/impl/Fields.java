@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -60,7 +60,7 @@ import org.jooq.tools.JooqLogger;
 
 /**
  * A simple wrapper for <code>Field[]</code>, providing some useful lookup
- * methods
+ * methods.
  *
  * @author Lukas Eder
  */
@@ -86,18 +86,23 @@ final class Fields<R extends Record> extends AbstractQueryPart implements Record
     @Override
     @SuppressWarnings("unchecked")
     public final <T> Field<T> field(Field<T> field) {
-        if (field == null)
-            return null;
+        if (field == null) {
+			return null;
+		}
 
         // [#4540] Try finding a match by identity
-        for (Field<?> f : fields)
-            if (f == field)
-                return (Field<T>) f;
+        for (Field<?> f : fields) {
+			if (f == field) {
+				return (Field<T>) f;
+			}
+		}
 
         // [#1802] Try finding an exact match (e.g. exact matching qualified name)
-        for (Field<?> f : fields)
-            if (f.equals(field))
-                return (Field<T>) f;
+        for (Field<?> f : fields) {
+			if (f.equals(field)) {
+				return (Field<T>) f;
+			}
+		}
 
         // [#4283] table / column matches are better than only column matches
         Field<?> columnMatch = null;
@@ -109,18 +114,20 @@ final class Fields<R extends Record> extends AbstractQueryPart implements Record
             if (tableName != null) {
                 String tName = tableName(f);
 
-                if (tName != null && tableName.equals(tName) && f.getName().equals(fieldName))
-                    return (Field<T>) f;
+                if (tName != null && tableName.equals(tName) && f.getName().equals(fieldName)) {
+					return (Field<T>) f;
+				}
             }
 
             // In case no exact match was found, return the first field with matching name
             if (f.getName().equals(fieldName)) {
-                if (columnMatch == null)
-                    columnMatch = f;
-                else
-                    // [#4476] [#4477] This might be unintentional from a user
+                if (columnMatch != null) {
+					// [#4476] [#4477] This might be unintentional from a user
                     // perspective, e.g. when ambiguous ID columns are present.
                     log.info("Ambiguous match found for " + fieldName + ". Both " + columnMatch + " and " + f + " match.", new SQLWarning());
+				} else {
+					columnMatch = f;
+				}
             }
         }
 
@@ -141,19 +148,23 @@ final class Fields<R extends Record> extends AbstractQueryPart implements Record
 
     @Override
     public final Field<?> field(String fieldName) {
-        if (fieldName == null)
-            return null;
+        if (fieldName == null) {
+			return null;
+		}
 
         Field<?> columnMatch = null;
 
-        for (Field<?> f : fields)
-            if (f.getName().equals(fieldName))
-                if (columnMatch == null)
-                    columnMatch = f;
-                else
-                    // [#4476] [#4477] [#5046] This might be unintentional from a user
+        for (Field<?> f : fields) {
+			if (f.getName().equals(fieldName)) {
+				if (columnMatch != null) {
+					// [#4476] [#4477] [#5046] This might be unintentional from a user
                     // perspective, e.g. when ambiguous ID columns are present.
                     log.info("Ambiguous match found for " + fieldName + ". Both " + columnMatch + " and " + f + " match.", new SQLWarning());
+				} else {
+					columnMatch = f;
+				}
+			}
+		}
 
         return columnMatch;
     }
@@ -172,10 +183,11 @@ final class Fields<R extends Record> extends AbstractQueryPart implements Record
 
     @Override
     public final Field<?> field(Name name) {
-        if (name == null)
-            return null;
+        if (name != null) {
+			return field(DSL.field(name));
+		}
 
-        return field(DSL.field(name));
+        return null;
     }
 
     @Override
@@ -220,8 +232,9 @@ final class Fields<R extends Record> extends AbstractQueryPart implements Record
     public final Field<?>[] fields(Field<?>... f) {
         Field<?>[] result = new Field[f.length];
 
-        for (int i = 0; i < result.length; i++)
-            result[i] = field(f[i]);
+        for (int i = 0; i < result.length; i++) {
+			result[i] = field(f[i]);
+		}
 
         return result;
     }
@@ -230,8 +243,9 @@ final class Fields<R extends Record> extends AbstractQueryPart implements Record
     public final Field<?>[] fields(String... f) {
         Field<?>[] result = new Field[f.length];
 
-        for (int i = 0; i < result.length; i++)
-            result[i] = field(f[i]);
+        for (int i = 0; i < result.length; i++) {
+			result[i] = field(f[i]);
+		}
 
         return result;
     }
@@ -240,8 +254,9 @@ final class Fields<R extends Record> extends AbstractQueryPart implements Record
     public final Field<?>[] fields(Name... f) {
         Field<?>[] result = new Field[f.length];
 
-        for (int i = 0; i < result.length; i++)
-            result[i] = field(f[i]);
+        for (int i = 0; i < result.length; i++) {
+			result[i] = field(f[i]);
+		}
 
         return result;
     }
@@ -250,8 +265,9 @@ final class Fields<R extends Record> extends AbstractQueryPart implements Record
     public final Field<?>[] fields(int... f) {
         Field<?>[] result = new Field[f.length];
 
-        for (int i = 0; i < result.length; i++)
-            result[i] = field(f[i]);
+        for (int i = 0; i < result.length; i++) {
+			result[i] = field(f[i]);
+		}
 
         return result;
     }
@@ -266,13 +282,17 @@ final class Fields<R extends Record> extends AbstractQueryPart implements Record
             int size = fields.length;
 
             // [#4540] Match by identity first
-            for (int i = 0; i < size; i++)
-                if (fields[i] == compareWith)
-                    return i;
+            for (int i = 0; i < size; i++) {
+				if (fields[i] == compareWith) {
+					return i;
+				}
+			}
 
-            for (int i = 0; i < size; i++)
-                if (fields[i].equals(compareWith))
-                    return i;
+            for (int i = 0; i < size; i++) {
+				if (fields[i].equals(compareWith)) {
+					return i;
+				}
+			}
         }
 
         return -1;
@@ -383,9 +403,11 @@ final class Fields<R extends Record> extends AbstractQueryPart implements Record
         return null;
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: List-like API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: List-like API
+     * -------------------------------------------------------------------------
+     */
 
     final void add(Field<?> f) {
         Field<?>[] result = new Field[fields.length + 1];

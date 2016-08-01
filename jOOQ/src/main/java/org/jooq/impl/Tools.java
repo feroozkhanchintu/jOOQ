@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -169,7 +169,7 @@ import org.jooq.types.ULong;
 import org.jooq.types.UShort;
 
 /**
- * General internal jOOQ utilities
+ * General internal jOOQ utilities.
  *
  * @author Lukas Eder
  */
@@ -177,9 +177,11 @@ final class Tools {
 
     static final JooqLogger           log                    = JooqLogger.getLogger(Tools.class);
 
-    // ------------------------------------------------------------------------
-    // Empty arrays for use with Collection.toArray()
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Empty arrays for use with Collection.toArray()
+     * ------------------------------------------------------------------------
+     */
 
     static final Class<?>[]           EMPTY_CLASS            = {};
     static final Clause[]             EMPTY_CLAUSE           = {};
@@ -194,9 +196,11 @@ final class Tools {
     static final TableRecord<?>[]     EMPTY_TABLE_RECORD     = {};
     static final UpdatableRecord<?>[] EMPTY_UPDATABLE_RECORD = {};
 
-    // ------------------------------------------------------------------------
-    // Some constants for use with Context.data()
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Some constants for use with Context.data()
+     * ------------------------------------------------------------------------
+     */
 
     enum DataKey {
 
@@ -381,13 +385,13 @@ final class Tools {
      * <code>new String()</code> is used to allow for synchronizing on these
      * objects.
      */
-    static final String          DATA_REFLECTION_CACHE_GET_ANNOTATED_GETTER   = new String("org.jooq.configuration.reflection-cache.get-annotated-getter");
-    static final String          DATA_REFLECTION_CACHE_GET_ANNOTATED_MEMBERS  = new String("org.jooq.configuration.reflection-cache.get-annotated-members");
-    static final String          DATA_REFLECTION_CACHE_GET_ANNOTATED_SETTERS  = new String("org.jooq.configuration.reflection-cache.get-annotated-setters");
-    static final String          DATA_REFLECTION_CACHE_GET_MATCHING_GETTER    = new String("org.jooq.configuration.reflection-cache.get-matching-getter");
-    static final String          DATA_REFLECTION_CACHE_GET_MATCHING_MEMBERS   = new String("org.jooq.configuration.reflection-cache.get-matching-members");
-    static final String          DATA_REFLECTION_CACHE_GET_MATCHING_SETTERS   = new String("org.jooq.configuration.reflection-cache.get-matching-setters");
-    static final String          DATA_REFLECTION_CACHE_HAS_COLUMN_ANNOTATIONS = new String("org.jooq.configuration.reflection-cache.has-column-annotations");
+    static final String          DATA_REFLECTION_CACHE_GET_ANNOTATED_GETTER   = "org.jooq.configuration.reflection-cache.get-annotated-getter";
+    static final String          DATA_REFLECTION_CACHE_GET_ANNOTATED_MEMBERS  = "org.jooq.configuration.reflection-cache.get-annotated-members";
+    static final String          DATA_REFLECTION_CACHE_GET_ANNOTATED_SETTERS  = "org.jooq.configuration.reflection-cache.get-annotated-setters";
+    static final String          DATA_REFLECTION_CACHE_GET_MATCHING_GETTER    = "org.jooq.configuration.reflection-cache.get-matching-getter";
+    static final String          DATA_REFLECTION_CACHE_GET_MATCHING_MEMBERS   = "org.jooq.configuration.reflection-cache.get-matching-members";
+    static final String          DATA_REFLECTION_CACHE_GET_MATCHING_SETTERS   = "org.jooq.configuration.reflection-cache.get-matching-setters";
+    static final String          DATA_REFLECTION_CACHE_HAS_COLUMN_ANNOTATIONS = "org.jooq.configuration.reflection-cache.has-column-annotations";
 
     // ------------------------------------------------------------------------
     // Other constants
@@ -414,12 +418,12 @@ final class Tools {
     private static int           maxConsumedResults                           = 65536;
 
     /**
-     * A pattern for the dash line syntax
+     * A pattern for the dash line syntax.
      */
     private static final Pattern DASH_PATTERN                                 = Pattern.compile("(-+)");
 
     /**
-     * A pattern for the dash line syntax
+     * A pattern for the dash line syntax.
      */
     private static final Pattern PLUS_PATTERN                                 = Pattern.compile("\\+(-+)(?=\\+)");
 
@@ -467,13 +471,14 @@ final class Tools {
     // ------------------------------------------------------------------------
 
     /**
-     * Turn a {@link Result} into a list of {@link Row}
+     * Turn a {@link Result} into a list of {@link Row}.
      */
-    static final List<Row> rows(Result<?> result) {
+    static List<Row> rows(Result<?> result) {
         List<Row> rows = new ArrayList<Row>();
 
-        for (Record record : result)
-            rows.add(record.valuesRow());
+        for (Record record : result) {
+			rows.add(record.valuesRow());
+		}
 
         return rows;
     }
@@ -496,65 +501,66 @@ final class Tools {
 
 
     /**
-     * Create a new record
+     * Create a new record.
      */
-    static final <R extends Record> RecordDelegate<R> newRecord(boolean fetched, Class<R> type) {
+    static <R extends Record> RecordDelegate<R> newRecord(boolean fetched, Class<R> type) {
         return newRecord(fetched, type, null);
     }
 
     /**
-     * Create a new record
+     * Create a new record.
      */
-    static final <R extends Record> RecordDelegate<R> newRecord(boolean fetched, Class<R> type, Field<?>[] fields) {
+    static <R extends Record> RecordDelegate<R> newRecord(boolean fetched, Class<R> type, Field<?>[] fields) {
         return newRecord(fetched, type, fields, null);
     }
 
     /**
-     * Create a new record
+     * Create a new record.
      */
-    static final <R extends Record> RecordDelegate<R> newRecord(boolean fetched, Table<R> type) {
+    static <R extends Record> RecordDelegate<R> newRecord(boolean fetched, Table<R> type) {
         return newRecord(fetched, type, null);
     }
 
     /**
-     * Create a new record
+     * Create a new record.
      */
     @SuppressWarnings("unchecked")
-    static final <R extends Record> RecordDelegate<R> newRecord(boolean fetched, Table<R> type, Configuration configuration) {
+    static <R extends Record> RecordDelegate<R> newRecord(boolean fetched, Table<R> type, Configuration configuration) {
         return (RecordDelegate<R>) newRecord(fetched, type.getRecordType(), type.fields(), configuration);
     }
 
     /**
-     * Create a new UDT record
+     * Create a new UDT record.
      */
-    static final <R extends UDTRecord<R>> RecordDelegate<R> newRecord(boolean fetched, UDT<R> type) {
+    static <R extends UDTRecord<R>> RecordDelegate<R> newRecord(boolean fetched, UDT<R> type) {
         return newRecord(fetched, type, null);
     }
 
     /**
-     * Create a new UDT record
+     * Create a new UDT record.
      */
-    static final <R extends UDTRecord<R>> RecordDelegate<R> newRecord(boolean fetched, UDT<R> type, Configuration configuration) {
+    static <R extends UDTRecord<R>> RecordDelegate<R> newRecord(boolean fetched, UDT<R> type, Configuration configuration) {
         return newRecord(fetched, type.getRecordType(), type.fields(), configuration);
     }
 
     /**
      * Create a new record.
      */
-    static final <R extends Record> RecordDelegate<R> newRecord(boolean fetched, Class<R> type, Field<?>[] fields, Configuration configuration) {
+    static <R extends Record> RecordDelegate<R> newRecord(boolean fetched, Class<R> type, Field<?>[] fields, Configuration configuration) {
         return newRecord(fetched, recordFactory(type, fields), configuration);
     }
 
     /**
      * Create a new record.
      */
-    static final <R extends Record> RecordDelegate<R> newRecord(boolean fetched, RecordFactory<R> factory, Configuration configuration) {
+    static <R extends Record> RecordDelegate<R> newRecord(boolean fetched, RecordFactory<R> factory, Configuration configuration) {
         try {
             R record = factory.newInstance();
 
             // [#3300] Records that were fetched from the database
-            if (record instanceof AbstractRecord)
-                ((AbstractRecord) record).fetched = fetched;
+            if (record instanceof AbstractRecord) {
+				((AbstractRecord) record).fetched = fetched;
+			}
 
             return new RecordDelegate<R>(configuration, record);
         }
@@ -567,7 +573,7 @@ final class Tools {
      * Create a new record factory.
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    static final <R extends Record> RecordFactory<R> recordFactory(final Class<R> type, final Field<?>[] fields) {
+    static <R extends Record> RecordFactory<R> recordFactory(final Class<R> type, final Field<?>[] fields) {
 
         // An ad-hoc type resulting from a JOIN or arbitrary SELECT
         if (type == RecordImpl.class || type == Record.class) {
@@ -608,21 +614,22 @@ final class Tools {
 
     /**
      * [#2700] [#3582] If a POJO attribute is NULL, but the column is NOT NULL
-     * then we should let the database apply DEFAULT values
+     * then we should let the database apply DEFAULT values.
      */
-    static final void resetChangedOnNotNull(Record record) {
+    static void resetChangedOnNotNull(Record record) {
         int size = record.size();
 
-        for (int i = 0; i < size; i++)
-            if (record.get(i) == null)
-                if (!record.field(i).getDataType().nullable())
-                    record.changed(i, false);
+        for (int i = 0; i < size; i++) {
+			if (record.get(i) == null && !record.field(i).getDataType().nullable()) {
+				record.changed(i, false);
+			}
+		}
     }
 
     /**
      * Extract the configuration from an attachable.
      */
-    static final Configuration getConfiguration(Attachable attachable) {
+    static Configuration getConfiguration(Attachable attachable) {
         if (attachable instanceof AttachableInternal) {
             return ((AttachableInternal) attachable).configuration();
         }
@@ -634,7 +641,7 @@ final class Tools {
      * Get an attachable's configuration or a new {@link DefaultConfiguration}
      * if <code>null</code>.
      */
-    static final Configuration configuration(Attachable attachable) {
+    static Configuration configuration(Attachable attachable) {
         return configuration(attachable instanceof AttachableInternal
             ? ((AttachableInternal) attachable).configuration()
             : null);
@@ -644,7 +651,7 @@ final class Tools {
      * Get a configuration or a new {@link DefaultConfiguration} if
      * <code>null</code>.
      */
-    static final Configuration configuration(Configuration configuration) {
+    static Configuration configuration(Configuration configuration) {
         return configuration != null ? configuration : new DefaultConfiguration();
     }
 
@@ -652,7 +659,7 @@ final class Tools {
      * Get a configuration's settings or default settings if the configuration
      * is <code>null</code>.
      */
-    static final Settings settings(Attachable attachable) {
+    static Settings settings(Attachable attachable) {
         return configuration(attachable).settings();
     }
 
@@ -660,11 +667,11 @@ final class Tools {
      * Get a configuration's settings or default settings if the configuration
      * is <code>null</code>.
      */
-    static final Settings settings(Configuration configuration) {
+    static Settings settings(Configuration configuration) {
         return configuration(configuration).settings();
     }
 
-    static final boolean attachRecords(Configuration configuration) {
+    static boolean attachRecords(Configuration configuration) {
         if (configuration != null) {
             Settings settings = configuration.settings();
 
@@ -676,7 +683,7 @@ final class Tools {
         return true;
     }
 
-    static final Field<?>[] fieldArray(Collection<? extends Field<?>> fields) {
+    static Field<?>[] fieldArray(Collection<? extends Field<?>> fields) {
         return fields == null ? null : fields.toArray(EMPTY_FIELD);
     }
 
@@ -685,18 +692,19 @@ final class Tools {
     // ------------------------------------------------------------------------
 
     /**
-     * Useful conversion method
+     * Useful conversion method.
      */
-    static final Class<?>[] types(Field<?>[] fields) {
+    static Class<?>[] types(Field<?>[] fields) {
         return types(dataTypes(fields));
     }
 
     /**
-     * Useful conversion method
+     * Useful conversion method.
      */
-    static final Class<?>[] types(DataType<?>[] types) {
-        if (types == null)
-            return null;
+    static Class<?>[] types(DataType<?>[] types) {
+        if (types == null) {
+			return null;
+		}
 
         Class<?>[] result = new Class<?>[types.length];
 
@@ -713,11 +721,12 @@ final class Tools {
     }
 
     /**
-     * Useful conversion method
+     * Useful conversion method.
      */
-    static final Class<?>[] types(Object[] values) {
-        if (values == null)
-            return null;
+    static Class<?>[] types(Object[] values) {
+        if (values == null) {
+			return null;
+		}
 
         Class<?>[] result = new Class<?>[values.length];
 
@@ -737,11 +746,12 @@ final class Tools {
     }
 
     /**
-     * Useful conversion method
+     * Useful conversion method.
      */
-    static final DataType<?>[] dataTypes(Field<?>[] fields) {
-        if (fields == null)
-            return null;
+    static DataType<?>[] dataTypes(Field<?>[] fields) {
+        if (fields == null) {
+			return null;
+		}
 
         DataType<?>[] result = new DataType<?>[fields.length];
 
@@ -758,141 +768,162 @@ final class Tools {
     }
 
     /**
-     * Useful conversion method
+     * Useful conversion method.
      */
-    static final DataType<?>[] dataTypes(Class<?>[] types) {
-        if (types == null)
-            return null;
+    static DataType<?>[] dataTypes(Class<?>[] types) {
+        if (types == null) {
+			return null;
+		}
 
         DataType<?>[] result = new DataType<?>[types.length];
 
-        for (int i = 0; i < types.length; i++)
-            if (types[i] != null)
-                result[i] = getDataType(types[i]);
-            else
-                result[i] = getDataType(Object.class);
+        for (int i = 0; i < types.length; i++) {
+			if (types[i] != null) {
+				result[i] = getDataType(types[i]);
+			} else {
+				result[i] = getDataType(Object.class);
+			}
+		}
 
         return result;
     }
 
     /**
-     * Useful conversion method
+     * Useful conversion method.
      */
-    static final DataType<?>[] dataTypes(Object[] values) {
+    static DataType<?>[] dataTypes(Object[] values) {
         return dataTypes(types(values));
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: General utility methods
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: General utility methods
+     * ------------------------------------------------------------------------
+     */
 
-    static final SortField<?>[] sortFields(Field<?>[] fields) {
-        if (fields == null)
-            return null;
+    static SortField<?>[] sortFields(Field<?>[] fields) {
+        if (fields == null) {
+			return null;
+		}
 
         SortField<?>[] result = new SortField[fields.length];
-        for (int i = 0; i < fields.length; i++)
-            result[i] = fields[i].asc();
+        for (int i = 0; i < fields.length; i++) {
+			result[i] = fields[i].asc();
+		}
 
         return result;
     }
 
-    static final String[] fieldNames(int length) {
+    static String[] fieldNames(int length) {
         String[] result = new String[length];
 
-        for (int i = 0; i < length; i++)
-            result[i] = "v" + i;
+        for (int i = 0; i < length; i++) {
+			result[i] = "v" + i;
+		}
 
         return result;
     }
 
-    static final String[] fieldNames(Field<?>[] fields) {
-        if (fields == null)
-            return null;
+    static String[] fieldNames(Field<?>[] fields) {
+        if (fields == null) {
+			return null;
+		}
 
         String[] result = new String[fields.length];
 
-        for (int i = 0; i < fields.length; i++)
-            result[i] = fields[i].getName();
+        for (int i = 0; i < fields.length; i++) {
+			result[i] = fields[i].getName();
+		}
 
         return result;
     }
 
-    static final Field<?>[] fields(int length) {
+    static Field<?>[] fields(int length) {
         Field<?>[] result = new Field[length];
         String[] names = fieldNames(length);
 
-        for (int i = 0; i < length; i++)
-            result[i] = DSL.field(name(names[i]));
+        for (int i = 0; i < length; i++) {
+			result[i] = DSL.field(name(names[i]));
+		}
 
         return result;
     }
 
-    static final Field<?>[] aliasedFields(Field<?>[] fields, String[] aliases) {
-        if (fields == null)
-            return null;
+    static Field<?>[] aliasedFields(Field<?>[] fields, String[] aliases) {
+        if (fields == null) {
+			return null;
+		}
 
         Field<?>[] result = new Field[fields.length];
 
-        for (int i = 0; i < fields.length; i++)
-            result[i] = fields[i].as(aliases[i]);
+        for (int i = 0; i < fields.length; i++) {
+			result[i] = fields[i].as(aliases[i]);
+		}
 
         return result;
     }
 
-    static final Field<?>[] fieldsByName(Collection<String> fieldNames) {
+    static Field<?>[] fieldsByName(Collection<String> fieldNames) {
         return fieldsByName(null, fieldNames.toArray(EMPTY_STRING));
     }
 
-    static final Field<?>[] fieldsByName(String[] fieldNames) {
+    static Field<?>[] fieldsByName(String[] fieldNames) {
         return fieldsByName(null, fieldNames);
     }
 
-    static final Field<?>[] fieldsByName(String tableName, Collection<String> fieldNames) {
+    static Field<?>[] fieldsByName(String tableName, Collection<String> fieldNames) {
         return fieldsByName(tableName, fieldNames.toArray(EMPTY_STRING));
     }
 
-    static final Field<?>[] fieldsByName(String tableName, String[] fieldNames) {
-        if (fieldNames == null)
-            return null;
+    static Field<?>[] fieldsByName(String tableName, String[] fieldNames) {
+        if (fieldNames == null) {
+			return null;
+		}
 
         Field<?>[] result = new Field[fieldNames.length];
 
-        if (tableName == null)
-            for (int i = 0; i < fieldNames.length; i++)
-                result[i] = DSL.field(name(fieldNames[i]));
-        else
-            for (int i = 0; i < fieldNames.length; i++)
-                result[i] = DSL.field(name(tableName, fieldNames[i]));
+        if (tableName == null) {
+			for (int i = 0; i < fieldNames.length; i++) {
+				result[i] = DSL.field(name(fieldNames[i]));
+			}
+		} else {
+			for (int i = 0; i < fieldNames.length; i++) {
+				result[i] = DSL.field(name(tableName, fieldNames[i]));
+			}
+		}
 
         return result;
     }
 
-    static final Field<?>[] fieldsByName(Name[] names) {
-        if (names == null)
-            return null;
+    static Field<?>[] fieldsByName(Name[] names) {
+        if (names == null) {
+			return null;
+		}
 
         Field<?>[] result = new Field[names.length];
 
-        for (int i = 0; i < names.length; i++)
-            result[i] = DSL.field(names[i]);
+        for (int i = 0; i < names.length; i++) {
+			result[i] = DSL.field(names[i]);
+		}
 
         return result;
     }
 
-    static final Name[] names(String[] names) {
-        if (names == null)
-            return null;
+    static Name[] names(String[] names) {
+        if (names == null) {
+			return null;
+		}
 
         Name[] result = new Name[names.length];
 
-        for (int i = 0; i < names.length; i++)
-            result[i] = DSL.name(names[i]);
+        for (int i = 0; i < names.length; i++) {
+			result[i] = DSL.name(names[i]);
+		}
 
         return result;
     }
 
-    private static final IllegalArgumentException fieldExpected(Object value) {
+    private static IllegalArgumentException fieldExpected(Object value) {
         return new IllegalArgumentException("Cannot interpret argument of type " + value.getClass() + " as a Field: " + value);
     }
 
@@ -904,7 +935,7 @@ final class Tools {
      *         value created from the argument object.
      */
     @SuppressWarnings("unchecked")
-    static final <T> Field<T> field(T value) {
+    static <T> Field<T> field(T value) {
 
         // Fields can be mixed with constant values
         if (value instanceof Field<?>) {
@@ -920,132 +951,134 @@ final class Tools {
         }
     }
 
-    // The following overloads help performance by avoiding runtime data type lookups
-    // ------------------------------------------------------------------------------
+    /**
+     * The following overloads help performance by avoiding runtime data type lookups
+     * ------------------------------------------------------------------------------.
+     */
 
-    static final Param<Byte> field(byte value) {
+    static Param<Byte> field(byte value) {
         return val((Object) value, SQLDataType.TINYINT);
     }
 
-    static final Param<Byte> field(Byte value) {
+    static Param<Byte> field(Byte value) {
         return val((Object) value, SQLDataType.TINYINT);
     }
 
-    static final Param<UByte> field(UByte value) {
+    static Param<UByte> field(UByte value) {
         return val((Object) value, SQLDataType.TINYINTUNSIGNED);
     }
 
-    static final Param<Short> field(short value) {
+    static Param<Short> field(short value) {
         return val((Object) value, SQLDataType.SMALLINT);
     }
 
-    static final Param<Short> field(Short value) {
+    static Param<Short> field(Short value) {
         return val((Object) value, SQLDataType.SMALLINT);
     }
 
-    static final Param<UShort> field(UShort value) {
+    static Param<UShort> field(UShort value) {
         return val((Object) value, SQLDataType.SMALLINTUNSIGNED);
     }
 
-    static final Param<Integer> field(int value) {
+    static Param<Integer> field(int value) {
         return val((Object) value, SQLDataType.INTEGER);
     }
 
-    static final Param<Integer> field(Integer value) {
+    static Param<Integer> field(Integer value) {
         return val((Object) value, SQLDataType.INTEGER);
     }
 
-    static final Param<UInteger> field(UInteger value) {
+    static Param<UInteger> field(UInteger value) {
         return val((Object) value, SQLDataType.INTEGERUNSIGNED);
     }
 
-    static final Param<Long> field(long value) {
+    static Param<Long> field(long value) {
         return val((Object) value, SQLDataType.BIGINT);
     }
 
-    static final Param<Long> field(Long value) {
+    static Param<Long> field(Long value) {
         return val((Object) value, SQLDataType.BIGINT);
     }
 
-    static final Param<ULong> field(ULong value) {
+    static Param<ULong> field(ULong value) {
         return val((Object) value, SQLDataType.BIGINTUNSIGNED);
     }
 
-    static final Param<Float> field(float value) {
+    static Param<Float> field(float value) {
         return val((Object) value, SQLDataType.REAL);
     }
 
-    static final Param<Float> field(Float value) {
+    static Param<Float> field(Float value) {
         return val((Object) value, SQLDataType.REAL);
     }
 
-    static final Param<Double> field(double value) {
+    static Param<Double> field(double value) {
         return val((Object) value, SQLDataType.DOUBLE);
     }
 
-    static final Param<Double> field(Double value) {
+    static Param<Double> field(Double value) {
         return val((Object) value, SQLDataType.DOUBLE);
     }
 
-    static final Param<Boolean> field(boolean value) {
+    static Param<Boolean> field(boolean value) {
         return val((Object) value, SQLDataType.BOOLEAN);
     }
 
-    static final Param<Boolean> field(Boolean value) {
+    static Param<Boolean> field(Boolean value) {
         return val((Object) value, SQLDataType.BOOLEAN);
     }
 
-    static final Param<BigDecimal> field(BigDecimal value) {
+    static Param<BigDecimal> field(BigDecimal value) {
         return val((Object) value, SQLDataType.DECIMAL);
     }
 
-    static final Param<BigInteger> field(BigInteger value) {
+    static Param<BigInteger> field(BigInteger value) {
         return val((Object) value, SQLDataType.DECIMAL_INTEGER);
     }
 
-    static final Param<byte[]> field(byte[] value) {
+    static Param<byte[]> field(byte[] value) {
         return val((Object) value, SQLDataType.VARBINARY);
     }
 
-    static final Param<String> field(String value) {
+    static Param<String> field(String value) {
         return val((Object) value, SQLDataType.VARCHAR);
     }
 
-    static final Param<Date> field(Date value) {
+    static Param<Date> field(Date value) {
         return val((Object) value, SQLDataType.DATE);
     }
 
-    static final Param<Time> field(Time value) {
+    static Param<Time> field(Time value) {
         return val((Object) value, SQLDataType.TIME);
     }
 
-    static final Param<Timestamp> field(Timestamp value) {
+    static Param<Timestamp> field(Timestamp value) {
         return val((Object) value, SQLDataType.TIMESTAMP);
     }
 
 
-    static final Param<LocalDate> field(LocalDate value) {
+    static Param<LocalDate> field(LocalDate value) {
         return val((Object) value, SQLDataType.LOCALDATE);
     }
 
-    static final Param<LocalTime> field(LocalTime value) {
+    static Param<LocalTime> field(LocalTime value) {
         return val((Object) value, SQLDataType.LOCALTIME);
     }
 
-    static final Param<LocalDateTime> field(LocalDateTime value) {
+    static Param<LocalDateTime> field(LocalDateTime value) {
         return val((Object) value, SQLDataType.LOCALDATETIME);
     }
 
-    static final Param<OffsetTime> field(OffsetTime value) {
+    static Param<OffsetTime> field(OffsetTime value) {
         return val((Object) value, SQLDataType.OFFSETTIME);
     }
 
-    static final Param<OffsetDateTime> field(OffsetDateTime value) {
+    static Param<OffsetDateTime> field(OffsetDateTime value) {
         return val((Object) value, SQLDataType.OFFSETDATETIME);
     }
 
 
-    static final Param<UUID> field(UUID value) {
+    static Param<UUID> field(UUID value) {
         return val((Object) value, SQLDataType.UUID);
     }
 
@@ -1053,7 +1086,7 @@ final class Tools {
      * @deprecated - This method is probably called by mistake (ambiguous static import).
      */
     @Deprecated
-    static final Field<Object> field(Name name) {
+    static Field<Object> field(Name name) {
         return DSL.field(name);
     }
 
@@ -1066,7 +1099,7 @@ final class Tools {
      *         value created from the argument object.
      */
     @SuppressWarnings("unchecked")
-    static final <T> Field<T> field(Object value, Field<T> field) {
+    static <T> Field<T> field(Object value, Field<T> field) {
 
         // Fields can be mixed with constant values
         if (value instanceof Field<?>) {
@@ -1091,7 +1124,7 @@ final class Tools {
      *         value created from the argument object.
      */
     @SuppressWarnings("unchecked")
-    static final <T> Field<T> field(Object value, Class<T> type) {
+    static <T> Field<T> field(Object value, Class<T> type) {
 
         // Fields can be mixed with constant values
         if (value instanceof Field<?>) {
@@ -1116,7 +1149,7 @@ final class Tools {
      *         value created from the argument object.
      */
     @SuppressWarnings("unchecked")
-    static final <T> Field<T> field(Object value, DataType<T> type) {
+    static <T> Field<T> field(Object value, DataType<T> type) {
 
         // Fields can be mixed with constant values
         if (value instanceof Field<?>) {
@@ -1139,12 +1172,14 @@ final class Tools {
      * @return The argument objects themselves, if they are {@link Field}s, or a bind
      *         values created from the argument objects.
      */
-    static final <T> List<Field<T>> fields(T[] values) {
+    static <T> List<Field<T>> fields(T[] values) {
         List<Field<T>> result = new ArrayList<Field<T>>();
 
-        if (values != null)
-            for (T value : values)
-                result.add(field(value));
+        if (values != null) {
+			for (T value : values) {
+				result.add(field(value));
+			}
+		}
 
         return result;
     }
@@ -1157,7 +1192,7 @@ final class Tools {
      * @return The argument objects themselves, if they are {@link Field}s, or a bind
      *         values created from the argument objects.
      */
-    static final List<Field<?>> fields(Object[] values, Field<?> field) {
+    static List<Field<?>> fields(Object[] values, Field<?> field) {
         List<Field<?>> result = new ArrayList<Field<?>>();
 
         if (values != null && field != null) {
@@ -1177,7 +1212,7 @@ final class Tools {
      * @return The argument objects themselves, if they are {@link Field}s, or a bind
      *         values created from the argument objects.
      */
-    static final List<Field<?>> fields(Object[] values, Field<?>[] fields) {
+    static List<Field<?>> fields(Object[] values, Field<?>[] fields) {
         List<Field<?>> result = new ArrayList<Field<?>>();
 
         if (values != null && fields != null) {
@@ -1197,7 +1232,7 @@ final class Tools {
      * @return The argument objects themselves, if they are {@link Field}s, or a bind
      *         values created from the argument objects.
      */
-    static final List<Field<?>> fields(Object[] values, Class<?> type) {
+    static List<Field<?>> fields(Object[] values, Class<?> type) {
         List<Field<?>> result = new ArrayList<Field<?>>();
 
         if (values != null && type != null) {
@@ -1217,7 +1252,7 @@ final class Tools {
      * @return The argument objects themselves, if they are {@link Field}s, or a bind
      *         values created from the argument objects.
      */
-    static final List<Field<?>> fields(Object[] values, Class<?>[] types) {
+    static List<Field<?>> fields(Object[] values, Class<?>[] types) {
         List<Field<?>> result = new ArrayList<Field<?>>();
 
         if (values != null && types != null) {
@@ -1237,7 +1272,7 @@ final class Tools {
      * @return The argument objects themselves, if they are {@link Field}s, or a bind
      *         values created from the argument objects.
      */
-    static final List<Field<?>> fields(Object[] values, DataType<?> type) {
+    static List<Field<?>> fields(Object[] values, DataType<?> type) {
         List<Field<?>> result = new ArrayList<Field<?>>();
 
         if (values != null && type != null) {
@@ -1257,7 +1292,7 @@ final class Tools {
      * @return The argument objects themselves, if they are {@link Field}s, or a bind
      *         values created from the argument objects.
      */
-    static final List<Field<?>> fields(Object[] values, DataType<?>[] types) {
+    static List<Field<?>> fields(Object[] values, DataType<?>[] types) {
         List<Field<?>> result = new ArrayList<Field<?>>();
 
         if (values != null && types != null) {
@@ -1269,7 +1304,7 @@ final class Tools {
         return result;
     }
 
-    static final List<Field<?>> fields(Collection<? extends SelectField<?>> fields) {
+    static List<Field<?>> fields(Collection<? extends SelectField<?>> fields) {
         List<Field<?>> result = new ArrayList<Field<?>>();
 
         if (fields != null) {
@@ -1281,11 +1316,11 @@ final class Tools {
         return result;
     }
 
-    static final List<Field<?>> fields(SelectField<?>... fields) {
+    static List<Field<?>> fields(SelectField<?>... fields) {
         return fields == null ? fields(Collections.<SelectField<?>>emptyList()) : fields(Arrays.asList(fields));
     }
 
-    static final <T> List<Field<T>> inline(T[] values) {
+    static <T> List<Field<T>> inline(T[] values) {
         List<Field<T>> result = new ArrayList<Field<T>>();
 
         if (values != null) {
@@ -1300,11 +1335,12 @@ final class Tools {
     /**
      * Return a list of unqualified {@link Field}s.
      */
-    static final List<Field<?>> unqualify(List<? extends Field<?>> fields) {
+    static List<Field<?>> unqualify(List<? extends Field<?>> fields) {
         QueryPartList<Field<?>> result = new QueryPartList<Field<?>>();
 
-        for (Field<?> field : fields)
-            result.add(DSL.field(name(field.getName())));
+        for (Field<?> field : fields) {
+			result.add(DSL.field(name(field.getName())));
+		}
 
         return result;
     }
@@ -1313,11 +1349,12 @@ final class Tools {
      * A utility method that fails with an exception if
      * {@link Row#indexOf(Field)} doesn't return any index.
      */
-    static final int indexOrFail(Row row, Field<?> field) {
+    static int indexOrFail(Row row, Field<?> field) {
         int result = row.indexOf(field);
 
-        if (result < 0)
-            throw new IllegalArgumentException("Field (" + field + ") is not contained in Row " + row);
+        if (result < 0) {
+			throw new IllegalArgumentException("Field (" + field + ") is not contained in Row " + row);
+		}
 
         return result;
     }
@@ -1326,11 +1363,12 @@ final class Tools {
      * A utility method that fails with an exception if
      * {@link Row#indexOf(String)} doesn't return any index.
      */
-    static final int indexOrFail(Row row, String fieldName) {
+    static int indexOrFail(Row row, String fieldName) {
         int result = row.indexOf(fieldName);
 
-        if (result < 0)
-            throw new IllegalArgumentException("Field (" + fieldName + ") is not contained in Row " + row);
+        if (result < 0) {
+			throw new IllegalArgumentException("Field (" + fieldName + ") is not contained in Row " + row);
+		}
 
         return result;
     }
@@ -1339,11 +1377,12 @@ final class Tools {
      * A utility method that fails with an exception if
      * {@link Row#indexOf(Name)} doesn't return any index.
      */
-    static final int indexOrFail(Row row, Name fieldName) {
+    static int indexOrFail(Row row, Name fieldName) {
         int result = row.indexOf(fieldName);
 
-        if (result < 0)
-            throw new IllegalArgumentException("Field (" + fieldName + ") is not contained in Row " + row);
+        if (result < 0) {
+			throw new IllegalArgumentException("Field (" + fieldName + ") is not contained in Row " + row);
+		}
 
         return result;
     }
@@ -1352,11 +1391,12 @@ final class Tools {
      * A utility method that fails with an exception if
      * {@link RecordType#indexOf(Field)} doesn't return any index.
      */
-    static final int indexOrFail(RecordType<?> row, Field<?> field) {
+    static int indexOrFail(RecordType<?> row, Field<?> field) {
         int result = row.indexOf(field);
 
-        if (result < 0)
-            throw new IllegalArgumentException("Field (" + field + ") is not contained in RecordType " + row);
+        if (result < 0) {
+			throw new IllegalArgumentException("Field (" + field + ") is not contained in RecordType " + row);
+		}
 
         return result;
     }
@@ -1365,11 +1405,12 @@ final class Tools {
      * A utility method that fails with an exception if
      * {@link RecordType#indexOf(String)} doesn't return any index.
      */
-    static final int indexOrFail(RecordType<?> row, String fieldName) {
+    static int indexOrFail(RecordType<?> row, String fieldName) {
         int result = row.indexOf(fieldName);
 
-        if (result < 0)
-            throw new IllegalArgumentException("Field (" + fieldName + ") is not contained in RecordType " + row);
+        if (result < 0) {
+			throw new IllegalArgumentException("Field (" + fieldName + ") is not contained in RecordType " + row);
+		}
 
         return result;
     }
@@ -1378,22 +1419,23 @@ final class Tools {
      * A utility method that fails with an exception if
      * {@link RecordType#indexOf(Name)} doesn't return any index.
      */
-    static final int indexOrFail(RecordType<?> row, Name fieldName) {
+    static int indexOrFail(RecordType<?> row, Name fieldName) {
         int result = row.indexOf(fieldName);
 
-        if (result < 0)
-            throw new IllegalArgumentException("Field (" + fieldName + ") is not contained in RecordType " + row);
+        if (result < 0) {
+			throw new IllegalArgumentException("Field (" + fieldName + ") is not contained in RecordType " + row);
+		}
 
         return result;
     }
 
     /**
-     * Create a new array
+     * Create a new array.
      */
 
     @SafeVarargs
 
-    static final <T> T[] array(T... array) {
+    static <T> T[] array(T... array) {
         return array;
     }
 
@@ -1404,29 +1446,31 @@ final class Tools {
 
     @SafeVarargs
 
-    static final <T> List<T> list(T... array) {
+    static <T> List<T> list(T... array) {
         return array == null ? Collections.<T>emptyList() : Arrays.asList(array);
     }
 
     /**
-     * Turn a {@link Record} into a {@link Map}
+     * Turn a {@link Record} into a {@link Map}.
      */
-    static final Map<Field<?>, Object> mapOfChangedValues(Record record) {
+    static Map<Field<?>, Object> mapOfChangedValues(Record record) {
         Map<Field<?>, Object> result = new LinkedHashMap<Field<?>, Object>();
         int size = record.size();
 
-        for (int i = 0; i < size; i++)
-            if (record.changed(i))
-                result.put(record.field(i), record.get(i));
+        for (int i = 0; i < size; i++) {
+			if (record.changed(i)) {
+				result.put(record.field(i), record.get(i));
+			}
+		}
 
         return result;
     }
 
     /**
      * Extract the first item from an iterable or <code>null</code>, if there is
-     * no such item, or if iterable itself is <code>null</code>
+     * no such item, or if iterable itself is <code>null</code>.
      */
-    static final <T> T first(Iterable<? extends T> iterable) {
+    static <T> T first(Iterable<? extends T> iterable) {
         if (iterable == null) {
             return null;
         }
@@ -1444,14 +1488,14 @@ final class Tools {
 
     /**
      * Get the only element from a list or <code>null</code>, or throw an
-     * exception
+     * exception.
      *
      * @param list The list
      * @return The only element from the list or <code>null</code>
      * @throws TooManyRowsException Thrown if the list contains more than one
      *             element
      */
-    static final <R extends Record> R filterOne(List<R> list) throws TooManyRowsException {
+    static <R extends Record> R filterOne(List<R> list) throws TooManyRowsException {
         int size = list.size();
 
         if (size == 1) {
@@ -1476,7 +1520,7 @@ final class Tools {
      * @throws TooManyRowsException Thrown if the cursor returns more than one
      *             element
      */
-    static final <R extends Record> R fetchOne(Cursor<R> cursor) throws TooManyRowsException {
+    static <R extends Record> R fetchOne(Cursor<R> cursor) throws TooManyRowsException {
         try {
             R record = cursor.fetchOne();
 
@@ -1494,7 +1538,7 @@ final class Tools {
     /**
      * Visit each query part from a collection, given a context.
      */
-    static final <C extends Context<? super C>> C visitAll(C ctx, Collection<? extends QueryPart> parts) {
+    static <C extends Context<? super C>> C visitAll(C ctx, Collection<? extends QueryPart> parts) {
         if (parts != null) {
             for (QueryPart part : parts) {
                 ctx.visit(part);
@@ -1507,7 +1551,7 @@ final class Tools {
     /**
      * Visit each query part from an array, given a context.
      */
-    static final <C extends Context<? super C>> C visitAll(C ctx, QueryPart[] parts) {
+    static <C extends Context<? super C>> C visitAll(C ctx, QueryPart[] parts) {
         if (parts != null) {
             for (QueryPart part : parts) {
                 ctx.visit(part);
@@ -1531,7 +1575,7 @@ final class Tools {
      * </ul>
      */
     @SuppressWarnings("null")
-    static final void renderAndBind(Context<?> ctx, String sql, List<QueryPart> substitutes) {
+    static void renderAndBind(Context<?> ctx, String sql, List<QueryPart> substitutes) {
         RenderContext render = (RenderContext) ((ctx instanceof RenderContext) ? ctx : null);
         BindContext   bind   = (BindContext)   ((ctx instanceof BindContext)   ? ctx : null);
 
@@ -1539,7 +1583,9 @@ final class Tools {
         char[] sqlChars = sql.toCharArray();
 
         // [#1593] Create a dummy renderer if we're in bind mode
-        if (render == null) render = new DefaultRenderContext(bind.configuration());
+        if (render == null) {
+			render = new DefaultRenderContext(bind.configuration());
+		}
 
         SQLDialect dialect = render.configuration().dialect();
         SQLDialect family = dialect.family();
@@ -1565,10 +1611,14 @@ final class Tools {
                 (mysql && peek(sqlChars, i, "#"))) {
 
                 // Consume the complete comment
-                for (; i < sqlChars.length && sqlChars[i] != '\r' && sqlChars[i] != '\n'; render.sql(sqlChars[i++]));
+                for (; i < sqlChars.length && sqlChars[i] != '\r' && sqlChars[i] != '\n'; render.sql(sqlChars[i++])) {
+					;
+				}
 
                 // Consume the newline character
-                if (i < sqlChars.length) render.sql(sqlChars[i]);
+                if (i < sqlChars.length) {
+					render.sql(sqlChars[i]);
+				}
             }
 
             // [#1797] Skip content inside of multi-line comments, e.g.
@@ -1578,7 +1628,9 @@ final class Tools {
             else if (peek(sqlChars, i, "/*")) {
 
                 // Consume the complete comment
-                for (; !peek(sqlChars, i, "*/"); render.sql(sqlChars[i++]));
+                for (; !peek(sqlChars, i, "*/"); render.sql(sqlChars[i++])) {
+					;
+				}
 
                 // Consume the comment delimiter
                 render.sql(sqlChars[i++]);
@@ -1632,16 +1684,18 @@ final class Tools {
                 }
 
                 // Consume the initial identifier delimiter
-                for (int d = 0; d < quotes[QUOTE_START_DELIMITER][delimiter].length(); d++)
-                    render.sql(sqlChars[i++]);
+                for (int d = 0; d < quotes[QUOTE_START_DELIMITER][delimiter].length(); d++) {
+					render.sql(sqlChars[i++]);
+				}
 
                 // Consume the whole identifier
                 for (;;) {
 
                     // Consume an escaped quote
                     if (peek(sqlChars, i, quotes[QUOTE_END_DELIMITER_ESCAPED][delimiter])) {
-                        for (int d = 0; d < quotes[QUOTE_END_DELIMITER_ESCAPED][delimiter].length(); d++)
-                            render.sql(sqlChars[i++]);
+                        for (int d = 0; d < quotes[QUOTE_END_DELIMITER_ESCAPED][delimiter].length(); d++) {
+							render.sql(sqlChars[i++]);
+						}
                     }
 
                     // Break on the terminal identifier delimiter
@@ -1655,8 +1709,9 @@ final class Tools {
 
                 // Consume the terminal identifier delimiter
                 for (int d = 0; d < quotes[QUOTE_END_DELIMITER][delimiter].length(); d++) {
-                    if (d > 0)
-                        i++;
+                    if (d > 0) {
+						i++;
+					}
 
                     render.sql(sqlChars[i]);
                 }
@@ -1664,7 +1719,7 @@ final class Tools {
 
             // Inline bind variables only outside of string literals
             else if (substituteIndex < substitutes.size() &&
-                    ((sqlChars[i] == '?')
+                    (sqlChars[i] == '?'
 
                   // [#4131] Named bind variables of the form :identifier
                   //         Watch out for the PostgreSQL cast operator ::
@@ -1676,8 +1731,9 @@ final class Tools {
                 if (sqlChars[i] == '?' && i + 1 < sqlChars.length) {
                     for (String suffix : NON_BIND_VARIABLE_SUFFIXES) {
                         if (peek(sqlChars, i + 1, suffix)) {
-                            for (int j = i; i - j <= suffix.length(); i++)
-                                render.sql(sqlChars[i]);
+                            for (int j = i; i - j <= suffix.length(); i++) {
+								render.sql(sqlChars[i]);
+							}
 
                             render.sql(sqlChars[i]);
                             continue characterLoop;
@@ -1686,8 +1742,11 @@ final class Tools {
                 }
 
                     // [#4131] Consume the named bind variable
-                if (sqlChars[i] == ':')
-                    while (++i < sqlChars.length && isJavaIdentifierPart(sqlChars[i]));
+                if (sqlChars[i] == ':') {
+					while (++i < sqlChars.length && isJavaIdentifierPart(sqlChars[i])) {
+						;
+					}
+				}
 
                 QueryPart substitute = substitutes.get(substituteIndex++);
 
@@ -1717,7 +1776,9 @@ final class Tools {
                 // Consume the whole token
                 else {
                     int start = ++i;
-                    for (; i < sqlChars.length && sqlChars[i] != '}'; i++);
+                    for (; i < sqlChars.length && sqlChars[i] != '}'; i++) {
+						;
+					}
                     int end = i;
 
                     String token = sql.substring(start, end);
@@ -1749,19 +1810,19 @@ final class Tools {
     /**
      * Whether backslash escaping is needed in inlined string literals.
      */
-    static final boolean needsBackslashEscaping(Configuration configuration) {
+    static boolean needsBackslashEscaping(Configuration configuration) {
         BackslashEscaping escaping = getBackslashEscaping(configuration.settings());
         return escaping == ON || (escaping == DEFAULT && EnumSet.of(MARIADB, MYSQL).contains(configuration.dialect().family()));
     }
 
     /**
-     * Peek for a string at a given <code>index</code> of a <code>char[]</code>
+     * Peek for a string at a given <code>index</code> of a <code>char[]</code>.
      *
      * @param sqlChars The char array to peek into
      * @param index The index within the char array to peek for a string
      * @param peek The string to peek for
      */
-    static final boolean peek(char[] sqlChars, int index, String peek) {
+    static boolean peek(char[] sqlChars, int index, String peek) {
         return peek(sqlChars, index, peek, false);
     }
 
@@ -1775,7 +1836,7 @@ final class Tools {
      *            represents "any" whitespace character as defined in
      *            {@link #WHITESPACE}, or in Java Regex "\s".
      */
-    static final boolean peek(char[] sqlChars, int index, String peek, boolean anyWhitespace) {
+    static boolean peek(char[] sqlChars, int index, String peek, boolean anyWhitespace) {
         char[] peekArray = peek.toCharArray();
 
         peekArrayLoop:
@@ -1802,13 +1863,13 @@ final class Tools {
     }
 
     /**
-     * Peek for several strings at a given <code>index</code> of a <code>char[]</code>
+     * Peek for several strings at a given <code>index</code> of a <code>char[]</code>.
      *
      * @param sqlChars The char array to peek into
      * @param index The index within the char array to peek for a string
      * @param peekAny The strings to peek for
      */
-    static final boolean peekAny(char[] sqlChars, int index, String[] peekAny) {
+    static boolean peekAny(char[] sqlChars, int index, String[] peekAny) {
         return peekAny(sqlChars, index, peekAny, false);
     }
 
@@ -1823,18 +1884,20 @@ final class Tools {
      *            represents "any" whitespace character as defined in
      *            {@link #WHITESPACE}, or in Java Regex "\s".
      */
-    static final boolean peekAny(char[] sqlChars, int index, String[] peekAny, boolean anyWhitespace) {
-        for (String peek : peekAny)
-            if (peek(sqlChars, index, peek, anyWhitespace))
-                return true;
+    static boolean peekAny(char[] sqlChars, int index, String[] peekAny, boolean anyWhitespace) {
+        for (String peek : peekAny) {
+			if (peek(sqlChars, index, peek, anyWhitespace)) {
+				return true;
+			}
+		}
 
         return false;
     }
 
     /**
-     * Create {@link QueryPart} objects from bind values or substitutes
+     * Create {@link QueryPart} objects from bind values or substitutes.
      */
-    static final List<QueryPart> queryParts(Object... substitutes) {
+    static List<QueryPart> queryParts(Object... substitutes) {
         // [#724] When bindings is null, this is probably due to API-misuse
         // The user probably meant new Object[] { null }
         if (substitutes == null) {
@@ -1864,7 +1927,7 @@ final class Tools {
      * Render a list of names of the <code>NamedQueryParts</code> contained in
      * this list.
      */
-    static final void fieldNames(Context<?> context, Fields<?> fields) {
+    static void fieldNames(Context<?> context, Fields<?> fields) {
         fieldNames(context, list(fields.fields));
     }
 
@@ -1872,7 +1935,7 @@ final class Tools {
      * Render a list of names of the <code>NamedQueryParts</code> contained in
      * this list.
      */
-    static final void fieldNames(Context<?> context, Field<?>... fields) {
+    static void fieldNames(Context<?> context, Field<?>... fields) {
         fieldNames(context, list(fields));
     }
 
@@ -1880,7 +1943,7 @@ final class Tools {
      * Render a list of names of the <code>NamedQueryParts</code> contained in
      * this list.
      */
-    static final void fieldNames(Context<?> context, Collection<? extends Field<?>> list) {
+    static void fieldNames(Context<?> context, Collection<? extends Field<?>> list) {
         String separator = "";
 
         for (Field<?> field : list) {
@@ -1894,7 +1957,7 @@ final class Tools {
      * Render a list of names of the <code>NamedQueryParts</code> contained in
      * this list.
      */
-    static final void tableNames(Context<?> context, Table<?>... list) {
+    static void tableNames(Context<?> context, Table<?>... list) {
         tableNames(context, list(list));
     }
 
@@ -1902,7 +1965,7 @@ final class Tools {
      * Render a list of names of the <code>NamedQueryParts</code> contained in
      * this list.
      */
-    static final void tableNames(Context<?> context, Collection<? extends Table<?>> list) {
+    static void tableNames(Context<?> context, Collection<? extends Table<?>> list) {
         String separator = "";
 
         for (Table<?> table : list) {
@@ -1913,7 +1976,7 @@ final class Tools {
     }
 
     @SuppressWarnings("unchecked")
-    static final <T> T[] combine(T[] array, T value) {
+    static <T> T[] combine(T[] array, T value) {
         T[] result = (T[]) java.lang.reflect.Array.newInstance(array.getClass().getComponentType(), array.length + 1);
 
         System.arraycopy(array, 0, result, 0, array.length);
@@ -1923,9 +1986,9 @@ final class Tools {
     }
 
     /**
-     * Combine a field with an array of fields
+     * Combine a field with an array of fields.
      */
-    static final Field<?>[] combine(Field<?> field, Field<?>... fields) {
+    static Field<?>[] combine(Field<?> field, Field<?>... fields) {
         if (fields == null) {
             return new Field[] { field };
         }
@@ -1939,9 +2002,9 @@ final class Tools {
     }
 
     /**
-     * Combine a field with an array of fields
+     * Combine a field with an array of fields.
      */
-    static final Field<?>[] combine(Field<?> field1, Field<?> field2, Field<?>... fields) {
+    static Field<?>[] combine(Field<?> field1, Field<?> field2, Field<?>... fields) {
         if (fields == null) {
             return new Field[] { field1, field2 };
         }
@@ -1956,9 +2019,9 @@ final class Tools {
     }
 
     /**
-     * Combine a field with an array of fields
+     * Combine a field with an array of fields.
      */
-    static final Field<?>[] combine(Field<?> field1, Field<?> field2, Field<?> field3, Field<?>... fields) {
+    static Field<?>[] combine(Field<?> field1, Field<?> field2, Field<?> field3, Field<?>... fields) {
         if (fields == null) {
             return new Field[] { field1, field2, field3 };
         }
@@ -1973,31 +2036,31 @@ final class Tools {
     }
 
     /**
-     * Translate a {@link SQLException} to a {@link DataAccessException}
+     * Translate a {@link SQLException} to a {@link DataAccessException}.
      */
-    static final DataAccessException translate(String sql, SQLException e) {
+    static DataAccessException translate(String sql, SQLException e) {
         String message = "SQL [" + sql + "]; " + e.getMessage();
         return new DataAccessException(message, e);
     }
 
     /**
-     * Safely close a statement
+     * Safely close a statement.
      */
-    static final void safeClose(ExecuteListener listener, ExecuteContext ctx) {
+    static void safeClose(ExecuteListener listener, ExecuteContext ctx) {
         safeClose(listener, ctx, false);
     }
 
     /**
-     * Safely close a statement
+     * Safely close a statement.
      */
-    static final void safeClose(ExecuteListener listener, ExecuteContext ctx, boolean keepStatement) {
+    static void safeClose(ExecuteListener listener, ExecuteContext ctx, boolean keepStatement) {
         safeClose(listener, ctx, keepStatement, true);
     }
 
     /**
-     * Safely close a statement
+     * Safely close a statement.
      */
-    static final void safeClose(ExecuteListener listener, ExecuteContext ctx, boolean keepStatement, boolean keepResultSet) {
+    static void safeClose(ExecuteListener listener, ExecuteContext ctx, boolean keepStatement, boolean keepResultSet) {
         // [#2523] Set JDBC objects to null, to prevent repeated closing
         JDBCUtils.safeClose(ctx.resultSet());
         ctx.resultSet(null);
@@ -2026,31 +2089,32 @@ final class Tools {
         }
 
         // [#1868] [#2373] Terminate ExecuteListener lifecycle, if needed
-        if (keepResultSet)
-            listener.end(ctx);
+        if (keepResultSet) {
+			listener.end(ctx);
+		}
 
         // [#1326] Clean up any potentially remaining temporary lobs
         DefaultExecuteContext.clean();
     }
 
     /**
-     * Type-safely copy a value from one record to another
+     * Type-safely copy a value from one record to another.
      */
-    static final <T> void setValue(Record target, Field<T> targetField, Record source, Field<?> sourceField) {
+    static <T> void setValue(Record target, Field<T> targetField, Record source, Field<?> sourceField) {
         setValue(target, targetField, source.get(sourceField));
     }
 
     /**
-     * Type-safely set a value to a record
+     * Type-safely set a value to a record.
      */
-    static final <T> void setValue(Record target, Field<T> targetField, Object value) {
+    static <T> void setValue(Record target, Field<T> targetField, Object value) {
         target.set(targetField, targetField.getDataType().convert(value));
     }
 
     /**
      * [#2591] Type-safely copy a value from one record to another, preserving flags.
      */
-    static final <T> void copyValue(AbstractRecord target, Field<T> targetField, Record source, Field<?> sourceField) {
+    static <T> void copyValue(AbstractRecord target, Field<T> targetField, Record source, Field<?> sourceField) {
         DataType<T> targetType = targetField.getDataType();
 
         int targetIndex = indexOrFail(target.fieldsRow(), targetField);
@@ -2065,12 +2129,13 @@ final class Tools {
      * Map a {@link Catalog} according to the configured {@link org.jooq.SchemaMapping}
      */
     @SuppressWarnings("deprecation")
-    static final Catalog getMappedCatalog(Configuration configuration, Catalog catalog) {
+    static Catalog getMappedCatalog(Configuration configuration, Catalog catalog) {
         if (configuration != null) {
             org.jooq.SchemaMapping mapping = configuration.schemaMapping();
 
-            if (mapping != null)
-                return mapping.map(catalog);
+            if (mapping != null) {
+				return mapping.map(catalog);
+			}
         }
 
         return catalog;
@@ -2080,12 +2145,13 @@ final class Tools {
      * Map a {@link Schema} according to the configured {@link org.jooq.SchemaMapping}
      */
     @SuppressWarnings("deprecation")
-    static final Schema getMappedSchema(Configuration configuration, Schema schema) {
+    static Schema getMappedSchema(Configuration configuration, Schema schema) {
         if (configuration != null) {
             org.jooq.SchemaMapping mapping = configuration.schemaMapping();
 
-            if (mapping != null)
-                return mapping.map(schema);
+            if (mapping != null) {
+				return mapping.map(schema);
+			}
         }
 
         return schema;
@@ -2095,12 +2161,13 @@ final class Tools {
      * Map a {@link Table} according to the configured {@link org.jooq.SchemaMapping}
      */
     @SuppressWarnings("deprecation")
-    static final <R extends Record> Table<R> getMappedTable(Configuration configuration, Table<R> table) {
+    static <R extends Record> Table<R> getMappedTable(Configuration configuration, Table<R> table) {
         if (configuration != null) {
             org.jooq.SchemaMapping mapping = configuration.schemaMapping();
 
-            if (mapping != null)
-                return mapping.map(table);
+            if (mapping != null) {
+				return mapping.map(table);
+			}
         }
 
         return table;
@@ -2110,20 +2177,21 @@ final class Tools {
      * Map an {@link ArrayRecord} according to the configured {@link org.jooq.SchemaMapping}
      */
     @SuppressWarnings("unchecked")
-    static final String getMappedUDTName(Configuration configuration, Class<? extends UDTRecord<?>> type) {
+    static String getMappedUDTName(Configuration configuration, Class<? extends UDTRecord<?>> type) {
         return getMappedUDTName(configuration, Tools.newRecord(false, (Class<UDTRecord<?>>) type).<RuntimeException>operate(null));
     }
 
     /**
      * Map an {@link ArrayRecord} according to the configured {@link org.jooq.SchemaMapping}
      */
-    static final String getMappedUDTName(Configuration configuration, UDTRecord<?> record) {
+    static String getMappedUDTName(Configuration configuration, UDTRecord<?> record) {
         UDT<?> udt = record.getUDT();
         Schema mapped = getMappedSchema(configuration, udt.getSchema());
         StringBuilder sb = new StringBuilder();
 
-        if (mapped != null)
-            sb.append(mapped.getName()).append('.');
+        if (mapped != null) {
+			sb.append(mapped.getName()).append('.');
+		}
 
         sb.append(record.getUDT().getName());
         return sb.toString();
@@ -2174,23 +2242,23 @@ final class Tools {
 
     /**
      * Return a non-negative hash code for a {@link QueryPart}, taking into
-     * account FindBugs' <code>RV_ABSOLUTE_VALUE_OF_HASHCODE</code> pattern
+     * account FindBugs' <code>RV_ABSOLUTE_VALUE_OF_HASHCODE</code> pattern.
      */
-    static final int hash(Object object) {
+    static int hash(Object object) {
         return 0x7FFFFFF & object.hashCode();
     }
 
     /**
-     * Utility method to escape strings or "toString" other objects
+     * Utility method to escape strings or "toString" other objects.
      */
-    static final Field<String> escapeForLike(Object value) {
+    static Field<String> escapeForLike(Object value) {
         return escapeForLike(value, new DefaultConfiguration());
     }
 
     /**
-     * Utility method to escape strings or "toString" other objects
+     * Utility method to escape strings or "toString" other objects.
      */
-    static final Field<String> escapeForLike(Object value, Configuration configuration) {
+    static Field<String> escapeForLike(Object value, Configuration configuration) {
         if (value != null && value.getClass() == String.class) {
 
 
@@ -2209,17 +2277,17 @@ final class Tools {
     }
 
     /**
-     * Utility method to escape string fields, or cast other fields
+     * Utility method to escape string fields, or cast other fields.
      */
-    static final Field<String> escapeForLike(Field<?> field) {
+    static Field<String> escapeForLike(Field<?> field) {
         return escapeForLike(field, new DefaultConfiguration());
     }
 
     /**
-     * Utility method to escape string fields, or cast other fields
+     * Utility method to escape string fields, or cast other fields.
      */
     @SuppressWarnings("unchecked")
-    static final Field<String> escapeForLike(Field<?> field, Configuration configuration) {
+    static Field<String> escapeForLike(Field<?> field, Configuration configuration) {
         if (nullSafe(field).getDataType().isString()) {
 
 
@@ -2238,16 +2306,16 @@ final class Tools {
     }
 
     /**
-     * Utility method to check whether a field is a {@link Param}
+     * Utility method to check whether a field is a {@link Param}.
      */
-    static final boolean isVal(Field<?> field) {
+    static boolean isVal(Field<?> field) {
         return field instanceof Param;
     }
 
     /**
-     * Utility method to extract a value from a field
+     * Utility method to extract a value from a field.
      */
-    static final <T> T extractVal(Field<T> field) {
+    static <T> T extractVal(Field<T> field) {
         if (isVal(field)) {
             return ((Param<T>) field).getValue();
         }
@@ -2257,20 +2325,20 @@ final class Tools {
     }
 
     /**
-     * Add primary key conditions to a query
+     * Add primary key conditions to a query.
      */
     @SuppressWarnings("deprecation")
-    static final void addConditions(org.jooq.ConditionProvider query, Record record, Field<?>... keys) {
+    static void addConditions(org.jooq.ConditionProvider query, Record record, Field<?>... keys) {
         for (Field<?> field : keys) {
             addCondition(query, record, field);
         }
     }
 
     /**
-     * Add a field condition to a query
+     * Add a field condition to a query.
      */
     @SuppressWarnings("deprecation")
-    static final <T> void addCondition(org.jooq.ConditionProvider provider, Record record, Field<T> field) {
+    static <T> void addCondition(org.jooq.ConditionProvider provider, Record record, Field<T> field) {
 
         // [#2764] If primary keys are allowed to be changed, the
         if (updatablePrimaryKeys(settings(record))) {
@@ -2284,7 +2352,7 @@ final class Tools {
     /**
      * Create a <code>null</code>-safe condition.
      */
-    static final <T> Condition condition(Field<T> field, T value) {
+    static <T> Condition condition(Field<T> field, T value) {
         return (value == null) ? field.isNull() : field.eq(value);
     }
 
@@ -2326,7 +2394,7 @@ final class Tools {
         /**
          * A default implementation for {@link GuardedOperation#guarded()}.
          */
-        abstract static class AbstractGuardedOperation<V> implements GuardedOperation<V> {
+        static abstract class AbstractGuardedOperation<V> implements GuardedOperation<V> {
             @Override
             public V guarded() {
                 return null;
@@ -2336,26 +2404,29 @@ final class Tools {
         /**
          * Run an operation using a guard.
          */
-        static final <V> V run(Guard guard, GuardedOperation<V> operation) {
-            boolean unguarded = (guard.tl.get() == null);
-            if (unguarded)
-                guard.tl.set(Guard.class);
+        static <V> V run(Guard guard, GuardedOperation<V> operation) {
+            boolean unguarded = guard.tl.get() == null;
+            if (unguarded) {
+				guard.tl.set(Guard.class);
+			}
 
             try {
-                if (unguarded)
-                    return operation.unguarded();
-                else
-                    return operation.guarded();
+                if (unguarded) {
+					return operation.unguarded();
+				} else {
+					return operation.guarded();
+				}
             }
             finally {
-                if (unguarded)
-                    guard.tl.remove();
+                if (unguarded) {
+					guard.tl.remove();
+				}
             }
         }
     }
 
     /**
-     * [#2965] This is a {@link Configuration}-based cache that can cache reflection information and other things
+     * [#2965] This is a {@link Configuration}-based cache that can cache reflection information and other things.
      */
     static class Cache {
 
@@ -2382,15 +2453,17 @@ final class Tools {
          * @return The cached value or the outcome of the cached operation.
          */
         @SuppressWarnings("unchecked")
-        static final <V> V run(Configuration configuration, CachedOperation<V> operation, String type, Serializable... keys) {
+        static <V> V run(Configuration configuration, CachedOperation<V> operation, String type, Serializable... keys) {
 
             // If no configuration is provided take the default configuration that loads the default Settings
-            if (configuration == null)
-                configuration = new DefaultConfiguration();
+            if (configuration == null) {
+				configuration = new DefaultConfiguration();
+			}
 
             // Shortcut caching when the relevant Settings flag isn't set.
-            if (!reflectionCaching(configuration.settings()))
-                return operation.call();
+            if (!reflectionCaching(configuration.settings())) {
+				return operation.call();
+			}
 
             Map<Object, Object> cache = (Map<Object, Object>) configuration.data(type);
             if (cache == null) {
@@ -2432,12 +2505,14 @@ final class Tools {
         /**
          * Create a single-value or multi-value key for caching.
          */
-        private static final Object key(final Serializable... key) {
-            if (key == null || key.length == 0)
-                return key;
+        private static Object key(final Serializable... key) {
+            if (key == null || key.length == 0) {
+				return key;
+			}
 
-            if (key.length == 1)
-                return key[0];
+            if (key.length == 1) {
+				return key[0];
+			}
 
             return new Key(key);
         }
@@ -2464,10 +2539,7 @@ final class Tools {
 
             @Override
             public boolean equals(Object obj) {
-                if (obj instanceof Key)
-                    return Arrays.equals(key, ((Key) obj).key);
-
-                return false;
+                return obj instanceof Key && Arrays.equals(key, ((Key) obj).key);
             }
 
             @Override
@@ -2484,7 +2556,7 @@ final class Tools {
     /**
      * Check if JPA classes can be loaded. This is only done once per JVM!
      */
-    private static final boolean isJPAAvailable() {
+    private static boolean isJPAAvailable() {
         if (isJPAAvailable == null) {
             try {
                 Class.forName(Column.class.getName());
@@ -2500,34 +2572,41 @@ final class Tools {
 
     /**
      * Check whether <code>type</code> has any {@link Column} annotated members
-     * or methods
+     * or methods.
      */
-    static final boolean hasColumnAnnotations(final Configuration configuration, final Class<?> type) {
+    static boolean hasColumnAnnotations(final Configuration configuration, final Class<?> type) {
         return Cache.run(configuration, new CachedOperation<Boolean>() {
 
             @Override
             public Boolean call() {
-                if (!isJPAAvailable())
-                    return false;
+                if (!isJPAAvailable()) {
+					return false;
+				}
 
                 // An @Entity or @Table usually has @Column annotations, too
-                if (type.getAnnotation(Entity.class) != null)
-                    return true;
+                if (type.getAnnotation(Entity.class) != null) {
+					return true;
+				}
 
-                if (type.getAnnotation(javax.persistence.Table.class) != null)
-                    return true;
+                if (type.getAnnotation(javax.persistence.Table.class) != null) {
+					return true;
+				}
 
                 for (java.lang.reflect.Field member : getInstanceMembers(type)) {
-                    if (member.getAnnotation(Column.class) != null)
-                        return true;
+                    if (member.getAnnotation(Column.class) != null) {
+						return true;
+					}
 
-                    if (member.getAnnotation(Id.class) != null)
-                        return true;
+                    if (member.getAnnotation(Id.class) != null) {
+						return true;
+					}
                 }
 
-                for (Method method : getInstanceMethods(type))
-                    if (method.getAnnotation(Column.class) != null)
-                        return true;
+                for (Method method : getInstanceMethods(type)) {
+					if (method.getAnnotation(Column.class) != null) {
+						return true;
+					}
+				}
 
                 return false;
             }
@@ -2536,9 +2615,9 @@ final class Tools {
     }
 
     /**
-     * Get all members annotated with a given column name
+     * Get all members annotated with a given column name.
      */
-    static final List<java.lang.reflect.Field> getAnnotatedMembers(final Configuration configuration, final Class<?> type, final String name) {
+    static List<java.lang.reflect.Field> getAnnotatedMembers(final Configuration configuration, final Class<?> type, final String name) {
         return Cache.run(configuration, new CachedOperation<List<java.lang.reflect.Field>>() {
 
             @Override
@@ -2557,11 +2636,9 @@ final class Tools {
                     else {
                         Id id = member.getAnnotation(Id.class);
 
-                        if (id != null) {
-                            if (namesMatch(name, member.getName())) {
-                                result.add(accessible(member));
-                            }
-                        }
+                        if (id != null && namesMatch(name, member.getName())) {
+						    result.add(accessible(member));
+						}
                     }
                 }
 
@@ -2570,7 +2647,7 @@ final class Tools {
         }, DATA_REFLECTION_CACHE_GET_ANNOTATED_MEMBERS, type, name);
     }
 
-    private static final boolean namesMatch(String name, String annotation) {
+    private static boolean namesMatch(String name, String annotation) {
 
         // [#4128] JPA @Column.name() properties are case-insensitive, unless
         // the names are quoted using double quotes.
@@ -2580,9 +2657,9 @@ final class Tools {
     }
 
     /**
-     * Get all members matching a given column name
+     * Get all members matching a given column name.
      */
-    static final List<java.lang.reflect.Field> getMatchingMembers(final Configuration configuration, final Class<?> type, final String name) {
+    static List<java.lang.reflect.Field> getMatchingMembers(final Configuration configuration, final Class<?> type, final String name) {
         return Cache.run(configuration, new CachedOperation<List<java.lang.reflect.Field>>() {
 
             @Override
@@ -2609,9 +2686,9 @@ final class Tools {
     }
 
     /**
-     * Get all setter methods annotated with a given column name
+     * Get all setter methods annotated with a given column name.
      */
-    static final List<Method> getAnnotatedSetters(final Configuration configuration, final Class<?> type, final String name) {
+    static List<Method> getAnnotatedSetters(final Configuration configuration, final Class<?> type, final String name) {
         return Cache.run(configuration, new CachedOperation<List<Method>>() {
 
             @Override
@@ -2659,9 +2736,9 @@ final class Tools {
     }
 
     /**
-     * Get the first getter method annotated with a given column name
+     * Get the first getter method annotated with a given column name.
      */
-    static final Method getAnnotatedGetter(final Configuration configuration, final Class<?> type, final String name) {
+    static Method getAnnotatedGetter(final Configuration configuration, final Class<?> type, final String name) {
         return Cache.run(configuration, new CachedOperation<Method>() {
 
             @Override
@@ -2712,9 +2789,9 @@ final class Tools {
     }
 
     /**
-     * Get all setter methods matching a given column name
+     * Get all setter methods matching a given column name.
      */
-    static final List<Method> getMatchingSetters(final Configuration configuration, final Class<?> type, final String name) {
+    static List<Method> getMatchingSetters(final Configuration configuration, final Class<?> type, final String name) {
         return Cache.run(configuration, new CachedOperation<List<Method>>() {
 
             @Override
@@ -2753,9 +2830,9 @@ final class Tools {
 
 
     /**
-     * Get the first getter method matching a given column name
+     * Get the first getter method matching a given column name.
      */
-    static final Method getMatchingGetter(final Configuration configuration, final Class<?> type, final String name) {
+    static Method getMatchingGetter(final Configuration configuration, final Class<?> type, final String name) {
         return Cache.run(configuration, new CachedOperation<Method>() {
 
             @Override
@@ -2794,7 +2871,7 @@ final class Tools {
         }, DATA_REFLECTION_CACHE_GET_MATCHING_GETTER, type, name);
     }
 
-    private static final List<Method> getInstanceMethods(Class<?> type) {
+    private static List<Method> getInstanceMethods(Class<?> type) {
         List<Method> result = new ArrayList<Method>();
 
         for (Method method : type.getMethods()) {
@@ -2806,17 +2883,21 @@ final class Tools {
         return result;
     }
 
-    private static final List<java.lang.reflect.Field> getInstanceMembers(Class<?> type) {
+    private static List<java.lang.reflect.Field> getInstanceMembers(Class<?> type) {
         List<java.lang.reflect.Field> result = new ArrayList<java.lang.reflect.Field>();
 
-        for (java.lang.reflect.Field field : type.getFields())
-            if ((field.getModifiers() & Modifier.STATIC) == 0)
-                result.add(field);
+        for (java.lang.reflect.Field field : type.getFields()) {
+			if ((field.getModifiers() & Modifier.STATIC) == 0) {
+				result.add(field);
+			}
+		}
 
         do {
-            for (java.lang.reflect.Field field : type.getDeclaredFields())
-                if ((field.getModifiers() & Modifier.STATIC) == 0)
-                    result.add(field);
+            for (java.lang.reflect.Field field : type.getDeclaredFields()) {
+				if ((field.getModifiers() & Modifier.STATIC) == 0) {
+					result.add(field);
+				}
+			}
 
             type = type.getSuperclass();
         }
@@ -2828,7 +2909,7 @@ final class Tools {
     /**
      * Get a property name associated with a getter/setter method name.
      */
-    static final String getPropertyName(String methodName) {
+    static String getPropertyName(String methodName) {
         String name = methodName;
 
         if (name.startsWith("is") && name.length() > 2) {
@@ -2853,7 +2934,7 @@ final class Tools {
      * them to the <code>previous</code> exception's
      * {@link SQLException#getNextException()} list.
      */
-    static final void consumeExceptions(Configuration configuration, PreparedStatement stmt, SQLException previous) {
+    static void consumeExceptions(Configuration configuration, PreparedStatement stmt, SQLException previous) {
 
 
 
@@ -2880,7 +2961,7 @@ final class Tools {
     /**
      * [#3076] Consume warnings from a {@link Statement} and notify listeners.
      */
-    static final void consumeWarnings(ExecuteContext ctx, ExecuteListener listener) {
+    static void consumeWarnings(ExecuteContext ctx, ExecuteListener listener) {
 
         // [#3558] In some databases (e.g. MySQL), the call to PreparedStatement.getWarnings() issues
         // a separate SHOW WARNINGS query. Users may want to avoid this query, explicitly
@@ -2896,14 +2977,15 @@ final class Tools {
             }
         }
 
-        if (ctx.sqlWarning() != null)
-            listener.warning(ctx);
+        if (ctx.sqlWarning() != null) {
+			listener.warning(ctx);
+		}
     }
 
     /**
      * [#3681] Consume all {@link ResultSet}s from a JDBC {@link Statement}.
      */
-    static final void consumeResultSets(ExecuteContext ctx, ExecuteListener listener, Results results, Intern intern) throws SQLException {
+    static void consumeResultSets(ExecuteContext ctx, ExecuteListener listener, Results results, Intern intern) throws SQLException {
         boolean anyResults = false;
         int i = 0;
         int rows = (ctx.resultSet() == null) ? ctx.statement().getUpdateCount() : 0;
@@ -2915,32 +2997,33 @@ final class Tools {
                 Field<?>[] fields = new MetaDataFieldProvider(ctx.configuration(), ctx.resultSet().getMetaData()).getFields();
                 Cursor<Record> c = new CursorImpl<Record>(ctx, listener, fields, intern != null ? intern.internIndexes(fields) : null, true, false);
                 results.resultsOrRows().add(new ResultsImpl.ResultOrRowsImpl(c.fetch()));
-            }
-            else {
-                if (rows != -1)
-                    results.resultsOrRows().add(new ResultsImpl.ResultOrRowsImpl(rows));
-                else
-                    break;
-            }
+            } else if (rows != -1) {
+				results.resultsOrRows().add(new ResultsImpl.ResultOrRowsImpl(rows));
+			} else {
+				break;
+			}
 
-            if (ctx.statement().getMoreResults())
-                ctx.resultSet(ctx.statement().getResultSet());
-            else if ((rows = ctx.statement().getUpdateCount()) != -1)
-                ctx.resultSet(null);
-            else
-                break;
+            if (ctx.statement().getMoreResults()) {
+				ctx.resultSet(ctx.statement().getResultSet());
+			} else if ((rows = ctx.statement().getUpdateCount()) != -1) {
+				ctx.resultSet(null);
+			} else {
+				break;
+			}
         }
 
-        if (i == maxConsumedResults)
-            log.warn("Maximum consumed results reached: " + maxConsumedResults + ". This is probably a bug. Please report to https://github.com/jOOQ/jOOQ/issues/new");
+        if (i == maxConsumedResults) {
+			log.warn("Maximum consumed results reached: " + maxConsumedResults + ". This is probably a bug. Please report to https://github.com/jOOQ/jOOQ/issues/new");
+		}
 
         // Call this only when there was at least one ResultSet.
         // Otherwise, this call is not supported by ojdbc or CUBRID [#4440]
-        if (anyResults && ctx.family() != CUBRID)
-            ctx.statement().getMoreResults(Statement.CLOSE_ALL_RESULTS);
+        if (anyResults && ctx.family() != CUBRID) {
+			ctx.statement().getMoreResults(Statement.CLOSE_ALL_RESULTS);
+		}
     }
 
-    static final List<String[]> parseTXT(String string, String nullLiteral) {
+    static List<String[]> parseTXT(String string, String nullLiteral) {
         String[] strings = string.split("[\\r\\n]+");
 
         if (strings.length < 2) {
@@ -2948,7 +3031,7 @@ final class Tools {
         }
 
         // [#2235] Distinguish between jOOQ's Result.format() and H2's format
-        boolean formatted = (string.charAt(0) == '+');
+        boolean formatted = string.charAt(0) == '+';
 
         // In jOOQ's Result.format(), that's line number one:
         // 1: +----+------+----+
@@ -2975,7 +3058,7 @@ final class Tools {
         }
     }
 
-    private static final List<String[]> parseTXTLines(
+    private static List<String[]> parseTXTLines(
             String nullLiteral,
             String[] strings,
             Pattern pattern,
@@ -3001,7 +3084,7 @@ final class Tools {
         return result;
     }
 
-    private static final void parseTXTLine(List<int[]> positions, List<String[]> result, String string, String nullLiteral) {
+    private static void parseTXTLine(List<int[]> positions, List<String[]> result, String string, String nullLiteral) {
         String[] fields = new String[positions.size()];
         result.add(fields);
         int length = string.length();
@@ -3026,7 +3109,7 @@ final class Tools {
     private static final Pattern P_PARSE_HTML_COL_HEAD = Pattern.compile("<th>(.*?)</th>");
     private static final Pattern P_PARSE_HTML_COL_BODY = Pattern.compile("<td>(.*?)</td>");
 
-    static final List<String[]> parseHTML(String string) {
+    static List<String[]> parseHTML(String string) {
         List<String[]> result = new ArrayList<String[]>();
 
         Matcher mRow = P_PARSE_HTML_ROW.matcher(string);
@@ -3038,18 +3121,21 @@ final class Tools {
             if (result.isEmpty()) {
                 Matcher mColHead = P_PARSE_HTML_COL_HEAD.matcher(row);
 
-                while (mColHead.find())
-                    col.add(mColHead.group(1));
+                while (mColHead.find()) {
+					col.add(mColHead.group(1));
+				}
             }
 
             if (col.isEmpty()) {
                 Matcher mColBody = P_PARSE_HTML_COL_BODY.matcher(row);
 
-                while (mColBody.find())
-                    col.add(mColBody.group(1));
+                while (mColBody.find()) {
+					col.add(mColBody.group(1));
+				}
 
-                if (result.isEmpty())
-                    result.add(fieldNames(col.size()));
+                if (result.isEmpty()) {
+					result.add(fieldNames(col.size()));
+				}
             }
 
             result.add(col.toArray(EMPTY_STRING));
@@ -3063,7 +3149,7 @@ final class Tools {
      * <code>BEGIN EXECUTE IMMEDIATE '...' EXCEPTION WHEN ... END;</code>, if
      * <code>IF EXISTS</code> is not supported.
      */
-    static final void executeImmediateBegin(Context<?> ctx, DDLStatementType type) {
+    static void executeImmediateBegin(Context<?> ctx, DDLStatementType type) {
         switch (ctx.family()) {
 
 
@@ -3128,7 +3214,7 @@ final class Tools {
      * <code>BEGIN EXECUTE IMMEDIATE '...' EXCEPTION WHEN ... END;</code>, if
      * <code>IF EXISTS</code> is not supported.
      */
-    static final void executeImmediateEnd(Context<?> ctx, DDLStatementType type) {
+    static void executeImmediateEnd(Context<?> ctx, DDLStatementType type) {
         boolean drop = asList(DROP_INDEX, DROP_SEQUENCE, DROP_TABLE, DROP_VIEW).contains(type);
 
         switch (ctx.family()) {
@@ -3203,7 +3289,7 @@ final class Tools {
         }
     }
 
-    static final void toSQLDDLTypeDeclaration(Context<?> ctx, DataType<?> type) {
+    static void toSQLDDLTypeDeclaration(Context<?> ctx, DataType<?> type) {
         String typeName = type.getTypeName(ctx.configuration());
 
         if (type.hasLength()) {
@@ -3235,9 +3321,11 @@ final class Tools {
         }
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: ForkJoinPool ManagedBlock implementation
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: ForkJoinPool ManagedBlock implementation
+     * -------------------------------------------------------------------------
+     */
 
 
 

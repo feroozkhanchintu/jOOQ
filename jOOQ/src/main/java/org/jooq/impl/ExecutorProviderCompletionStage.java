@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -68,7 +68,7 @@ final class ExecutorProviderCompletionStage<T> implements CompletionStage<T> {
     private final CompletionStage<T> delegate;
     private final ExecutorProvider   provider;
 
-    static final <T> ExecutorProviderCompletionStage<T> of(CompletionStage<T> delegate, ExecutorProvider provider) {
+    static <T> ExecutorProviderCompletionStage<T> of(CompletionStage<T> delegate, ExecutorProvider provider) {
         return new ExecutorProviderCompletionStage<>(delegate, provider);
     }
 

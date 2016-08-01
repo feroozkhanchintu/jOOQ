@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -157,7 +157,7 @@ import org.jooq.tools.StringUtils;
 final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> implements SelectQuery<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long                    serialVersionUID = 1646393178384872967L;
     private static final Clause[]                CLAUSES          = { SELECT };
@@ -196,9 +196,11 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
     private final List<CombineOperator>          unionOp;
     private final List<QueryPartList<Select<?>>> union;
     private final SortFieldList                  unionOrderBy;
-    private boolean                              unionOrderBySiblings; // [#3579] TODO
+    /** [#3579] TODO. */
+    private boolean                              unionOrderBySiblings;
     private final QueryPartList<Field<?>>        unionSeek;
-    private boolean                              unionSeekBefore;      // [#3579] TODO
+    /** [#3579] TODO. */
+    private boolean                              unionSeekBefore;
     private final Limit                          unionLimit;
 
     SelectQueryImpl(Configuration configuration, WithImpl with) {
@@ -395,8 +397,9 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
         Object renderTrailingLimit = context.data(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE);
         Object localDataMap = context.data(DATA_LOCALLY_SCOPED_DATA_MAP);
         try {
-            if (renderTrailingLimit != null)
-                context.data().remove(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE);
+            if (renderTrailingLimit != null) {
+				context.data().remove(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE);
+			}
             context.data(DATA_LOCALLY_SCOPED_DATA_MAP, new HashMap<Object, Object>());
 
             if (into != null
@@ -410,8 +413,9 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
                 return;
             }
 
-            if (with != null)
-                context.visit(with).formatSeparator();
+            if (with != null) {
+				context.visit(with).formatSeparator();
+			}
 
             pushWindow(context);
 
@@ -518,14 +522,16 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
                     boolean unqualified = asList(DERBY, FIREBIRD, H2, HSQLDB).contains(context.family());
                     boolean qualify = context.qualify();
 
-                    if (unqualified)
-                        context.qualify(false);
+                    if (unqualified) {
+						context.qualify(false);
+					}
 
                     context.sql(' ').keyword("of")
                            .sql(' ').visit(forUpdateOf);
 
-                    if (unqualified)
-                        context.qualify(qualify);
+                    if (unqualified) {
+						context.qualify(qualify);
+					}
                 }
                 else if (!forUpdateOfTables.isEmpty()) {
                     context.sql(' ').keyword("of").sql(' ');
@@ -639,8 +645,9 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
         }
         finally {
             context.data(DATA_LOCALLY_SCOPED_DATA_MAP, localDataMap);
-            if (renderTrailingLimit != null)
-                context.data(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE, renderTrailingLimit);
+            if (renderTrailingLimit != null) {
+				context.data(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE, renderTrailingLimit);
+			}
         }
     }
 
@@ -655,7 +662,7 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
     }
 
     /**
-     * The default LIMIT / OFFSET clause in most dialects
+     * The default LIMIT / OFFSET clause in most dialects.
      */
     private void toSQLReferenceLimitDefault(Context<?> context) {
         Object data = context.data(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE);
@@ -663,10 +670,11 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
         context.data(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE, true);
         toSQLReference0(context);
 
-        if (data == null)
-            context.data().remove(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE);
-        else
-            context.data(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE, data);
+        if (data != null) {
+			context.data(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE, data);
+		} else {
+			context.data().remove(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE);
+		}
     }
 
 
@@ -874,36 +882,24 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
         int unionOpSize = unionOp.size();
 
         // The SQL standard specifies:
-        //
         // <query expression> ::=
         //    [ <with clause> ] <query expression body>
         //    [ <order by clause> ] [ <result offset clause> ] [ <fetch first clause> ]
-        //
         // Depending on the dialect and on various syntax elements, parts of the above must be wrapped in
         // synthetic parentheses
         boolean wrapQueryExpressionInDerivedTable;
         boolean wrapQueryExpressionBodyInDerivedTable = false;
 
 
-        wrapQueryExpressionInDerivedTable = false
+        wrapQueryExpressionInDerivedTable = context.data(DATA_INSERT_SELECT_WITHOUT_INSERT_COLUMN_LIST) != null && unionOpSize > 0;
 
-
-
-
-
-
-
-        // [#2995] Prevent the generation of wrapping parentheses around the
-        //         INSERT .. SELECT statement's SELECT because they would be
-        //         interpreted as the (missing) INSERT column list's parens.
-         || (context.data(DATA_INSERT_SELECT_WITHOUT_INSERT_COLUMN_LIST) != null && unionOpSize > 0);
-
-        if (wrapQueryExpressionInDerivedTable)
-            context.keyword("select").sql(" *")
+        if (wrapQueryExpressionInDerivedTable) {
+			context.keyword("select").sql(" *")
                    .formatSeparator()
                    .keyword("from").sql(" (")
                    .formatIndentStart()
                    .formatNewLine();
+		}
 
 
 
@@ -991,10 +987,11 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
         // [#2335] When emulating LIMIT .. OFFSET, the SELECT clause needs to generate
         // non-ambiguous column names as ambiguous column names are not allowed in subqueries
         if (alternativeFields != null) {
-            if (wrapQueryExpressionBodyInDerivedTable && originalFields.length < alternativeFields.length)
-                context.visit(new SelectFieldList(Arrays.copyOf(alternativeFields, alternativeFields.length - 1)));
-            else
-                context.visit(new SelectFieldList(alternativeFields));
+            if (wrapQueryExpressionBodyInDerivedTable && originalFields.length < alternativeFields.length) {
+				context.visit(new SelectFieldList(Arrays.copyOf(alternativeFields, alternativeFields.length - 1)));
+			} else {
+				context.visit(new SelectFieldList(alternativeFields));
+			}
         }
 
         // [#1905] H2 only knows arrays, no row value expressions. Subqueries
@@ -1031,8 +1028,9 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
             context.start(SELECT_INTO);
 
             Table<?> actualInto = (Table<?>) context.data(DATA_SELECT_INTO_TABLE);
-            if (actualInto == null)
-                actualInto = into;
+            if (actualInto == null) {
+				actualInto = into;
+			}
 
             if (actualInto != null
                     && context.data(DATA_OMIT_INTO_CLAUSE) == null
@@ -1096,16 +1094,18 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
         // ------------
         context.start(SELECT_WHERE);
 
-        if (getWhere().getWhere() instanceof TrueCondition && semiAntiJoinPredicates == null)
-            ;
-        else {
+        if (getWhere().getWhere() instanceof TrueCondition && semiAntiJoinPredicates == null) {
+			;
+		} else {
             ConditionProviderImpl where = new ConditionProviderImpl();
 
-            if (semiAntiJoinPredicates != null)
-                where.addConditions(semiAntiJoinPredicates);
+            if (semiAntiJoinPredicates != null) {
+				where.addConditions(semiAntiJoinPredicates);
+			}
 
-            if (!(getWhere().getWhere() instanceof TrueCondition))
-                where.addConditions(getWhere());
+            if (!(getWhere().getWhere() instanceof TrueCondition)) {
+				where.addConditions(getWhere());
+			}
 
             context.formatSeparator()
                    .keyword("where")
@@ -1248,8 +1248,9 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
                 }
 
                 // [#1658] Close parentheses opened previously
-                if (i < unionOpSize - 1)
-                    unionParenthesis(context, ")");
+                if (i < unionOpSize - 1) {
+					unionParenthesis(context, ")");
+				}
 
                 switch (unionOp.get(i)) {
                     case EXCEPT:        context.end(SELECT_EXCEPT);        break;
@@ -1343,13 +1344,15 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
 
         context.end(SELECT_ORDER_BY);
 
-        if (wrapQueryExpressionInDerivedTable)
-            context.formatIndentEnd()
+        if (wrapQueryExpressionInDerivedTable) {
+			context.formatIndentEnd()
                    .formatNewLine()
                    .sql(')');
+		}
 
-        if (context.data().containsKey(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE) && actualLimit.isApplicable())
-            context.visit(actualLimit);
+        if (context.data().containsKey(DATA_RENDER_TRAILING_LIMIT_IF_APPLICABLE) && actualLimit.isApplicable()) {
+			context.visit(actualLimit);
+		}
     }
 
 
@@ -1847,10 +1850,11 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
 
     @Override
     public final void setOrderBySiblings(boolean orderBySiblings) {
-        if (unionOp.size() == 0)
-            this.orderBySiblings = orderBySiblings;
-        else
-            this.unionOrderBySiblings = orderBySiblings;
+        if (unionOp.size() == 0) {
+			this.orderBySiblings = orderBySiblings;
+		} else {
+			this.unionOrderBySiblings = orderBySiblings;
+		}
     }
 
     @Override
@@ -1860,10 +1864,11 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
 
     @Override
     public final void addSeekAfter(Collection<? extends Field<?>> fields) {
-        if (unionOp.size() == 0)
-            seekBefore = false;
-        else
-            unionSeekBefore = false;
+        if (unionOp.size() == 0) {
+			seekBefore = false;
+		} else {
+			unionSeekBefore = false;
+		}
 
         getSeek().addAll(fields);
     }
@@ -1875,10 +1880,11 @@ final class SelectQueryImpl<R extends Record> extends AbstractResultQuery<R> imp
 
     @Override
     public final void addSeekBefore(Collection<? extends Field<?>> fields) {
-        if (unionOp.size() == 0)
-            seekBefore = true;
-        else
-            unionSeekBefore = true;
+        if (unionOp.size() == 0) {
+			seekBefore = true;
+		} else {
+			unionSeekBefore = true;
+		}
 
         getSeek().addAll(fields);
     }

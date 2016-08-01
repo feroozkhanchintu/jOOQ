@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -49,14 +49,14 @@ import org.jooq.Table;
 import org.jooq.TableField;
 
 /**
- * Common base class for <code>Key</code>'s
+ * Common base class for <code>Key</code>'s.
  *
  * @author Lukas Eder
  */
 abstract class AbstractKey<R extends Record> implements Key<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long        serialVersionUID = 8176874459141379340L;
 
@@ -105,31 +105,37 @@ abstract class AbstractKey<R extends Record> implements Key<R> {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((table == null) ? 0 : table.hashCode());
-        return result;
+        return prime * result + ((table == null) ? 0 : table.hashCode());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) {
+			return true;
+		}
+        if (obj == null) {
+			return false;
+		}
+        if (getClass() != obj.getClass()) {
+			return false;
+		}
         AbstractKey<?> other = (AbstractKey<?>) obj;
         if (name == null) {
-            if (other.name != null)
-                return false;
+            if (other.name != null) {
+				return false;
+			}
         }
-        else if (!name.equals(other.name))
-            return false;
+        else if (!name.equals(other.name)) {
+			return false;
+		}
         if (table == null) {
-            if (other.table != null)
-                return false;
+            if (other.table != null) {
+				return false;
+			}
         }
-        else if (!table.equals(other.table))
-            return false;
+        else if (!table.equals(other.table)) {
+			return false;
+		}
         return true;
     }
 

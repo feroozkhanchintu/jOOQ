@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -49,7 +49,7 @@ import static org.jooq.SQLDialect.POSTGRES;
 import java.util.Collection;
 
 /**
- * A query used for deletion of data
+ * A query used for deletion of data.
  *
  * @param <R> The record type of the table being deleted from
  * @author Lukas Eder
@@ -61,30 +61,22 @@ public interface DeleteQuery<R extends Record> extends ConditionProvider, Delete
     // Methods from ConditionProvider, OrderProvider, LockProvider
     // ------------------------------------------------------------------------
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Condition... conditions);
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Collection<? extends Condition> conditions);
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Operator operator, Condition... conditions);
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Operator operator, Collection<? extends Condition> conditions);

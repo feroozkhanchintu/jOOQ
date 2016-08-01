@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -50,32 +50,32 @@ package org.jooq;
 public enum DatePart {
 
     /**
-     * The year
+     * The year.
      */
     YEAR("year"),
 
     /**
-     * The month
+     * The month.
      */
     MONTH("month"),
 
     /**
-     * The day
+     * The day.
      */
     DAY("day"),
 
     /**
-     * The hour
+     * The hour.
      */
     HOUR("hour"),
 
     /**
-     * The minute
+     * The minute.
      */
     MINUTE("minute"),
 
     /**
-     * The second
+     * The second.
      */
     SECOND("second");
 

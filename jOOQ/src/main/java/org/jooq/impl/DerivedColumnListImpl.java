@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -105,7 +105,7 @@ implements
     DerivedColumnList {
 
     /**
-     * Gemerated UID
+     * Gemerated UID.
      */
     private static final long serialVersionUID = -369633206858851863L;
 
@@ -131,8 +131,9 @@ implements
             ctx.sql('(');
 
             for (int i = 0; i < fieldNames.length; i++) {
-                if (i > 0)
-                    ctx.sql(", ");
+                if (i > 0) {
+					ctx.sql(", ");
+				}
 
                 ctx.visit(name(fieldNames[i]));
             }

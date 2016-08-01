@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -64,7 +64,7 @@ import org.jooq.Field;
 public abstract class CustomField<T> extends AbstractField<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = -1778024624798672262L;
     private static final Clause[] CLAUSES          = { CUSTOM };
@@ -85,9 +85,11 @@ public abstract class CustomField<T> extends AbstractField<T> {
     @Override
     public abstract void accept(Context<?> ctx);
 
-    // -------------------------------------------------------------------------
-    // No further overrides allowed
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * No further overrides allowed
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final Clause[] clauses(Context<?> ctx) {

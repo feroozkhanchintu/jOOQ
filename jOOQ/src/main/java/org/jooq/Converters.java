@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -54,7 +54,7 @@ import org.jooq.impl.SQLDataType;
 public class Converters<T, U> implements Converter<T, U> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -4307758248063822630L;
 
@@ -67,7 +67,7 @@ public class Converters<T, U> implements Converter<T, U> {
         return new Converter<T, T>() {
 
             /**
-             * Generated UID
+             * Generated UID.
              */
             private static final long serialVersionUID = -8331976721627671263L;
 
@@ -135,7 +135,7 @@ public class Converters<T, U> implements Converter<T, U> {
         return new Converter<U, T>() {
 
             /**
-             * Generated UID
+             * Generated UID.
              */
             private static final long serialVersionUID = -4307758248063822630L;
 
@@ -174,8 +174,9 @@ public class Converters<T, U> implements Converter<T, U> {
     public final U from(T t) {
         Object result = t;
 
-        for (int i = 0; i < chain.length; i++)
-            result = chain[i].from(result);
+        for (int i = 0; i < chain.length; i++) {
+			result = chain[i].from(result);
+		}
 
         return (U) result;
     }
@@ -184,8 +185,9 @@ public class Converters<T, U> implements Converter<T, U> {
     public final T to(U u) {
         Object result = u;
 
-        for (int i = chain.length - 1; i >= 0; i--)
-            result = chain[i].to(result);
+        for (int i = chain.length - 1; i >= 0; i--) {
+			result = chain[i].to(result);
+		}
 
         return (T) result;
     }

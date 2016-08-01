@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -130,7 +130,7 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
 
     CursorImpl(ExecuteContext ctx, ExecuteListener listener, Field<?>[] fields, int[] internIndexes, boolean keepStatement, boolean keepResultSet, Class<? extends R> type, int maxRows) {
         this.ctx = ctx;
-        this.listener = (listener != null ? listener : new ExecuteListeners(ctx));
+        this.listener = listener != null ? listener : new ExecuteListeners(ctx);
         this.cursorFields = fields;
         this.factory = recordFactory(type, fields);
         this.keepStatement = keepStatement;
@@ -401,13 +401,15 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
     }
 
     /**
-     * A wrapper for the underlying JDBC {@link ResultSet} and {@link Statement}
+     * A wrapper for the underlying JDBC {@link ResultSet} and {@link Statement}.
      */
     final class CursorResultSet extends JDBC41ResultSet implements ResultSet {
 
-        // ---------------------------------------------------------------------
-        // XXX: Wrapper methods
-        // ---------------------------------------------------------------------
+        /**
+         * ---------------------------------------------------------------------
+         * XXX: Wrapper methods
+         * ---------------------------------------------------------------------
+         */
 
         @Override
         public final <T> T unwrap(Class<T> iface) throws SQLException {
@@ -419,9 +421,11 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
             return ctx.resultSet().isWrapperFor(iface);
         }
 
-        // ---------------------------------------------------------------------
-        // XXX: Informational methods
-        // ---------------------------------------------------------------------
+        /**
+         * ---------------------------------------------------------------------
+         * XXX: Informational methods
+         * ---------------------------------------------------------------------
+         */
 
         @Override
         public final Statement getStatement() throws SQLException {
@@ -488,9 +492,11 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
             return ctx.resultSet().getHoldability();
         }
 
-        // ---------------------------------------------------------------------
-        // XXX: Navigational methods
-        // ---------------------------------------------------------------------
+        /**
+         * ---------------------------------------------------------------------
+         * XXX: Navigational methods
+         * ---------------------------------------------------------------------
+         */
 
         @Override
         public final boolean isBeforeFirst() throws SQLException {
@@ -583,9 +589,11 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
             return ctx.resultSet().isClosed();
         }
 
-        // ---------------------------------------------------------------------
-        // XXX: Data retrieval
-        // ---------------------------------------------------------------------
+        /**
+         * ---------------------------------------------------------------------
+         * XXX: Data retrieval
+         * ---------------------------------------------------------------------
+         */
 
         @Override
         public final boolean wasNull() throws SQLException {
@@ -926,9 +934,11 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
             return ctx.resultSet().getURL(columnLabel);
         }
 
-        // ---------------------------------------------------------------------
-        // XXX: Data modification
-        // ---------------------------------------------------------------------
+        /**
+         * ---------------------------------------------------------------------
+         * XXX: Data modification
+         * ---------------------------------------------------------------------
+         */
 
         private final void logUpdate(int columnIndex, Object x) throws SQLException {
             if (log.isDebugEnabled()) {
@@ -1476,12 +1486,12 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
     }
 
     /**
-     * An iterator for records fetched by this cursor
+     * An iterator for records fetched by this cursor.
      */
     final class CursorIterator implements Iterator<R> {
 
         /**
-         * The (potentially) pre-fetched next record
+         * The (potentially) pre-fetched next record.
          */
         private R next;
 
@@ -1501,11 +1511,12 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
             if (hasNext == null) {
 
                 // Some databases (e.g. Redshift) do not implement JDBC's maxRows.
-                if (maxRows > 0 && rows >= maxRows)
-                    return false;
+                if (maxRows > 0 && rows >= maxRows) {
+					return false;
+				}
 
                 next = fetchOne();
-                hasNext = (next != null);
+                hasNext = next != null;
             }
 
             return hasNext;
@@ -1513,8 +1524,9 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
 
         @Override
         public final R next() {
-            if (!hasNext())
-                throw new NoSuchElementException("There are no more records to fetch from this Cursor");
+            if (!hasNext()) {
+				throw new NoSuchElementException("There are no more records to fetch from this Cursor");
+			}
 
             R result = next;
             hasNext = null;
@@ -1607,12 +1619,15 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
 
 
 
-                for (int i = 0; i < initialiserFields.length; i++)
-                    setValue(record, initialiserFields[i], i);
+                for (int i = 0; i < initialiserFields.length; i++) {
+					setValue(record, initialiserFields[i], i);
+				}
 
-                for (int i = 0; i < initialiserFields.length; i++)
-                    if (intern[i])
-                        record.intern0(i);
+                for (int i = 0; i < initialiserFields.length; i++) {
+					if (intern[i]) {
+						record.intern0(i);
+					}
+				}
 
                 ctx.record(record);
                 listener.recordEnd(ctx);
@@ -1621,7 +1636,7 @@ final class CursorImpl<R extends Record> implements Cursor<R> {
             }
 
             /**
-             * Utility method to prevent unnecessary unchecked conversions
+             * Utility method to prevent unnecessary unchecked conversions.
              */
             @SuppressWarnings("unchecked")
             private final <T> void setValue(AbstractRecord record, Field<T> field, int index) throws SQLException {

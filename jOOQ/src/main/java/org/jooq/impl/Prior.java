@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -55,7 +55,7 @@ import org.jooq.conf.RenderNameStyle;
 final class Prior<T> extends AbstractField<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 4532570030471782063L;
     private final Field<T>    field;

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -64,7 +64,7 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
 /**
- * A wrapper for database results returned by <code>{@link SelectQuery}</code>
+ * A wrapper for database results returned by <code>{@link SelectQuery}</code>.
  *
  * @param <R> The record type contained in this result
  * @author Lukas Eder

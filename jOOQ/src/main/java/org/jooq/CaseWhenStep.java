@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -48,7 +48,7 @@ import java.util.Map;
  *        WHEN 2 THEN 'two'
  *        ELSE        'three'
  * END
- * </pre></code>
+ * </pre></code>.
  *
  * @param <V> The type of values being compared in this case statement
  * @param <T> The type returned by this case statement
@@ -122,7 +122,7 @@ public interface CaseWhenStep<V, T> extends Field<T> {
     CaseWhenStep<V, T> mapFields(Map<? extends Field<V>, ? extends Field<T>> fields);
 
     /**
-     * Add an else clause to the already constructed case statement
+     * Add an else clause to the already constructed case statement.
      *
      * @param result The result value if no other value matches the case
      * @return The resulting field from case statement construction
@@ -131,7 +131,7 @@ public interface CaseWhenStep<V, T> extends Field<T> {
     Field<T> otherwise(T result);
 
     /**
-     * Add an else clause to the already constructed case statement
+     * Add an else clause to the already constructed case statement.
      *
      * @param result The result value if no other value matches the case
      * @return The resulting field from case statement construction

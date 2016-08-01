@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -70,7 +70,7 @@ final class DropIndexImpl extends AbstractQuery implements
     DropIndexOnStep {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 8904572826501186329L;
     private static final Clause[] CLAUSES          = { DROP_INDEX };
@@ -90,9 +90,11 @@ final class DropIndexImpl extends AbstractQuery implements
         this.ifExists = ifExists;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: DropIndex API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: DropIndex API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final DropIndexFinalStep on(Table<?> table) {
@@ -110,9 +112,11 @@ final class DropIndexImpl extends AbstractQuery implements
         return on(table(tableName));
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: QueryPart API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: QueryPart API
+     * ------------------------------------------------------------------------
+     */
 
     private final boolean supportsIfExists(Context<?> ctx) {
         return !asList(CUBRID, DERBY, FIREBIRD).contains(ctx.family());
@@ -133,13 +137,15 @@ final class DropIndexImpl extends AbstractQuery implements
     private void accept0(Context<?> ctx) {
         ctx.keyword("drop index").sql(' ');
 
-        if (ifExists && supportsIfExists(ctx))
-            ctx.keyword("if exists").sql(' ');
+        if (ifExists && supportsIfExists(ctx)) {
+			ctx.keyword("if exists").sql(' ');
+		}
 
         ctx.visit(index);
 
-        if (on != null)
-            ctx.sql(' ').keyword("on").sql(' ').visit(on);
+        if (on != null) {
+			ctx.sql(' ').keyword("on").sql(' ').visit(on);
+		}
     }
 
     @Override

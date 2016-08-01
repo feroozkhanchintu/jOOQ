@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -46,7 +46,7 @@ import org.jooq.tools.JooqLogger;
 
 /**
  * An exception thrown if an SQL construct is used, which is not supported by
- * the dialect set in {@link Configuration#dialect()}
+ * the dialect set in {@link Configuration#dialect()}.
  *
  * @author Lukas Eder
  */

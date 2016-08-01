@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -53,7 +53,7 @@ import org.jooq.Field;
 final class RegexpLike extends AbstractCondition {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 3162855665213654276L;
     private static final Clause[] CLAUSES          = { CONDITION, CONDITION_COMPARISON };

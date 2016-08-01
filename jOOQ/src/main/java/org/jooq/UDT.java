@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -43,7 +43,7 @@ package org.jooq;
 
 
 /**
- * UDT definition
+ * UDT definition.
  *
  * @param <R> The record type
  * @author Lukas Eder
@@ -51,7 +51,7 @@ package org.jooq;
 public interface UDT<R extends UDTRecord<R>> extends QueryPart {
 
     /**
-     * Get this UDT's fields as a {@link Row}
+     * Get this UDT's fields as a {@link Row}.
      */
     Row fieldsRow();
 
@@ -131,12 +131,12 @@ public interface UDT<R extends UDTRecord<R>> extends QueryPart {
     Catalog getCatalog();
 
     /**
-     * Get the UDT schema
+     * Get the UDT schema.
      */
     Schema getSchema();
 
     /**
-     * The name of this UDT
+     * The name of this UDT.
      */
     String getName();
 
@@ -153,7 +153,7 @@ public interface UDT<R extends UDTRecord<R>> extends QueryPart {
     R newRecord();
 
     /**
-     * The UDT's data type as known to the database
+     * The UDT's data type as known to the database.
      */
     DataType<R> getDataType();
 }

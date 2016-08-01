@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -59,7 +59,7 @@ import org.jooq.exception.DataAccessException;
 public interface BindContext extends Context<BindContext> {
 
     /**
-     * Retrieve the context's underlying {@link PreparedStatement}
+     * Retrieve the context's underlying {@link PreparedStatement}.
      */
     @Override
     PreparedStatement statement();

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -73,7 +73,7 @@ import org.xml.sax.SAXException;
 public class XMLasDOMBinding extends AbstractVarcharBinding<Node> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -2153155338260706262L;
 
@@ -83,7 +83,7 @@ public class XMLasDOMBinding extends AbstractVarcharBinding<Node> {
         this.converter = new Converter<Object, Node>() {
 
             /**
-             * Generated UID
+             * Generated UID.
              */
             private static final long serialVersionUID = -2153155338260706262L;
 
@@ -121,7 +121,7 @@ public class XMLasDOMBinding extends AbstractVarcharBinding<Node> {
     /**
      * Transform an {@link Node} into a <code>String</code>.
      */
-    static final String toString(Node node) {
+    static String toString(Node node) {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
@@ -137,7 +137,7 @@ public class XMLasDOMBinding extends AbstractVarcharBinding<Node> {
     }
 
     /**
-     * Create a new DOM element in an independent document
+     * Create a new DOM element in an independent document.
      */
     public static Document fromString(String name) {
         Document document = builder().newDocument();
@@ -154,7 +154,7 @@ public class XMLasDOMBinding extends AbstractVarcharBinding<Node> {
     }
 
     /**
-     * Get a namespace-aware document builder
+     * Get a namespace-aware document builder.
      */
     public static DocumentBuilder builder() {
         try {
@@ -186,8 +186,7 @@ public class XMLasDOMBinding extends AbstractVarcharBinding<Node> {
             // features, the internal builder should be namespace-aware
             factory.setNamespaceAware(true);
 
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            return builder;
+            return factory.newDocumentBuilder();
         }
         catch (Exception e) {
             throw new RuntimeException(e);
@@ -204,7 +203,7 @@ public class XMLasDOMBinding extends AbstractVarcharBinding<Node> {
      *         well formed</li>
      *         </ul>
      */
-    static final DocumentFragment createContent(Document doc, String text) {
+    static DocumentFragment createContent(Document doc, String text) {
 
         // Text might hold XML content
         if (text != null && text.contains("<")) {
@@ -222,8 +221,6 @@ public class XMLasDOMBinding extends AbstractVarcharBinding<Node> {
                     Document parsed = builder.parse(new InputSource(new StringReader(text)));
                     DocumentFragment fragment = parsed.createDocumentFragment();
                     fragment.appendChild(parsed.getDocumentElement());
-
-                    return (DocumentFragment) doc.importNode(fragment, true);
                 }
 
                 // Any XML document fragment. To be on the safe side, fragments
@@ -238,9 +235,8 @@ public class XMLasDOMBinding extends AbstractVarcharBinding<Node> {
                     while (children.getLength() > 0) {
                         fragment.appendChild(children.item(0));
                     }
-
-                    return (DocumentFragment) doc.importNode(fragment, true);
                 }
+				return (DocumentFragment) doc.importNode(fragment, true);
             }
 
             // This does not occur

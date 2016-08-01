@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -333,7 +333,7 @@ public interface Row3<T1, T2, T3> extends Row {
     Condition notEqual(Row3<T1, T2, T3> row);
 
     /**
-     * Compare this row value expression with a record for non-equality
+     * Compare this row value expression with a record for non-equality.
      *
      * @see #notEqual(Row3)
      */

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -57,7 +57,7 @@ public interface Param<T> extends Field<T> {
      * {@inheritDoc}
      * <hr/>
      * The <code>Param</code>'s value for {@link #getName()} coincides with
-     * {@link #getParamName()}
+     * {@link #getParamName()}.
      */
     @Override
     String getName();
@@ -117,7 +117,7 @@ public interface Param<T> extends Field<T> {
     void setInline(boolean inline);
 
     /**
-     * A flag on the bind value to force it to be inlined in rendered SQL
+     * A flag on the bind value to force it to be inlined in rendered SQL.
      */
     boolean isInline();
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -56,7 +56,7 @@ import org.jooq.Table;
 abstract class AbstractStoreQuery<R extends Record> extends AbstractDMLQuery<R> implements StoreQuery<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 6864591335823160569L;
 
@@ -69,9 +69,11 @@ abstract class AbstractStoreQuery<R extends Record> extends AbstractDMLQuery<R> 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final void setRecord(R record) {
-        for (int i = 0; i < record.size(); i++)
-            if (record.changed(i))
-                addValue((Field) record.field(i), record.get(i));
+        for (int i = 0; i < record.size(); i++) {
+			if (record.changed(i)) {
+				addValue((Field) record.field(i), record.get(i));
+			}
+		}
     }
 
     final <T> void addValue(R record, Field<T> field) {

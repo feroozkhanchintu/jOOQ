@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -5731,13 +5731,13 @@ public interface DSLContext extends Scope , AutoCloseable  {
     SelectSelectStep<Record1<Integer>> selectCount();
 
     /**
-     * Create a new {@link SelectQuery}
+     * Create a new {@link SelectQuery}.
      */
     @Support
     SelectQuery<Record> selectQuery();
 
     /**
-     * Create a new {@link SelectQuery}
+     * Create a new {@link SelectQuery}.
      *
      * @param table The table to select data from
      * @return The new {@link SelectQuery}
@@ -5746,7 +5746,7 @@ public interface DSLContext extends Scope , AutoCloseable  {
     <R extends Record> SelectQuery<R> selectQuery(TableLike<R> table);
 
     /**
-     * Create a new {@link InsertQuery}
+     * Create a new {@link InsertQuery}.
      *
      * @param into The table to insert data into
      * @return The new {@link InsertQuery}
@@ -6215,7 +6215,7 @@ public interface DSLContext extends Scope , AutoCloseable  {
     <R extends Record> InsertValuesStepN<R> insertInto(Table<R> into, Collection<? extends Field<?>> fields);
 
     /**
-     * Create a new {@link UpdateQuery}
+     * Create a new {@link UpdateQuery}.
      *
      * @param table The table to update data into
      * @return The new {@link UpdateQuery}
@@ -6594,7 +6594,7 @@ public interface DSLContext extends Scope , AutoCloseable  {
     <R extends Record> MergeKeyStepN<R> mergeInto(Table<R> table, Collection<? extends Field<?>> fields);
 
     /**
-     * Create a new {@link DeleteQuery}
+     * Create a new {@link DeleteQuery}.
      *
      * @param table The table to delete data from
      * @return The new {@link DeleteQuery}

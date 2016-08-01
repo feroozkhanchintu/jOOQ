@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -43,14 +43,14 @@ package org.jooq;
 import org.jooq.impl.TableImpl;
 
 /**
- * A mapped table
+ * A mapped table.
  *
  * @author Lukas Eder
  */
 class RenamedTable<R extends Record> extends TableImpl<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -309012919785933903L;
 

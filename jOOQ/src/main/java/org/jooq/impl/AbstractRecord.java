@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -104,7 +104,7 @@ import org.jooq.tools.Convert;
 import org.jooq.tools.StringUtils;
 
 /**
- * A general base class for all {@link Record} types
+ * A general base class for all {@link Record} types.
  *
  * @author Lukas Eder
  */
@@ -112,7 +112,7 @@ import org.jooq.tools.StringUtils;
 abstract class AbstractRecord extends AbstractStore implements Record {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -6052512608911220404L;
 
@@ -139,9 +139,11 @@ abstract class AbstractRecord extends AbstractStore implements Record {
         this.changed = new BitSet(size);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Attachable API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Attachable API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     final List<Attachable> getAttachables() {
@@ -150,8 +152,9 @@ abstract class AbstractRecord extends AbstractStore implements Record {
         int size = size();
         for (int i = 0; i < size; i++) {
             if (values[i] instanceof Attachable) {
-                if (result == null)
-                    result = new ArrayList<Attachable>();
+                if (result == null) {
+					result = new ArrayList<Attachable>();
+				}
 
                 result.add((Attachable) values[i]);
             }
@@ -160,9 +163,11 @@ abstract class AbstractRecord extends AbstractStore implements Record {
         return result == null ? Collections.<Attachable>emptyList() : result;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: FieldProvider API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: FieldProvider API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final <T> Field<T> field(Field<T> field) {
@@ -209,9 +214,11 @@ abstract class AbstractRecord extends AbstractStore implements Record {
         return fields.fields(fieldIndexes);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Record API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Record API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final int size() {
@@ -371,21 +378,22 @@ abstract class AbstractRecord extends AbstractStore implements Record {
     }
 
     final int safeIndex(int index) {
-        if (index >= 0 && index < values.length)
-            return index;
+        if (index >= 0 && index < values.length) {
+			return index;
+		}
 
         throw new IllegalArgumentException("No field at index " + index + " in Record type " + fieldsRow());
     }
 
     /**
-     * Subclasses may override this
+     * Subclasses may override this.
      */
     UniqueKey<?> getPrimaryKey() {
         return null;
     }
 
-    /*
-     * This method is overridden covariantly by TableRecordImpl
+    /**
+     * This method is overridden covariantly by TableRecordImpl.
      */
     @Override
     public Record original() {
@@ -473,8 +481,9 @@ abstract class AbstractRecord extends AbstractStore implements Record {
 
         // [#1995] If a value is meant to be "unchanged", the "original" should
         // match the supposedly "unchanged" value.
-        if (!c)
-            originals[fieldIndex] = values[fieldIndex];
+        if (!c) {
+			originals[fieldIndex] = values[fieldIndex];
+		}
     }
 
     @Override
@@ -548,7 +557,7 @@ abstract class AbstractRecord extends AbstractStore implements Record {
         return Tools.newRecord(fetched, Record.class, f, configuration()).operate(new TransferRecordState<Record>(f));
     }
 
-    // [jooq-tools] START [into-fields]
+    /** [jooq-tools] START [into-fields]. */
     @Override
     public final <T1> Record1<T1> into(Field<T1> field1) {
         return (Record1) into(new Field[] { field1 });
@@ -659,7 +668,7 @@ abstract class AbstractRecord extends AbstractStore implements Record {
         return (Record22) into(new Field[] { field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22 });
     }
 
-// [jooq-tools] END [into-fields]
+/** [jooq-tools] END [into-fields]. */
 
     @Override
     public final <E> E into(Class<? extends E> type) {
@@ -720,7 +729,7 @@ abstract class AbstractRecord extends AbstractStore implements Record {
                     // [#3634] If external targetFields are provided, use those instead of the target record's fields.
                     //         The record doesn't know about aliased tables, for instance.
                     for (int targetIndex = 0; targetIndex < (targetFields != null ? targetFields.length : t.size()); targetIndex++) {
-                        Field<?> targetField = (targetFields != null ? targetFields[targetIndex] : t.field(targetIndex));
+                        Field<?> targetField = targetFields != null ? targetFields[targetIndex] : t.field(targetIndex);
                         int sourceIndex = fields.indexOf(targetField);
 
                         if (sourceIndex >= 0) {
@@ -767,7 +776,9 @@ abstract class AbstractRecord extends AbstractStore implements Record {
 
     @Override
     public final void from(Object source) {
-        if (source == null) return;
+        if (source == null) {
+			return;
+		}
 
         // [#1987] Distinguish between various types to load data from
         // Maps are loaded using a {field-name -> value} convention
@@ -788,7 +799,9 @@ abstract class AbstractRecord extends AbstractStore implements Record {
 
     @Override
     public final void from(Object source, Field<?>... f) {
-        if (source == null) return;
+        if (source == null) {
+			return;
+		}
 
         // [#1987] Distinguish between various types to load data from
         // Maps are loaded using a {field-name -> value} convention
@@ -976,9 +989,11 @@ abstract class AbstractRecord extends AbstractStore implements Record {
         }
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Object and Comparable API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Object and Comparable API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public String toString() {
@@ -1009,7 +1024,7 @@ abstract class AbstractRecord extends AbstractStore implements Record {
             throw new ClassCastException(String.format("Trying to compare incomparable records (wrong degree):\n%s\n%s", this, that));
         }
 
-        Class<?>[] thisTypes = this.fieldsRow().types();
+        Class<?>[] thisTypes = fieldsRow().types();
         Class<?>[] thatTypes = that.fieldsRow().types();
 
         if (!asList(thisTypes).equals(asList(thatTypes))) {
@@ -1074,14 +1089,14 @@ abstract class AbstractRecord extends AbstractStore implements Record {
     }
 
     /**
-     * Compare two byte arrays
+     * Compare two byte arrays.
      */
     final int compare(byte[] array1, byte[] array2) {
         int length = Math.min(array1.length, array2.length);
 
         for (int i = 0; i < length; i++) {
-            int v1 = (array1[i] & 0xff);
-            int v2 = (array2[i] & 0xff);
+            int v1 = array1[i] & 0xff;
+            int v2 = array2[i] & 0xff;
 
             if (v1 != v2) {
                 return v1 < v2 ? -1 : 1;
@@ -1092,7 +1107,7 @@ abstract class AbstractRecord extends AbstractStore implements Record {
     }
 
     /**
-     * Compare two arrays
+     * Compare two arrays.
      */
     final int compare(Object[] array1, Object[] array2) {
         int length = Math.min(array1.length, array2.length);
@@ -1108,9 +1123,11 @@ abstract class AbstractRecord extends AbstractStore implements Record {
         return array1.length - array2.length;
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: Deprecated and discouraged methods
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: Deprecated and discouraged methods
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final <T> T getValue(Field<T> field) {

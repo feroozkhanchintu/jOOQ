@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -74,19 +74,19 @@ import javax.annotation.Generated;
 public interface MergeValuesStep4<R extends Record, T1, T2, T3, T4> {
 
     /**
-     * Specify a <code>VALUES</code> clause
+     * Specify a <code>VALUES</code> clause.
      */
     @Support({ CUBRID, FIREBIRD_3_0, H2, HSQLDB, MARIADB, MYSQL, POSTGRES_9_5 })
     Merge<R> values(T1 value1, T2 value2, T3 value3, T4 value4);
 
     /**
-     * Specify a <code>VALUES</code> clause
+     * Specify a <code>VALUES</code> clause.
      */
     @Support({ CUBRID, FIREBIRD_3_0, H2, HSQLDB, MARIADB, MYSQL, POSTGRES_9_5 })
     Merge<R> values(Field<T1> value1, Field<T2> value2, Field<T3> value3, Field<T4> value4);
 
     /**
-     * Specify a <code>VALUES</code> clause
+     * Specify a <code>VALUES</code> clause.
      */
     @Support({ CUBRID, FIREBIRD_3_0, H2, HSQLDB, MARIADB, MYSQL, POSTGRES_9_5 })
     Merge<R> values(Collection<?> values);

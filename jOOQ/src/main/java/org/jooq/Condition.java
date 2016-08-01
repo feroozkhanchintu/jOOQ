@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -45,7 +45,7 @@ import org.jooq.impl.DSL;
 
 
 /**
- * A condition to be used in a query's where part
+ * A condition to be used in a query's where part.
  *
  * @author Lukas Eder
  */
@@ -396,7 +396,7 @@ public interface Condition extends QueryPart {
     /**
      * Invert this condition
      * <p>
-     * This is the same as calling {@link DSL#not(Condition)}
+     * This is the same as calling {@link DSL#not(Condition)}.
      *
      * @return This condition, inverted
      */

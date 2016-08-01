@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -56,44 +56,51 @@ class TransactionListeners implements TransactionListener {
         TransactionListenerProvider[] providers = configuration.transactionListenerProviders();
         listeners = new TransactionListener[providers.length];
 
-        for (int i = 0; i < providers.length; i++)
-            listeners[i] = providers[i].provide();
+        for (int i = 0; i < providers.length; i++) {
+			listeners[i] = providers[i].provide();
+		}
     }
 
     @Override
     public final void beginStart(TransactionContext ctx) {
-        for (TransactionListener listener : listeners)
-            listener.beginStart(ctx);
+        for (TransactionListener listener : listeners) {
+			listener.beginStart(ctx);
+		}
     }
 
     @Override
     public final void beginEnd(TransactionContext ctx) {
-        for (TransactionListener listener : listeners)
-            listener.beginEnd(ctx);
+        for (TransactionListener listener : listeners) {
+			listener.beginEnd(ctx);
+		}
     }
 
     @Override
     public final void commitStart(TransactionContext ctx) {
-        for (TransactionListener listener : listeners)
-            listener.commitStart(ctx);
+        for (TransactionListener listener : listeners) {
+			listener.commitStart(ctx);
+		}
     }
 
     @Override
     public final void commitEnd(TransactionContext ctx) {
-        for (TransactionListener listener : listeners)
-            listener.commitEnd(ctx);
+        for (TransactionListener listener : listeners) {
+			listener.commitEnd(ctx);
+		}
     }
 
     @Override
     public final void rollbackStart(TransactionContext ctx) {
-        for (TransactionListener listener : listeners)
-            listener.rollbackStart(ctx);
+        for (TransactionListener listener : listeners) {
+			listener.rollbackStart(ctx);
+		}
     }
 
     @Override
     public final void rollbackEnd(TransactionContext ctx) {
-        for (TransactionListener listener : listeners)
-            listener.rollbackEnd(ctx);
+        for (TransactionListener listener : listeners) {
+			listener.rollbackEnd(ctx);
+		}
     }
 
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -277,13 +277,15 @@ import org.jooq.util.xml.jaxb.InformationSchema;
 public class DefaultDSLContext extends AbstractScope implements DSLContext, Serializable {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 2681360188806309513L;
 
-    // -------------------------------------------------------------------------
-    // XXX Constructors
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Constructors
+     * -------------------------------------------------------------------------.
+     */
 
     public DefaultDSLContext(SQLDialect dialect) {
         this(dialect, null);
@@ -325,9 +327,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         super(configuration, configuration == null ? null : configuration.data());
     }
 
-    // -------------------------------------------------------------------------
-    // XXX AutoCloseable
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX AutoCloseable
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public void close() {
@@ -343,9 +347,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         }
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Configuration API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Configuration API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public Schema map(Schema schema) {
@@ -357,9 +363,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return Tools.getMappedTable(configuration(), table);
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Convenience methods accessing the underlying Connection
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Convenience methods accessing the underlying Connection
+     * -------------------------------------------------------------------------.
+     */
 
 
 
@@ -392,16 +400,19 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return InformationSchemaExport.export(configuration(), schemas);
     }
 
-    // -------------------------------------------------------------------------
-    // XXX APIs for creating scope for transactions, mocking, batching, etc.
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX APIs for creating scope for transactions, mocking, batching, etc.
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public <T> T transactionResult(final ThreadLocalTransactionalCallable<T> transactional) {
         TransactionProvider tp = configuration().transactionProvider();
 
-        if (!(tp instanceof ThreadLocalTransactionProvider))
-            throw new ConfigurationException("Cannot use ThreadLocalTransactionalCallable with TransactionProvider of type " + tp.getClass());
+        if (!(tp instanceof ThreadLocalTransactionProvider)) {
+			throw new ConfigurationException("Cannot use ThreadLocalTransactionalCallable with TransactionProvider of type " + tp.getClass());
+		}
 
         return transactionResult0(new TransactionalCallable<T>() {
             @Override
@@ -515,8 +526,9 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
 
     @Override
     public CompletionStage<Void> transactionAsync(Executor executor, TransactionalRunnable transactional) {
-        if (configuration().transactionProvider() instanceof ThreadLocalTransactionProvider)
-            throw new ConfigurationException("Cannot use TransactionalCallable with ThreadLocalTransactionProvider");
+        if (configuration().transactionProvider() instanceof ThreadLocalTransactionProvider) {
+			throw new ConfigurationException("Cannot use TransactionalCallable with ThreadLocalTransactionProvider");
+		}
 
         return ExecutorProviderCompletionStage.of(CompletableFuture.supplyAsync(
             () -> { transaction(transactional); return null; }, executor),
@@ -531,8 +543,9 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
 
     @Override
     public <T> CompletionStage<T> transactionResultAsync(Executor executor, TransactionalCallable<T> transactional) {
-        if (configuration().transactionProvider() instanceof ThreadLocalTransactionProvider)
-            throw new ConfigurationException("Cannot use TransactionalCallable with ThreadLocalTransactionProvider");
+        if (configuration().transactionProvider() instanceof ThreadLocalTransactionProvider) {
+			throw new ConfigurationException("Cannot use TransactionalCallable with ThreadLocalTransactionProvider");
+		}
 
         return ExecutorProviderCompletionStage.of(CompletableFuture.supplyAsync(
             () -> transactionResult(transactional), executor),
@@ -592,9 +605,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         });
     }
 
-    // -------------------------------------------------------------------------
-    // XXX RenderContext and BindContext accessors
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX RenderContext and BindContext accessors
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public RenderContext renderContext() {
@@ -627,8 +642,9 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
 
         ParamCollector collector = new ParamCollector(configuration(), false);
         collector.visit(part);
-        for (Entry<String, Param<?>> entry : collector.resultList)
-            result.add(entry.getValue().getValue());
+        for (Entry<String, Param<?>> entry : collector.resultList) {
+			result.add(entry.getValue().getValue());
+		}
 
         return Collections.unmodifiableList(result);
     }
@@ -660,9 +676,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return bindContext(stmt).visit(part).peekIndex();
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Attachable and Serializable API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Attachable and Serializable API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public void attach(Attachable... attachables) {
@@ -676,18 +694,22 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         }
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Access to the loader API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Access to the loader API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public <R extends Record> LoaderOptionsStep<R> loadInto(Table<R> table) {
         return new LoaderImpl<R>(configuration(), table);
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Plain SQL API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Plain SQL API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public Query query(SQL sql) {
@@ -976,9 +998,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return resultQuery(sql, (Object[]) parts);
     }
 
-    // -------------------------------------------------------------------------
-    // XXX JDBC convenience methods
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX JDBC convenience methods
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public Result<Record> fetch(ResultSet rs) {
@@ -1351,9 +1375,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         }
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Global Query factory
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Global Query factory
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public WithAsStep with(String alias) {
@@ -1365,7 +1391,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new WithImpl(configuration(), false).with(alias, fieldAliases);
     }
 
-    // [jooq-tools] START [with]
+    /** [jooq-tools] START [with]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -1499,7 +1525,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new WithImpl(configuration(), false).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18, fieldAlias19, fieldAlias20, fieldAlias21, fieldAlias22);
     }
 
-// [jooq-tools] END [with]
+/** [jooq-tools] END [with]. */
 
     @Override
     public WithStep with(CommonTableExpression<?>... tables) {
@@ -1516,7 +1542,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new WithImpl(configuration(), true).with(alias, fieldAliases);
     }
 
-    // [jooq-tools] START [with-recursive]
+    /** [jooq-tools] START [with-recursive]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -1650,7 +1676,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new WithImpl(configuration(), true).with(alias, fieldAlias1, fieldAlias2, fieldAlias3, fieldAlias4, fieldAlias5, fieldAlias6, fieldAlias7, fieldAlias8, fieldAlias9, fieldAlias10, fieldAlias11, fieldAlias12, fieldAlias13, fieldAlias14, fieldAlias15, fieldAlias16, fieldAlias17, fieldAlias18, fieldAlias19, fieldAlias20, fieldAlias21, fieldAlias22);
     }
 
-// [jooq-tools] END [with-recursive]
+/** [jooq-tools] END [with-recursive]. */
 
     @Override
     public WithStep withRecursive(CommonTableExpression<?>... tables) {
@@ -1678,7 +1704,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return result;
     }
 
-// [jooq-tools] START [select]
+/** [jooq-tools] START [select]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -1812,7 +1838,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return (SelectSelectStep) select(new SelectField[] { field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22 });
     }
 
-// [jooq-tools] END [select]
+/** [jooq-tools] END [select]. */
 
     @Override
     public SelectSelectStep<Record> selectDistinct(Collection<? extends SelectField<?>> fields) {
@@ -1828,7 +1854,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return result;
     }
 
-// [jooq-tools] START [selectDistinct]
+/** [jooq-tools] START [selectDistinct]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -1962,7 +1988,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return (SelectSelectStep) selectDistinct(new SelectField[] { field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22 });
     }
 
-// [jooq-tools] END [selectDistinct]
+/** [jooq-tools] END [selectDistinct]. */
 
     @Override
     public SelectSelectStep<Record1<Integer>> selectZero() {
@@ -2005,7 +2031,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new InsertImpl(configuration(), null, into, Collections.<Field<?>>emptyList());
     }
 
-// [jooq-tools] START [insert]
+/** [jooq-tools] START [insert]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -2139,7 +2165,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new InsertImpl(configuration(), null, into, Arrays.asList(new Field[] { field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22 }));
     }
 
-// [jooq-tools] END [insert]
+/** [jooq-tools] END [insert]. */
 
     @Override
     public <R extends Record> InsertValuesStepN<R> insertInto(Table<R> into, Field<?>... fields) {
@@ -2166,7 +2192,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new MergeImpl(configuration(), null, table);
     }
 
-// [jooq-tools] START [merge]
+/** [jooq-tools] START [merge]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -2300,7 +2326,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new MergeImpl(configuration(), null, table, Arrays.asList(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22));
     }
 
-// [jooq-tools] END [merge]
+/** [jooq-tools] END [merge]. */
 
     @Override
     public <R extends Record> MergeKeyStepN<R> mergeInto(Table<R> table, Field<?>... fields) {
@@ -2327,9 +2353,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new DeleteImpl<R>(configuration(), null, table);
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Batch query execution
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Batch query execution
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public Batch batch(Query... queries) {
@@ -2417,9 +2445,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return batchDelete(records.toArray(EMPTY_UPDATABLE_RECORD));
     }
 
-    // -------------------------------------------------------------------------
-    // XXX DDL Statements from existing meta data
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX DDL Statements from existing meta data
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public Queries ddl(Catalog catalog) {
@@ -2451,9 +2481,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new DDL(this, flags).queries(table);
     }
 
-    // -------------------------------------------------------------------------
-    // XXX DDL Statements
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX DDL Statements
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public CreateViewAsStep<Record> createView(String view, String... fields) {
@@ -2940,9 +2972,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new TruncateImpl<R>(configuration(), table);
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Other queries for identites and sequences
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Other queries for identites and sequences
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public BigInteger lastID() {
@@ -3025,16 +3059,18 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return select(currval).fetchOne(currval);
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Global Record factory
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Global Record factory
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public Record newRecord(Field<?>... fields) {
         return Tools.newRecord(false, RecordImpl.class, fields, configuration()).<RuntimeException>operate(null);
     }
 
-    // [jooq-tools] START [newRecord]
+    /** [jooq-tools] START [newRecord]. */
     @Generated("This method was generated using jOOQ-tools")
     @Override
     public <T1> Record1<T1> newRecord(Field<T1> field1) {
@@ -3167,7 +3203,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return (Record22) newRecord(new Field[] { field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22 });
     }
 
-// [jooq-tools] END [newRecord]
+/** [jooq-tools] END [newRecord]. */
 
     @Override
     public <R extends UDTRecord<R>> R newRecord(UDT<R> type) {
@@ -3202,7 +3238,7 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return new ResultImpl<Record>(configuration(), fields);
     }
 
-// [jooq-tools] START [newResult]
+/** [jooq-tools] START [newResult]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -3336,11 +3372,14 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return (Result) newResult(new Field[] { field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22 });
     }
 
-// [jooq-tools] END [newResult]
+/**
 
-    // -------------------------------------------------------------------------
-    // XXX Executing queries
-    // -------------------------------------------------------------------------
+ * [jooq-tools] END [newResult]
+
+     * -------------------------------------------------------------------------
+     * XXX Executing queries
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public <R extends Record> Result<R> fetch(ResultQuery<R> query) {
@@ -3485,11 +3524,13 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
     }
 
     private final <T, R extends Record1<T>> T value1(R record) {
-        if (record == null)
-            return null;
+        if (record == null) {
+			return null;
+		}
 
-        if (record.size() != 1)
-            throw new InvalidResultException("Record contains more than one value : " + record);
+        if (record.size() != 1) {
+			throw new InvalidResultException("Record contains more than one value : " + record);
+		}
 
         return record.value1();
     }
@@ -3537,9 +3578,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         }
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Fast querying
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Fast querying
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public <R extends Record> Result<R> fetch(Table<R> table) {
@@ -3664,9 +3707,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         return delete.execute();
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Static initialisation of dialect-specific data types
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Static initialisation of dialect-specific data types
+     * -------------------------------------------------------------------------.
+     */
 
     static {
         // Load all dialect-specific data types
@@ -3677,9 +3722,11 @@ public class DefaultDSLContext extends AbstractScope implements DSLContext, Seri
         } catch (Exception ignore) {}
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Internals
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Internals
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public String toString() {

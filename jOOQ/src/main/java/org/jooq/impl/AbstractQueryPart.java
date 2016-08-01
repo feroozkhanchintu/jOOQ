@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -61,9 +61,11 @@ abstract class AbstractQueryPart implements QueryPartInternal {
 
     private static final long serialVersionUID = 2078114876079493107L;
 
-    // -------------------------------------------------------------------------
-    // [#1544] The deprecated Attachable and Attachable internal API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * [#1544] The deprecated Attachable and Attachable internal API
+     * -------------------------------------------------------------------------.
+     */
 
     Configuration configuration() {
         return new DefaultConfiguration();
@@ -94,7 +96,7 @@ abstract class AbstractQueryPart implements QueryPartInternal {
     // -------------------------------------------------------------------------
 
     /**
-     * Subclasses may override this
+     * Subclasses may override this.
      */
     @Override
     public boolean declaresFields() {
@@ -102,7 +104,7 @@ abstract class AbstractQueryPart implements QueryPartInternal {
     }
 
     /**
-     * Subclasses may override this
+     * Subclasses may override this.
      */
     @Override
     public boolean declaresTables() {
@@ -110,7 +112,7 @@ abstract class AbstractQueryPart implements QueryPartInternal {
     }
 
     /**
-     * Subclasses may override this
+     * Subclasses may override this.
      */
     @Override
     public boolean declaresWindows() {
@@ -118,7 +120,7 @@ abstract class AbstractQueryPart implements QueryPartInternal {
     }
 
     /**
-     * Subclasses may override this
+     * Subclasses may override this.
      */
     @Override
     public boolean declaresCTE() {
@@ -126,16 +128,18 @@ abstract class AbstractQueryPart implements QueryPartInternal {
     }
 
     /**
-     * Subclasses may override this
+     * Subclasses may override this.
      */
     @Override
     public boolean generatesCast() {
         return false;
     }
 
-    // -------------------------------------------------------------------------
-    // The Object API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * The Object API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public boolean equals(Object that) {
@@ -178,28 +182,28 @@ abstract class AbstractQueryPart implements QueryPartInternal {
     // -------------------------------------------------------------------------
 
     /**
-     * Internal convenience method
+     * Internal convenience method.
      */
     protected final DSLContext create() {
         return create(configuration());
     }
 
     /**
-     * Internal convenience method
+     * Internal convenience method.
      */
     protected final DSLContext create(Configuration configuration) {
         return DSL.using(configuration);
     }
 
     /**
-     * Internal convenience method
+     * Internal convenience method.
      */
     protected final DSLContext create(Context<?> ctx) {
         return DSL.using(ctx.configuration());
     }
 
     /**
-     * Internal convenience method
+     * Internal convenience method.
      */
     protected final DataAccessException translate(String sql, SQLException e) {
         return Tools.translate(sql, e);

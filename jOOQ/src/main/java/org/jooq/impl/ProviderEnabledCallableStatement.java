@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -61,9 +61,11 @@ final class ProviderEnabledCallableStatement extends DefaultCallableStatement {
         this.connection = connection;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX Closing the Statement
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX Closing the Statement
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final void close() throws SQLException {

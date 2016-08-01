@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -55,14 +55,14 @@ import org.jooq.WindowSpecification;
 import org.jooq.tools.StringUtils;
 
 /**
- * The default implementation for a SQL identifier
+ * The default implementation for a SQL identifier.
  *
  * @author Lukas Eder
  */
 final class NameImpl extends AbstractQueryPart implements Name {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 8562325639223483938L;
 
@@ -114,13 +114,14 @@ final class NameImpl extends AbstractQueryPart implements Name {
 
     @Override
     public final DerivedColumnListImpl fields(String... fieldNames) {
-        if (qualifiedName.length != 1)
-            throw new IllegalStateException("Cannot create a DerivedColumnList from a qualified name : " + Arrays.asList(qualifiedName));
+        if (qualifiedName.length != 1) {
+			throw new IllegalStateException("Cannot create a DerivedColumnList from a qualified name : " + Arrays.asList(qualifiedName));
+		}
 
         return new DerivedColumnListImpl(qualifiedName[0], fieldNames);
     }
 
-    // [jooq-tools] START [fields]
+    /** [jooq-tools] START [fields]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -254,11 +255,14 @@ final class NameImpl extends AbstractQueryPart implements Name {
         return fields(new String[] { fieldName1, fieldName2, fieldName3, fieldName4, fieldName5, fieldName6, fieldName7, fieldName8, fieldName9, fieldName10, fieldName11, fieldName12, fieldName13, fieldName14, fieldName15, fieldName16, fieldName17, fieldName18, fieldName19, fieldName20, fieldName21, fieldName22 });
     }
 
-// [jooq-tools] END [fields]
+/**
 
-    // ------------------------------------------------------------------------
-    // XXX: Object API
-    // ------------------------------------------------------------------------
+ * [jooq-tools] END [fields]
+
+     * ------------------------------------------------------------------------
+     * XXX: Object API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public int hashCode() {
@@ -274,7 +278,7 @@ final class NameImpl extends AbstractQueryPart implements Name {
         // [#1626] NameImpl equality can be decided without executing the
         // rather expensive implementation of AbstractQueryPart.equals()
         if (that instanceof NameImpl) {
-            return Arrays.equals(getName(), (((NameImpl) that).getName()));
+            return Arrays.equals(getName(), ((NameImpl) that).getName());
         }
 
         return super.equals(that);

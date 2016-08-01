@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -71,7 +71,7 @@ import org.jooq.exception.SQLDialectNotSupportedException;
 public class SequenceImpl<T extends Number> extends AbstractQueryPart implements Sequence<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 6224349401603636427L;
     private static final Clause[] CLAUSES          = { SEQUENCE, SEQUENCE_REFERENCE };
@@ -125,7 +125,7 @@ public class SequenceImpl<T extends Number> extends AbstractQueryPart implements
     private class SequenceFunction extends AbstractFunction<T> {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long     serialVersionUID = 2292275568395094887L;
 
@@ -226,9 +226,11 @@ public class SequenceImpl<T extends Number> extends AbstractQueryPart implements
         }
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: QueryPart API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: QueryPart API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final void accept(Context<?> ctx) {
@@ -249,12 +251,13 @@ public class SequenceImpl<T extends Number> extends AbstractQueryPart implements
             }
         }
 
-        if (asStringLiterals)
-            ctx.visit(inline(name));
-        else if (nameIsPlainSQL)
-            ctx.sql(name);
-        else
-            ctx.literal(name);
+        if (asStringLiterals) {
+			ctx.visit(inline(name));
+		} else if (nameIsPlainSQL) {
+			ctx.sql(name);
+		} else {
+			ctx.literal(name);
+		}
     }
 
     @Override
@@ -262,9 +265,11 @@ public class SequenceImpl<T extends Number> extends AbstractQueryPart implements
         return CLAUSES;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Object API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public int hashCode() {

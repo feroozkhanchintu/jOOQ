@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -88,7 +88,7 @@ import org.jooq.tools.jdbc.JDBCUtils;
 abstract class AbstractDMLQuery<R extends Record> extends AbstractQuery {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = -7438014075226919192L;
 
@@ -105,30 +105,30 @@ abstract class AbstractDMLQuery<R extends Record> extends AbstractQuery {
         this.returning = new QueryPartList<Field<?>>();
     }
 
-    // @Override
+    /** @Override */
     public final void setReturning() {
         setReturning(table.fields());
     }
 
-    // @Override
+    /** @Override */
     public final void setReturning(Identity<R, ?> identity) {
         if (identity != null) {
             setReturning(identity.getField());
         }
     }
 
-    // @Override
+    /** @Override */
     public final void setReturning(Field<?>... fields) {
         setReturning(Arrays.asList(fields));
     }
 
-    // @Override
+    /** @Override */
     public final void setReturning(Collection<? extends Field<?>> fields) {
         returning.clear();
         returning.addAll(fields);
     }
 
-    // @Override
+    /** @Override */
     public final R getReturnedRecord() {
         if (getReturnedRecords().size() == 0) {
             return null;
@@ -137,7 +137,7 @@ abstract class AbstractDMLQuery<R extends Record> extends AbstractQuery {
         return getReturnedRecords().get(0);
     }
 
-    // @Override
+    /** @Override */
     public final Result<R> getReturnedRecords() {
         if (returned == null) {
             returned = new ResultImpl<R>(configuration(), returning);
@@ -148,8 +148,9 @@ abstract class AbstractDMLQuery<R extends Record> extends AbstractQuery {
 
     @Override
     public final void accept(Context<?> ctx) {
-        if (with != null)
-            ctx.visit(with).formatSeparator();
+        if (with != null) {
+			ctx.visit(with).formatSeparator();
+		}
 
 
 
@@ -313,12 +314,13 @@ abstract class AbstractDMLQuery<R extends Record> extends AbstractQuery {
                         // PostgreSQL generated case-insensitive Fields (default to lower case)
                         // and wants to query HSQLDB (default to upper case), they may choose
                         // to overwrite casing using RenderKeywordStyle.
-                        if (style == UPPER)
-                            names.add(field.getName().toUpperCase());
-                        else if (style == LOWER)
-                            names.add(field.getName().toLowerCase());
-                        else
-                            names.add(field.getName());
+                        if (style == UPPER) {
+							names.add(field.getName().toUpperCase());
+						} else if (style == LOWER) {
+							names.add(field.getName().toLowerCase());
+						} else {
+							names.add(field.getName());
+						}
                     }
 
                     ctx.statement(connection.prepareStatement(ctx.sql(), names.toArray(EMPTY_STRING)));
@@ -408,9 +410,11 @@ abstract class AbstractDMLQuery<R extends Record> extends AbstractQuery {
 
                         // Some JDBC drivers seem to illegally return null
                         // from getGeneratedKeys() sometimes
-                        if (rs != null)
-                            while (rs.next())
-                                list.add(rs.getObject(1));
+                        if (rs != null) {
+							while (rs.next()) {
+								list.add(rs.getObject(1));
+							}
+						}
 
                         selectReturning(ctx.configuration(), list.toArray());
                         return result;
@@ -495,8 +499,9 @@ abstract class AbstractDMLQuery<R extends Record> extends AbstractQuery {
             returned = new CursorImpl<R>(ctx2, listener2, fieldArray(returning), null, false, true).fetch();
 
             // [#3682] Plain SQL tables do not have any fields
-            if (table.fields().length > 0)
-                returned = returned.into(table);
+            if (table.fields().length > 0) {
+				returned = returned.into(table);
+			}
 
             // [#5366] HSQLDB currently doesn't support fetching updated records in UPDATE statements.
             // [#5408] Other dialects may fall through the switch above (PostgreSQL, Firebird, Oracle) and must
@@ -516,47 +521,42 @@ abstract class AbstractDMLQuery<R extends Record> extends AbstractQuery {
      */
     @SuppressWarnings("unchecked")
     private final void selectReturning(Configuration configuration, Object... values) {
-        if (values != null && values.length > 0) {
+        if (values != null && values.length > 0 && table.getIdentity() != null) {
+		    final Field<Object> field = (Field<Object>) table.getIdentity().getField();
+		    Object[] ids = new Object[values.length];
+		    for (int i = 0; i < values.length; i++) {
+		        ids[i] = field.getDataType().convert(values[i]);
+		    }
 
-            // This shouldn't be null, as relevant dialects should
-            // return empty generated keys ResultSet
-            if (table.getIdentity() != null) {
-                final Field<Object> field = (Field<Object>) table.getIdentity().getField();
-                Object[] ids = new Object[values.length];
-                for (int i = 0; i < values.length; i++) {
-                    ids[i] = field.getDataType().convert(values[i]);
-                }
+		    // Only the IDENTITY value was requested. No need for an
+		    // additional query
+		    if (returning.size() == 1 && new Fields<Record>(returning).field(field) != null) {
+		        for (final Object id : ids) {
+		            getReturnedRecords().add(
+		            Tools.newRecord(true, table, configuration)
+		                 .operate(new RecordOperation<R, RuntimeException>() {
 
-                // Only the IDENTITY value was requested. No need for an
-                // additional query
-                if (returning.size() == 1 && new Fields<Record>(returning).field(field) != null) {
-                    for (final Object id : ids) {
-                        getReturnedRecords().add(
-                        Tools.newRecord(true, table, configuration)
-                             .operate(new RecordOperation<R, RuntimeException>() {
+		                    @Override
+		                    public R operate(R record) throws RuntimeException {
+		                        int index = record.fieldsRow().indexOf(field);
 
-                                @Override
-                                public R operate(R record) throws RuntimeException {
-                                    int index = record.fieldsRow().indexOf(field);
+		                        ((AbstractRecord) record).values[index] = id;
+		                        ((AbstractRecord) record).originals[index] = id;
 
-                                    ((AbstractRecord) record).values[index] = id;
-                                    ((AbstractRecord) record).originals[index] = id;
+		                        return record;
+		                    }
+		                }));
+		        }
+		    }
 
-                                    return record;
-                                }
-                            }));
-                    }
-                }
-
-                // Other values are requested, too. Run another query
-                else {
-                    returned =
-                    create(configuration).select(returning)
-                                         .from(table)
-                                         .where(field.in(ids))
-                                         .fetchInto(table);
-                }
-            }
-        }
+		    // Other values are requested, too. Run another query
+		    else {
+		        returned =
+		        create(configuration).select(returning)
+		                             .from(table)
+		                             .where(field.in(ids))
+		                             .fetchInto(table);
+		    }
+		}
     }
 }

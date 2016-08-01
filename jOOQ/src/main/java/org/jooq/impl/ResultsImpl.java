@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -57,7 +57,7 @@ import org.jooq.Results;
 final class ResultsImpl extends AbstractList<Result<Record>> implements Results, AttachableInternal {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long        serialVersionUID = 1744826140354980500L;
 
@@ -69,26 +69,32 @@ final class ResultsImpl extends AbstractList<Result<Record>> implements Results,
         this.results = new ArrayList<ResultOrRows>();
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Additional, Results-specific methods
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Additional, Results-specific methods
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final List<ResultOrRows> resultsOrRows() {
         return results;
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: Attachable API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: Attachable API
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final void attach(Configuration c) {
         this.configuration = c;
 
-        for (Result<?> result : this)
-            if (result != null)
-                result.attach(c);
+        for (Result<?> result : this) {
+			if (result != null) {
+				result.attach(c);
+			}
+		}
     }
 
     @Override
@@ -101,9 +107,11 @@ final class ResultsImpl extends AbstractList<Result<Record>> implements Results,
         return configuration;
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Object API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Object API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public String toString() {
@@ -111,10 +119,11 @@ final class ResultsImpl extends AbstractList<Result<Record>> implements Results,
         String separator = "";
 
         for (ResultOrRows result : results) {
-            if (result.result() == null)
-                sb.append(separator).append("Update count: ").append(result.rows());
-            else
-                sb.append(separator).append("Result set:\n").append(result.result());
+            if (result.result() != null) {
+				sb.append(separator).append("Result set:\n").append(result.result());
+			} else {
+				sb.append(separator).append("Update count: ").append(result.rows());
+			}
 
             separator = "\n";
         }
@@ -141,9 +150,11 @@ final class ResultsImpl extends AbstractList<Result<Record>> implements Results,
         return false;
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: List API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: List API
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final int size() {
@@ -178,9 +189,11 @@ final class ResultsImpl extends AbstractList<Result<Record>> implements Results,
     private final List<Result<Record>> list() {
         List<Result<Record>> list = new ArrayList<Result<Record>>();
 
-        for (ResultOrRows result : results)
-            if (result.result() != null)
-                list.add(result.result());
+        for (ResultOrRows result : results) {
+			if (result.result() != null) {
+				list.add(result.result());
+			}
+		}
 
         return list;
     }
@@ -188,8 +201,11 @@ final class ResultsImpl extends AbstractList<Result<Record>> implements Results,
     private final int translatedIndex(int index) {
         int translated = 0;
 
-        for (int i = 0; i < index; i++)
-            while (results.get(translated++).result() == null);
+        for (int i = 0; i < index; i++) {
+			while (results.get(translated++).result() == null) {
+				;
+			}
+		}
 
         return translated;
     }
@@ -227,28 +243,30 @@ final class ResultsImpl extends AbstractList<Result<Record>> implements Results,
             final int prime = 31;
             int r = 1;
             r = prime * r + ((this.result == null) ? 0 : this.result.hashCode());
-            r = prime * r + rows;
-            return r;
+            return prime * r + rows;
         }
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
+            if (this == obj) {
+				return true;
+			}
+            if (obj == null) {
+				return false;
+			}
+            if (getClass() != obj.getClass()) {
+				return false;
+			}
             ResultOrRowsImpl other = (ResultOrRowsImpl) obj;
             if (result == null) {
-                if (other.result != null)
-                    return false;
+                if (other.result != null) {
+					return false;
+				}
             }
-            else if (!result.equals(other.result))
-                return false;
-            if (rows != other.rows)
-                return false;
-            return true;
+            else if (!result.equals(other.result)) {
+				return false;
+			}
+            return rows == other.rows;
         }
     }
 }

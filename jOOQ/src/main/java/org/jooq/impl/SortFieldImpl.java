@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -53,7 +53,7 @@ import org.jooq.SortOrder;
 final class SortFieldImpl<T> extends AbstractQueryPart implements SortField<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 1223739398544155873L;
 

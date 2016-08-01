@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -94,7 +94,7 @@ final class CreateTableImpl<R extends Record> extends AbstractQuery implements
     CreateTableColumnStep {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long       serialVersionUID = 8904572826501186329L;
 
@@ -119,9 +119,11 @@ final class CreateTableImpl<R extends Record> extends AbstractQuery implements
         this.constraints = new ArrayList<Constraint>();
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: DSL API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: DSL API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final CreateTableOnCommitStep as(Select<? extends R> s) {
@@ -142,8 +144,9 @@ final class CreateTableImpl<R extends Record> extends AbstractQuery implements
 
     @Override
     public final CreateTableColumnStep columns(Collection<? extends Field<?>> fields) {
-        for (Field<?> field : fields)
-            column(field);
+        for (Field<?> field : fields) {
+			column(field);
+		}
 
         return this;
     }
@@ -201,9 +204,11 @@ final class CreateTableImpl<R extends Record> extends AbstractQuery implements
         return this;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: QueryPart API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: QueryPart API
+     * ------------------------------------------------------------------------
+     */
 
     private final boolean supportsIfNotExists(Context<?> ctx) {
         return !asList(DERBY, FIREBIRD).contains(ctx.family());
@@ -255,35 +260,41 @@ final class CreateTableImpl<R extends Record> extends AbstractQuery implements
 
                 // [#5356] Some dialects require the DEFAULT clause prior to the
                 //         NULL constraints clause
-                if (asList(HSQLDB).contains(ctx.family()))
-                    acceptDefault(ctx, type);
+                if (asList(HSQLDB).contains(ctx.family())) {
+					acceptDefault(ctx, type);
+				}
 
                 if (type.nullable()) {
 
                     // [#4321] Not all dialects support explicit NULL type declarations
-                    if (!asList(DERBY, FIREBIRD).contains(ctx.family()))
-                        ctx.sql(' ').keyword("null");
+                    if (!asList(DERBY, FIREBIRD).contains(ctx.family())) {
+						ctx.sql(' ').keyword("null");
+					}
                 }
                 else {
                     ctx.sql(' ').keyword("not null");
                 }
 
-                if (!asList(HSQLDB).contains(ctx.family()))
-                    acceptDefault(ctx, type);
+                if (!asList(HSQLDB).contains(ctx.family())) {
+					acceptDefault(ctx, type);
+				}
 
-                if (i < columnFields.size() - 1)
-                    ctx.sql(',').formatSeparator();
+                if (i < columnFields.size() - 1) {
+					ctx.sql(',').formatSeparator();
+				}
             }
 
             ctx.qualify(qualify);
             ctx.end(CREATE_TABLE_COLUMNS)
                .start(CREATE_TABLE_CONSTRAINTS);
 
-            if (!constraints.isEmpty())
-                for (Constraint constraint : constraints)
-                    ctx.sql(',')
+            if (!constraints.isEmpty()) {
+				for (Constraint constraint : constraints) {
+					ctx.sql(',')
                        .formatSeparator()
                        .visit(constraint);
+				}
+			}
 
             ctx.end(CREATE_TABLE_CONSTRAINTS)
                .formatIndentEnd()
@@ -296,8 +307,9 @@ final class CreateTableImpl<R extends Record> extends AbstractQuery implements
     }
 
     private void acceptDefault(Context<?> ctx, DataType<?> type) {
-        if (type.defaulted())
-            ctx.sql(' ').keyword("default").sql(' ').visit(type.defaultValue());
+        if (type.defaulted()) {
+			ctx.sql(' ').keyword("default").sql(' ').visit(type.defaultValue());
+		}
     }
 
     private final void acceptCreateTableAsSelect(Context<?> ctx) {
@@ -325,9 +337,10 @@ final class CreateTableImpl<R extends Record> extends AbstractQuery implements
                .formatNewLine()
                .sql(')');
 
-            if (ctx.family() == HSQLDB)
-                ctx.sql(' ')
+            if (ctx.family() == HSQLDB) {
+				ctx.sql(' ')
                    .keyword("with data");
+			}
         }
 
         ctx.end(CREATE_TABLE);
@@ -338,18 +351,21 @@ final class CreateTableImpl<R extends Record> extends AbstractQuery implements
            .keyword("create")
            .sql(' ');
 
-        if (temporary)
-            if (asList(MARIADB, MYSQL, POSTGRES).contains(ctx.family()))
-                ctx.keyword("temporary").sql(' ');
-            else
-                ctx.keyword("global temporary").sql(' ');
+        if (temporary) {
+			if (asList(MARIADB, MYSQL, POSTGRES).contains(ctx.family())) {
+				ctx.keyword("temporary").sql(' ');
+			} else {
+				ctx.keyword("global temporary").sql(' ');
+			}
+		}
 
         ctx.keyword("table")
            .sql(' ');
 
-        if (ifNotExists && supportsIfNotExists(ctx))
-            ctx.keyword("if not exists")
+        if (ifNotExists && supportsIfNotExists(ctx)) {
+			ctx.keyword("if not exists")
                .sql(' ');
+		}
 
         ctx.visit(table)
            .end(CREATE_TABLE_NAME);

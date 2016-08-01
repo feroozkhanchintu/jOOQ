@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -55,7 +55,7 @@ import java.io.Serializable;
 public interface Identity<R extends Record, T> extends Serializable {
 
     /**
-     * The <code>IDENTITY</code>'s owner table
+     * The <code>IDENTITY</code>'s owner table.
      */
     Table<R> getTable();
 

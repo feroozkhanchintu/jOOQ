@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -41,7 +41,7 @@
 package org.jooq;
 
 /**
- * Some publicly available constants used in jOOQ
+ * Some publicly available constants used in jOOQ.
  *
  * @author Lukas Eder
  */
@@ -74,7 +74,7 @@ public final class Constants {
     public static final String XSD_RUNTIME    = "jooq-runtime-3.8.0.xsd";
 
     /**
-     * The current jooq-runtime XML namespace
+     * The current jooq-runtime XML namespace.
      */
     public static final String NS_RUNTIME     = "http://www.jooq.org/xsd/" + XSD_RUNTIME;
 
@@ -84,7 +84,7 @@ public final class Constants {
     public static final String XSD_EXPORT     = "jooq-export-3.7.0.xsd";
 
     /**
-     * The current jooq-export XML namespace
+     * The current jooq-export XML namespace.
      */
     public static final String NS_EXPORT      = "http://www.jooq.org/xsd/" + XSD_EXPORT;
 
@@ -109,12 +109,12 @@ public final class Constants {
     public static final String NS_CODEGEN     = "http://www.jooq.org/xsd/" + XSD_CODEGEN;
 
     /**
-     * The maximum degree of {@link Row} and {@link Record} subtypes
+     * The maximum degree of {@link Row} and {@link Record} subtypes.
      */
     public static final int    MAX_ROW_DEGREE = 22;
 
     /**
-     * No further instances
+     * No further instances.
      */
     private Constants() {}
 }

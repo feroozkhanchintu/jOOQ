@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -63,7 +63,7 @@ final class TruncateImpl<R extends Record> extends AbstractQuery implements
     TruncateIdentityStep<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 8904572826501186329L;
     private static final Clause[] CLAUSES          = { TRUNCATE };
@@ -128,22 +128,15 @@ final class TruncateImpl<R extends Record> extends AbstractQuery implements
 
 
 
-                if (restartIdentity != null)
-                    ctx.formatSeparator()
+                if (restartIdentity != null) {
+					ctx.formatSeparator()
                        .keyword(restartIdentity ? "restart identity" : "continue identity");
+				}
 
-                if (cascade != null)
-
-
-
-
-
-
-
-
-
-                        ctx.formatSeparator()
-                           .keyword(cascade ? "cascade" : "restrict");
+                if (cascade != null) {
+					ctx.formatSeparator()
+					   .keyword(cascade ? "cascade" : "restrict");
+				}
 
                 ctx.end(TRUNCATE_TRUNCATE);
                 break;

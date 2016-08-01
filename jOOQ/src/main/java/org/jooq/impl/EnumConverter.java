@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -53,7 +53,7 @@ import java.util.Map;
 public class EnumConverter<T, U extends Enum<U>> extends AbstractConverter<T, U> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -6094337837408829491L;
 
@@ -79,7 +79,7 @@ public class EnumConverter<T, U extends Enum<U>> extends AbstractConverter<T, U>
      * Subclasses may override this method to provide a custom reverse mapping
      * implementation
      * <p>
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public T to(U userObject) {
@@ -102,12 +102,12 @@ public class EnumConverter<T, U extends Enum<U>> extends AbstractConverter<T, U>
     enum EnumType {
 
         /**
-         * Ordinal enum type
+         * Ordinal enum type.
          */
         ORDINAL,
 
         /**
-         * String enum type
+         * String enum type.
          */
         STRING
     }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -3170,15 +3170,11 @@ public interface ResultQuery<R extends Record> extends Query, Iterable<R> {
      */
     Class<? extends R> getRecordType();
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     ResultQuery<R> bind(String param, Object value) throws IllegalArgumentException, DataTypeException;
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     ResultQuery<R> bind(int index, Object value) throws IllegalArgumentException, DataTypeException;
 
@@ -3186,15 +3182,11 @@ public interface ResultQuery<R extends Record> extends Query, Iterable<R> {
     // JDBC methods
     // ------------------------------------------------------------------------
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     ResultQuery<R> queryTimeout(int timeout);
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     ResultQuery<R> keepStatement(boolean keepStatement);
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -81,7 +81,7 @@ public interface MergeUsingStep<R extends Record> extends MergeKeyStepN<R> {
 
     /**
      * Add the <code>USING</code> clause to the SQL standard <code>MERGE</code>
-     * statement
+     * statement.
      */
     @Support({ CUBRID, FIREBIRD_3_0, HSQLDB })
     MergeOnStep<R> using(TableLike<?> table);

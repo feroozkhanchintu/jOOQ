@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -55,7 +55,7 @@ import org.jooq.exception.DataAccessException;
 public interface ForeignKey<R extends Record, O extends Record> extends Key<R> {
 
     /**
-     * The referenced <code>Key</code>
+     * The referenced <code>Key</code>.
      */
     UniqueKey<O> getKey();
 
@@ -97,7 +97,7 @@ public interface ForeignKey<R extends Record, O extends Record> extends Key<R> {
      * Fetch child records of a given record through this foreign key
      * <p>
      * This returns childs record referencing a given record through this
-     * foreign key
+     * foreign key.
      *
      * @throws DataAccessException if something went wrong executing the query
      * @see UpdatableRecord#fetchChild(ForeignKey)
@@ -109,7 +109,7 @@ public interface ForeignKey<R extends Record, O extends Record> extends Key<R> {
      * Fetch child records of a given set of records through this foreign key
      * <p>
      * This returns childs record referencing any record in a given set of
-     * records through this foreign key
+     * records through this foreign key.
      *
      * @throws DataAccessException if something went wrong executing the query
      * @see UpdatableRecord#fetchChild(ForeignKey)
@@ -121,7 +121,7 @@ public interface ForeignKey<R extends Record, O extends Record> extends Key<R> {
      * Fetch child records of a given set of records through this foreign key
      * <p>
      * This returns childs record referencing any record in a given set of
-     * records through this foreign key
+     * records through this foreign key.
      *
      * @throws DataAccessException if something went wrong executing the query
      * @see UpdatableRecord#fetchChild(ForeignKey)

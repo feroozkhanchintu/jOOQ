@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -50,25 +50,25 @@ package org.jooq;
 public interface BetweenAndStepN {
 
     /**
-     * Create a condition to check this field against some bounds
+     * Create a condition to check this field against some bounds.
      */
     @Support
     Condition and(Field<?>... maxValues);
 
     /**
-     * Create a condition to check this field against some bounds
+     * Create a condition to check this field against some bounds.
      */
     @Support
     Condition and(Object... maxValues);
 
     /**
-     * Create a condition to check this field against some bounds
+     * Create a condition to check this field against some bounds.
      */
     @Support
     Condition and(RowN maxValue);
 
     /**
-     * Create a condition to check this field against some bounds
+     * Create a condition to check this field against some bounds.
      */
     @Support
     Condition and(Record maxValue);

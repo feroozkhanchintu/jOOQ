@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -48,7 +48,7 @@ import java.util.Map;
  *        WHEN 2 THEN 'two'
  *        ELSE        'three'
  * END
- * </pre></code>
+ * </pre></code>.
  *
  * @param <V> The type of values being compared in this case statement
  * @author Lukas Eder

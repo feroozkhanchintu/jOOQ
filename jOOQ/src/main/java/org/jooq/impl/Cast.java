@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -66,7 +66,7 @@ import org.jooq.RenderContext.CastMode;
 final class Cast<T> extends AbstractFunction<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -6776617606751542856L;
 
@@ -151,7 +151,7 @@ final class Cast<T> extends AbstractFunction<T> {
     private class CastDerby extends Native {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -8737153188122391258L;
 
@@ -244,7 +244,7 @@ final class Cast<T> extends AbstractFunction<T> {
     private class Native extends AbstractQueryPart {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -8497561014419483312L;
 

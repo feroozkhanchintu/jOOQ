@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -63,19 +63,19 @@ import java.util.Collection;
 public interface InsertValuesStepN<R extends Record> extends InsertOnDuplicateStep<R> {
 
     /**
-     * Add values to the insert statement
+     * Add values to the insert statement.
      */
     @Support
     InsertValuesStepN<R> values(Object... values);
 
     /**
-     * Add values to the insert statement
+     * Add values to the insert statement.
      */
     @Support
     InsertValuesStepN<R> values(Field<?>... values);
 
     /**
-     * Add values to the insert statement
+     * Add values to the insert statement.
      */
     @Support
     InsertValuesStepN<R> values(Collection<?> values);

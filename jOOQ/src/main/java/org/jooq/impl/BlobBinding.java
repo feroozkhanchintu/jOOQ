@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -72,7 +72,7 @@ import org.jooq.tools.jdbc.JDBCUtils;
 public class BlobBinding implements Binding<byte[], byte[]> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 358789452467943117L;
 

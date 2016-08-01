@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -67,7 +67,7 @@ final class AlterSequenceImpl<T extends Number> extends AbstractQuery implements
     AlterSequenceFinalStep {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 8904572826501186329L;
     private static final Clause[] CLAUSES          = { ALTER_SEQUENCE };
@@ -88,9 +88,11 @@ final class AlterSequenceImpl<T extends Number> extends AbstractQuery implements
         this.ifExists = ifExists;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: DSL API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: DSL API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final AlterSequenceFinalStep restart() {
@@ -119,9 +121,11 @@ final class AlterSequenceImpl<T extends Number> extends AbstractQuery implements
         return renameTo(DSL.name(newName));
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: QueryPart API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: QueryPart API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final void accept(Context<?> ctx) {
@@ -130,8 +134,9 @@ final class AlterSequenceImpl<T extends Number> extends AbstractQuery implements
            .sql(' ')
            .keyword(ctx.family() == CUBRID ? "serial" : "sequence");
 
-        if (ifExists)
-            ctx.sql(' ').keyword("if exists");
+        if (ifExists) {
+			ctx.sql(' ').keyword("if exists");
+		}
 
         switch (ctx.family()) {
 
@@ -177,15 +182,13 @@ final class AlterSequenceImpl<T extends Number> extends AbstractQuery implements
 
 
                     ctx.sql(' ').keyword("restart");
-            }
-            else {
-                if (ctx.family() == CUBRID)
-                    ctx.sql(' ').keyword("start with")
-                       .sql(' ').sql(with.toString());
-                else
-                    ctx.sql(' ').keyword("restart with")
-                       .sql(' ').sql(with.toString());
-            }
+            } else if (ctx.family() == CUBRID) {
+				ctx.sql(' ').keyword("start with")
+			       .sql(' ').sql(with.toString());
+			} else {
+				ctx.sql(' ').keyword("restart with")
+			       .sql(' ').sql(with.toString());
+			}
 
             ctx.end(ALTER_SEQUENCE_RESTART);
         }

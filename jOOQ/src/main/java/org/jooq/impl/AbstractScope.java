@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -75,9 +75,11 @@ abstract class AbstractScope implements Scope {
         this.data = data;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX Scope API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX Scope API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final Configuration configuration() {

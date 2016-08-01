@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -56,7 +56,7 @@ import org.jooq.types.DayToSecond;
 final class TimestampDiff extends AbstractFunction<DayToSecond> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -4813228000332771961L;
 

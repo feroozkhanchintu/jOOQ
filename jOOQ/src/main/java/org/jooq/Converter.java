@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -84,7 +84,7 @@ import org.jooq.impl.SQLDataType;
 public interface Converter<T, U> extends Serializable {
 
     /**
-     * Convert a database object to a user object
+     * Convert a database object to a user object.
      *
      * @param databaseObject The database object
      * @return The user object
@@ -92,7 +92,7 @@ public interface Converter<T, U> extends Serializable {
     U from(T databaseObject);
 
     /**
-     * Convert a user object to a database object
+     * Convert a user object to a database object.
      *
      * @param userObject The user object
      * @return The database object
@@ -100,12 +100,12 @@ public interface Converter<T, U> extends Serializable {
     T to(U userObject);
 
     /**
-     * The database type
+     * The database type.
      */
     Class<T> fromType();
 
     /**
-     * The user type
+     * The user type.
      */
     Class<U> toType();
 
@@ -146,7 +146,7 @@ public interface Converter<T, U> extends Serializable {
         return new Converter<T, U>() {
 
             /**
-             * Generated UID
+             * Generated UID.
              */
             private static final long serialVersionUID = 8782437631959970693L;
 

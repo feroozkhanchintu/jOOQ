@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -43,7 +43,7 @@ package org.jooq;
 /**
  * A container for stored procedures and functions
  * <p>
- * This is only supported in the {@link SQLDialect#ORACLE} dialect
+ * This is only supported in the {@link SQLDialect#ORACLE} dialect.
  *
  * @author Lukas Eder
  */
@@ -55,12 +55,12 @@ public interface Package extends QueryPart {
     Catalog getCatalog();
 
     /**
-     * Get the package schema
+     * Get the package schema.
      */
     Schema getSchema();
 
     /**
-     * The name of this package
+     * The name of this package.
      */
     String getName();
 

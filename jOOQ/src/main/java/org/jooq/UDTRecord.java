@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -43,7 +43,7 @@ package org.jooq;
 import java.sql.SQLData;
 
 /**
- * An object holding data of a UDT
+ * An object holding data of a UDT.
  *
  * @param <R> The record type
  * @author Lukas Eder
@@ -51,7 +51,7 @@ import java.sql.SQLData;
 public interface UDTRecord<R extends UDTRecord<R>> extends Record, SQLData {
 
     /**
-     * The UDT from which this record was read
+     * The UDT from which this record was read.
      */
     UDT<R> getUDT();
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -41,7 +41,7 @@
 package org.jooq;
 
 /**
- * An object that can behave like a table (a table-like object)
+ * An object that can behave like a table (a table-like object).
  *
  * @param <R> The record type
  * @author Lukas Eder
@@ -49,7 +49,7 @@ package org.jooq;
 public interface TableLike<R extends Record> extends QueryPart {
 
     /**
-     * Get this table's fields as a {@link Row}
+     * Get this table's fields as a {@link Row}.
      */
     Row fieldsRow();
 
@@ -178,7 +178,7 @@ public interface TableLike<R extends Record> extends QueryPart {
     Table<R> asTable();
 
     /**
-     * The underlying aliased table representation of this object
+     * The underlying aliased table representation of this object.
      *
      * @see Table#as(String)
      */

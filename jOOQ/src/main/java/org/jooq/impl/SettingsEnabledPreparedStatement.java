@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -67,7 +67,7 @@ import org.jooq.tools.jdbc.DefaultStatement;
 
 /**
  * A proxy for a JDBC {@link PreparedStatement} that emulates the API of a
- * prepared statement, when in fact executing an ad-hoc {@link Statement}
+ * prepared statement, when in fact executing an ad-hoc {@link Statement}.
  *
  * @author Lukas Eder
  */
@@ -80,9 +80,11 @@ final class SettingsEnabledPreparedStatement extends DefaultStatement implements
     private int[]            columnIndexes;
     private String[]         columnNames;
 
-    // ------------------------------------------------------------------------
-    // XXX: Creation of PreparedStatements
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Creation of PreparedStatements
+     * ------------------------------------------------------------------------
+     */
 
     private SettingsEnabledPreparedStatement(Connection connection, String sql, MethodType type, Statement statement) {
         super(statement);
@@ -136,47 +138,47 @@ final class SettingsEnabledPreparedStatement extends DefaultStatement implements
 
     /**
      * A descriptor for the various methods that can create a prespared
-     * statement
+     * statement.
      */
     private static enum MethodType {
 
         /**
-         * Corresponds to {@link Connection#prepareStatement(String)}
+         * Corresponds to {@link Connection#prepareStatement(String)}.
          */
         SQL,
 
         /**
-         * Corresponds to {@link Connection#prepareStatement(String, int, int)}
+         * Corresponds to {@link Connection#prepareStatement(String, int, int)}.
          */
         SQL_RST_RSC,
 
         /**
          * Corresponds to
-         * {@link Connection#prepareStatement(String, int, int, int)}
+         * {@link Connection#prepareStatement(String, int, int, int)}.
          */
         SQL_RST_RSC_RSH,
 
         /**
          * Corresponds to
-         * {@link Connection#prepareStatement(String, int)}
+         * {@link Connection#prepareStatement(String, int)}.
          */
         SQL_AGK,
 
         /**
          * Corresponds to
-         * {@link Connection#prepareStatement(String, int[])}
+         * {@link Connection#prepareStatement(String, int[])}.
          */
         SQL_CI,
 
         /**
          * Corresponds to
-         * {@link Connection#prepareStatement(String, String[])}
+         * {@link Connection#prepareStatement(String, String[])}.
          */
         SQL_CN,
 
         /**
          * Corresponds to {@link Connection#createStatement()} and
-         * {@link Statement#executeBatch()}
+         * {@link Statement#executeBatch()}.
          */
         BATCH
     }
@@ -186,9 +188,11 @@ final class SettingsEnabledPreparedStatement extends DefaultStatement implements
         return connection;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Execute methods from java.sql.PreparedStatement
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Execute methods from java.sql.PreparedStatement
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final ResultSet executeQuery() throws SQLException {
@@ -231,18 +235,22 @@ final class SettingsEnabledPreparedStatement extends DefaultStatement implements
         }
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Supported and unsupported batch methods
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Supported and unsupported batch methods
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final void addBatch() throws SQLException {
         throw new UnsupportedOperationException("Cannot batch execute statements on PreparedStatementProxy");
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Unsupported bind variable methods from java.sql.PreparedStatement
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Unsupported bind variable methods from java.sql.PreparedStatement
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final ResultSetMetaData getMetaData() throws SQLException {

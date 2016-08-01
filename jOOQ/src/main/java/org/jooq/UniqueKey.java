@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -53,7 +53,7 @@ public interface UniqueKey<R extends Record> extends Key<R> {
 
     /**
      * A list of all <code>ForeignKeys</code>, referencing this
-     * <code>UniqueKey</code>
+     * <code>UniqueKey</code>.
      */
     List<ForeignKey<?, R>> getReferences();
 

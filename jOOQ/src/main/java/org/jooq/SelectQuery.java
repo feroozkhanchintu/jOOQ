@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -70,7 +70,7 @@ import java.util.Collection;
 import org.jooq.exception.DataAccessException;
 
 /**
- * A query for data selection
+ * A query for data selection.
  *
  * @author Lukas Eder
  */
@@ -412,30 +412,22 @@ public interface SelectQuery<R extends Record> extends Select<R>, ConditionProvi
     // Methods from ConditionProvider, OrderProvider, LockProvider
     // ------------------------------------------------------------------------
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Condition... conditions);
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Collection<? extends Condition> conditions);
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Operator operator, Condition... conditions);
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Operator operator, Collection<? extends Condition> conditions);

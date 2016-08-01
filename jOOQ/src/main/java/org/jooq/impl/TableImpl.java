@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -109,7 +109,7 @@ public class TableImpl<R extends Record> extends AbstractTable<R> {
     }
 
     /**
-     * Get the aliased table wrapped by this table
+     * Get the aliased table wrapped by this table.
      */
     Table<R> getAliasedTable() {
         if (alias != null) {
@@ -170,12 +170,13 @@ public class TableImpl<R extends Record> extends AbstractTable<R> {
         if (parameters != null && ctx.declareTables()) {
 
             // [#2925] Some dialects don't like empty parameter lists
-            if (ctx.family() == FIREBIRD && parameters.length == 0)
-                ctx.visit(new QueryPartList<Field<?>>(parameters));
-            else
-                ctx.sql('(')
+            if (ctx.family() == FIREBIRD && parameters.length == 0) {
+				ctx.visit(new QueryPartList<Field<?>>(parameters));
+			} else {
+				ctx.sql('(')
                    .visit(new QueryPartList<Field<?>>(parameters))
                    .sql(')');
+			}
         }
     }
 
@@ -183,7 +184,7 @@ public class TableImpl<R extends Record> extends AbstractTable<R> {
      * Subclasses may override this method to provide custom aliasing
      * implementations
      * <p>
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Table<R> as(String as) {
@@ -199,7 +200,7 @@ public class TableImpl<R extends Record> extends AbstractTable<R> {
      * Subclasses may override this method to provide custom aliasing
      * implementations
      * <p>
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Table<R> as(String as, String... fieldAliases) {
@@ -219,7 +220,7 @@ public class TableImpl<R extends Record> extends AbstractTable<R> {
      * Subclasses must override this method if they use the generic type
      * parameter <R> for other types than {@link Record}
      * <p>
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -229,12 +230,14 @@ public class TableImpl<R extends Record> extends AbstractTable<R> {
 
     @Override
     public boolean declaresTables() {
-        return (alias != null) || (parameters != null) || super.declaresTables();
+        return alias != null || parameters != null || super.declaresTables();
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Object API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public boolean equals(Object that) {

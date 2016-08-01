@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -87,7 +87,7 @@ import org.jooq.Select;
 final class RowSubqueryCondition extends AbstractCondition {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long         serialVersionUID = -1806139685201770706L;
     private static final Clause[]     CLAUSES          = { CONDITION, CONDITION_COMPARISON };
@@ -215,7 +215,7 @@ final class RowSubqueryCondition extends AbstractCondition {
     private class Native extends AbstractCondition {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -1552476981094856727L;
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -60,7 +60,7 @@ import org.jooq.BindingSetStatementContext;
 abstract class AbstractVarcharBinding<T> implements Binding<Object, T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -2153155338260706262L;
 

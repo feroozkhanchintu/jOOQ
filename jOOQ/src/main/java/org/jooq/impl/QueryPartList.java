@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -72,8 +72,9 @@ class QueryPartList<T extends QueryPart> extends AbstractQueryPart implements Li
         this.wrappedList = new ArrayList<T>();
 
         // [#4664] Don't allocate the backing array if not necessary!
-        if (wrappedList != null && !wrappedList.isEmpty())
-            addAll(wrappedList);
+        if (wrappedList != null && !wrappedList.isEmpty()) {
+			addAll(wrappedList);
+		}
     }
 
     QueryPartList(T... wrappedList) {
@@ -90,23 +91,26 @@ class QueryPartList<T extends QueryPart> extends AbstractQueryPart implements Li
 
         else {
             String separator = "";
-            boolean indent = (size() > 1) && ctx.data(DATA_LIST_ALREADY_INDENTED) == null;
+            boolean indent = size() > 1 && ctx.data(DATA_LIST_ALREADY_INDENTED) == null;
 
-            if (indent)
-                ctx.formatIndentStart();
+            if (indent) {
+				ctx.formatIndentStart();
+			}
 
             for (int i = 0; i < size(); i++) {
                 ctx.sql(separator);
 
-                if (i > 0 || indent)
-                    ctx.formatNewLine();
+                if (i > 0 || indent) {
+					ctx.formatNewLine();
+				}
 
                 ctx.visit(get(i));
                 separator = ", ";
             }
 
-            if (indent)
-                ctx.formatIndentEnd().formatNewLine();
+            if (indent) {
+				ctx.formatIndentEnd().formatNewLine();
+			}
         }
     }
 
@@ -116,7 +120,7 @@ class QueryPartList<T extends QueryPart> extends AbstractQueryPart implements Li
     }
 
     /**
-     * Subclasses may override this method
+     * Subclasses may override this method.
      */
     @SuppressWarnings("unused")
     protected void toSQLEmptyList(Context<?> context) {
@@ -124,9 +128,11 @@ class QueryPartList<T extends QueryPart> extends AbstractQueryPart implements Li
 
 
 
-    // -------------------------------------------------------------------------
-    // Implementations from the List API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Implementations from the List API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final int size() {
@@ -160,11 +166,7 @@ class QueryPartList<T extends QueryPart> extends AbstractQueryPart implements Li
 
     @Override
     public final boolean add(T e) {
-        if (e != null) {
-            return wrappedList.add(e);
-        }
-
-        return false;
+        return e != null && wrappedList.add(e);
     }
 
     @Override

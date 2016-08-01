@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -207,7 +207,6 @@ final class Alias<Q extends QueryPart> extends AbstractQueryPart {
                 // [#756] If the aliased object is an anonymous table (usually an
                 // unnested array), then field names must be part of the alias
                 // declaration. For example:
-                //
                 // SELECT t.column_value FROM UNNEST(ARRAY[1, 2]) AS t(column_value)
 
                 // TODO: Is this still needed?
@@ -274,17 +273,16 @@ final class Alias<Q extends QueryPart> extends AbstractQueryPart {
     @Override
     public final Clause[] clauses(Context<?> ctx) {
         if (ctx.declareFields() || ctx.declareTables()) {
-            if (wrapped instanceof Table)
-                return CLAUSES_TABLE_ALIAS;
-            else
-                return CLAUSES_FIELD_ALIAS;
-        }
-        else {
-            if (wrapped instanceof Table)
-                return CLAUSES_TABLE_REFERENCE;
-            else
-                return CLAUSES_FIELD_REFERENCE;
-        }
+            if (wrapped instanceof Table) {
+				return CLAUSES_TABLE_ALIAS;
+			} else {
+				return CLAUSES_FIELD_ALIAS;
+			}
+        } else if (wrapped instanceof Table) {
+			return CLAUSES_TABLE_REFERENCE;
+		} else {
+			return CLAUSES_FIELD_REFERENCE;
+		}
     }
 
     @Override

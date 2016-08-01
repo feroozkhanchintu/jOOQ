@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -64,7 +64,7 @@ import org.jooq.UDTRecord;
 public class UDTRecordImpl<R extends UDTRecord<R>> extends AbstractRecord implements UDTRecord<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 5671315498175872799L;
     private final UDT<R>      udt;
@@ -80,16 +80,16 @@ public class UDTRecordImpl<R extends UDTRecord<R>> extends AbstractRecord implem
         return udt;
     }
 
-    /*
-     * Subclasses may override this method
+    /**
+     * Subclasses may override this method.
      */
     @Override
     public Row fieldsRow() {
         return fields;
     }
 
-    /*
-     * Subclasses may override this method
+    /**
+     * Subclasses may override this method.
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
@@ -127,8 +127,9 @@ public class UDTRecordImpl<R extends UDTRecord<R>> extends AbstractRecord implem
         Configuration configuration = localConfiguration();
         Map<Object, Object> data = localData();
 
-        for (Field<?> field : getUDT().fields())
-            set(configuration, data, stream, field);
+        for (Field<?> field : getUDT().fields()) {
+			set(configuration, data, stream, field);
+		}
     }
 
     private final <T> void set(Configuration configuration, Map<Object, Object> data, SQLOutput stream, Field<T> field) throws SQLException {

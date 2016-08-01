@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -57,7 +57,7 @@ import java.util.Collection;
 import javax.annotation.Generated;
 
 /**
- * A query for data updating
+ * A query for data updating.
  *
  * @param <R> The record type of the table being updated
  * @author Lukas Eder
@@ -419,30 +419,22 @@ public interface UpdateQuery<R extends Record> extends StoreQuery<R>, ConditionP
     // XXX: Methods from ConditionProvider
     // ------------------------------------------------------------------------
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Condition... conditions);
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Collection<? extends Condition> conditions);
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Operator operator, Condition... conditions);
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Support
     void addConditions(Operator operator, Collection<? extends Condition> conditions);
@@ -455,7 +447,7 @@ public interface UpdateQuery<R extends Record> extends StoreQuery<R>, ConditionP
      * {@inheritDoc}
      * <p>
      * This feature works with <code>UPDATE</code> statements for a subset of
-     * SQL dialects
+     * SQL dialects.
      */
     @Override
     @Support({ FIREBIRD, POSTGRES })
@@ -465,7 +457,7 @@ public interface UpdateQuery<R extends Record> extends StoreQuery<R>, ConditionP
      * {@inheritDoc}
      * <p>
      * This feature works with <code>UPDATE</code> statements for a subset of
-     * SQL dialects
+     * SQL dialects.
      */
     @Override
     @Support({ FIREBIRD, POSTGRES })
@@ -475,7 +467,7 @@ public interface UpdateQuery<R extends Record> extends StoreQuery<R>, ConditionP
      * {@inheritDoc}
      * <p>
      * This feature works with <code>UPDATE</code> statements for a subset of
-     * SQL dialects
+     * SQL dialects.
      */
     @Override
     @Support({ FIREBIRD, POSTGRES })
@@ -485,7 +477,7 @@ public interface UpdateQuery<R extends Record> extends StoreQuery<R>, ConditionP
      * {@inheritDoc}
      * <p>
      * This feature works with <code>UPDATE</code> statements for a subset of
-     * SQL dialects
+     * SQL dialects.
      */
     @Override
     @Support({ FIREBIRD, POSTGRES })
@@ -495,7 +487,7 @@ public interface UpdateQuery<R extends Record> extends StoreQuery<R>, ConditionP
      * {@inheritDoc}
      * <p>
      * This feature works with <code>UPDATE</code> statements for a subset of
-     * SQL dialects
+     * SQL dialects.
      */
     @Override
     @Support({ FIREBIRD, POSTGRES })
@@ -505,7 +497,7 @@ public interface UpdateQuery<R extends Record> extends StoreQuery<R>, ConditionP
      * {@inheritDoc}
      * <p>
      * This feature works with <code>UPDATE</code> statements for a subset of
-     * SQL dialects
+     * SQL dialects.
      */
     @Override
     @Support({ FIREBIRD, POSTGRES })

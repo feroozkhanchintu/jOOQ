@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -60,14 +60,14 @@ public interface DeleteConditionStep<R extends Record> extends DeleteFinalStep<R
 
     /**
      * Combine the currently assembled conditions with another one using the
-     * {@link Operator#AND} operator
+     * {@link Operator#AND} operator.
      */
     @Support
     DeleteConditionStep<R> and(Condition condition);
 
     /**
      * Combine the currently assembled conditions with another one using the
-     * {@link Operator#AND} operator
+     * {@link Operator#AND} operator.
      */
     @Support
     DeleteConditionStep<R> and(Field<Boolean> condition);
@@ -152,14 +152,14 @@ public interface DeleteConditionStep<R extends Record> extends DeleteFinalStep<R
 
     /**
      * Combine the currently assembled conditions with a negated other one using
-     * the {@link Operator#AND} operator
+     * the {@link Operator#AND} operator.
      */
     @Support
     DeleteConditionStep<R> andNot(Condition condition);
 
     /**
      * Combine the currently assembled conditions with a negated other one using
-     * the {@link Operator#AND} operator
+     * the {@link Operator#AND} operator.
      */
     @Support
     DeleteConditionStep<R> andNot(Field<Boolean> condition);
@@ -181,27 +181,27 @@ public interface DeleteConditionStep<R extends Record> extends DeleteFinalStep<R
 
     /**
      * Combine the currently assembled conditions with an EXISTS clause using
-     * the {@link Operator#AND} operator
+     * the {@link Operator#AND} operator.
      */
     @Support
     DeleteConditionStep<R> andExists(Select<?> select);
 
     /**
      * Combine the currently assembled conditions with a NOT EXISTS clause using
-     * the {@link Operator#AND} operator
+     * the {@link Operator#AND} operator.
      */
     DeleteConditionStep<R> andNotExists(Select<?> select);
 
     /**
      * Combine the currently assembled conditions with another one using the
-     * {@link Operator#OR} operator
+     * {@link Operator#OR} operator.
      */
     @Support
     DeleteConditionStep<R> or(Condition condition);
 
     /**
      * Combine the currently assembled conditions with another one using the
-     * {@link Operator#OR} operator
+     * {@link Operator#OR} operator.
      */
     @Support
     DeleteConditionStep<R> or(Field<Boolean> condition);
@@ -286,14 +286,14 @@ public interface DeleteConditionStep<R extends Record> extends DeleteFinalStep<R
 
     /**
      * Combine the currently assembled conditions with a negated other one using
-     * the {@link Operator#OR} operator
+     * the {@link Operator#OR} operator.
      */
     @Support
     DeleteConditionStep<R> orNot(Condition condition);
 
     /**
      * Combine the currently assembled conditions with a negated other one using
-     * the {@link Operator#OR} operator
+     * the {@link Operator#OR} operator.
      */
     @Support
     DeleteConditionStep<R> orNot(Field<Boolean> condition);
@@ -315,14 +315,14 @@ public interface DeleteConditionStep<R extends Record> extends DeleteFinalStep<R
 
     /**
      * Combine the currently assembled conditions with an EXISTS clause using
-     * the {@link Operator#OR} operator
+     * the {@link Operator#OR} operator.
      */
     @Support
     DeleteConditionStep<R> orExists(Select<?> select);
 
     /**
      * Combine the currently assembled conditions with a NOT EXISTS clause using
-     * the {@link Operator#OR} operator
+     * the {@link Operator#OR} operator.
      */
     @Support
     DeleteConditionStep<R> orNotExists(Select<?> select);

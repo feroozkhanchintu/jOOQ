@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -89,18 +89,18 @@ import org.jooq.tools.StringUtils;
 public class SchemaMapping implements Serializable {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long                        serialVersionUID  = 8269660159338710470L;
     private static final JooqLogger                  log               = JooqLogger.getLogger(SchemaMapping.class);
-    private static volatile boolean                  loggedDeprecation = false;
+    private static volatile boolean                  loggedDeprecation;
 
     private final Configuration                      configuration;
-    private volatile transient Map<String, Schema>   schemata;
-    private volatile transient Map<String, Table<?>> tables;
+    private transient volatile Map<String, Schema>   schemata;
+    private transient volatile Map<String, Table<?>> tables;
 
     /**
-     * Construct a mapping from a {@link Configuration} object
+     * Construct a mapping from a {@link Configuration} object.
      */
     public SchemaMapping(Configuration configuration) {
         this.configuration = configuration;
@@ -156,7 +156,7 @@ public class SchemaMapping implements Serializable {
     }
 
     /**
-     * Add schemata to this mapping
+     * Add schemata to this mapping.
      *
      * @param inputSchema The schema known at codegen time to be mapped
      * @param outputSchema The schema configured at run time to be mapped
@@ -183,7 +183,7 @@ public class SchemaMapping implements Serializable {
     }
 
     /**
-     * Add schemata to this mapping
+     * Add schemata to this mapping.
      *
      * @param inputSchema The schema known at codegen time to be mapped
      * @param outputSchema The schema configured at run time to be mapped
@@ -193,7 +193,7 @@ public class SchemaMapping implements Serializable {
     }
 
     /**
-     * Add schemata to this mapping
+     * Add schemata to this mapping.
      *
      * @param inputSchema The schema known at codegen time to be mapped
      * @param outputSchema The schema configured at run time to be mapped
@@ -203,7 +203,7 @@ public class SchemaMapping implements Serializable {
     }
 
     /**
-     * Add schemata to this mapping
+     * Add schemata to this mapping.
      *
      * @param inputSchema The schema known at codegen time to be mapped
      * @param outputSchema The schema configured at run time to be mapped
@@ -213,7 +213,7 @@ public class SchemaMapping implements Serializable {
     }
 
     /**
-     * Add tables to this mapping
+     * Add tables to this mapping.
      *
      * @param inputTable The table known at codegen time to be mapped
      * @param outputTable The table configured at run time to be mapped
@@ -223,7 +223,7 @@ public class SchemaMapping implements Serializable {
     }
 
     /**
-     * Add tables to this mapping
+     * Add tables to this mapping.
      *
      * @param inputTable The table known at codegen time to be mapped
      * @param outputTable The table configured at run time to be mapped
@@ -270,15 +270,18 @@ public class SchemaMapping implements Serializable {
 
         // [#1774] [#4795] The default Settings render schema flag takes
         // precedence over the DefaultConfiguration's ignoreMapping flag!
-        if (!renderCatalog()) return null;
+        if (!renderCatalog()) {
+			return null;
+		}
 
         Catalog result = catalog;
         if (result != null) {
             String catalogName = result.getName();
 
             // [#2089] DefaultCatalog has an empty schema name
-            if (StringUtils.isEmpty(catalogName))
-                return null;
+            if (StringUtils.isEmpty(catalogName)) {
+				return null;
+			}
 
             // [#4793] TODO implement runtime catalog mapping
         }
@@ -287,7 +290,7 @@ public class SchemaMapping implements Serializable {
     }
 
     /**
-     * Apply mapping to a given schema
+     * Apply mapping to a given schema.
      *
      * @param schema The schema to be mapped
      * @return The configured schema
@@ -296,15 +299,18 @@ public class SchemaMapping implements Serializable {
 
         // [#1774] The default Settings render schema flag takes precedence over
         // The DefaultConfiguration's ignoreMapping flag!
-        if (!renderSchema()) return null;
+        if (!renderSchema()) {
+			return null;
+		}
 
         Schema result = schema;
         if (result != null) {
             String schemaName = result.getName();
 
             // [#2089] DefaultSchema has an empty schema name
-            if (StringUtils.isEmpty(schemaName))
-                return null;
+            if (StringUtils.isEmpty(schemaName)) {
+				return null;
+			}
 
             // [#4642] Don't initialise schema mapping if not necessary
             if (!mapping().getSchemata().isEmpty()) {
@@ -322,11 +328,13 @@ public class SchemaMapping implements Serializable {
                                 if (matches(s, schemaName)) {
 
                                     // Ignore self-mappings and void-mappings
-                                    if (!isBlank(s.getOutput()))
-                                        if (s.getInput() != null && !s.getOutput().equals(schemaName))
-                                            result = new RenamedSchema(result, s.getOutput());
-                                        else if (s.getInputExpression() != null)
-                                            result = new RenamedSchema(result, s.getInputExpression().matcher(schemaName).replaceAll(s.getOutput()));
+                                    if (!isBlank(s.getOutput())) {
+										if (s.getInput() != null && !s.getOutput().equals(schemaName)) {
+											result = new RenamedSchema(result, s.getOutput());
+										} else if (s.getInputExpression() != null) {
+											result = new RenamedSchema(result, s.getInputExpression().matcher(schemaName).replaceAll(s.getOutput()));
+										}
+									}
 
                                     break;
                                 }
@@ -352,7 +360,7 @@ public class SchemaMapping implements Serializable {
     }
 
     /**
-     * Apply mapping to a given table
+     * Apply mapping to a given table.
      *
      * @param table The generated table to be mapped
      * @return The configured table
@@ -389,11 +397,13 @@ public class SchemaMapping implements Serializable {
                                     if (matches(t, tableName)) {
 
                                         // Ignore self-mappings and void-mappings
-                                        if (!isBlank(t.getOutput()))
-                                            if (t.getInput() != null && !t.getOutput().equals(tableName))
-                                                result = new RenamedTable<R>(result, t.getOutput());
-                                            else if (t.getInputExpression() != null)
-                                                result = new RenamedTable<R>(result, t.getInputExpression().matcher(tableName).replaceAll(t.getOutput()));
+                                        if (!isBlank(t.getOutput())) {
+											if (t.getInput() != null && !t.getOutput().equals(tableName)) {
+												result = new RenamedTable<R>(result, t.getOutput());
+											} else if (t.getInputExpression() != null) {
+												result = new RenamedTable<R>(result, t.getInputExpression().matcher(tableName).replaceAll(t.getOutput()));
+											}
+										}
 
                                         break schemaLoop;
                                     }
@@ -468,9 +478,11 @@ public class SchemaMapping implements Serializable {
         return tables;
     }
 
-    // ------------------------------------------------------------------------
-    // Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Object API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public String toString() {

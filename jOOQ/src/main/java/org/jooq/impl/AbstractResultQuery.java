@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -88,14 +88,14 @@ import org.jooq.tools.Convert;
 import org.jooq.tools.JooqLogger;
 
 /**
- * A query that returns a {@link Result}
+ * A query that returns a {@link Result}.
  *
  * @author Lukas Eder
  */
 abstract class AbstractResultQuery<R extends Record> extends AbstractQuery implements ResultQuery<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long       serialVersionUID = -5588344253566055707L;
     private static final JooqLogger log              = JooqLogger.getLogger(AbstractResultQuery.class);
@@ -111,7 +111,7 @@ abstract class AbstractResultQuery<R extends Record> extends AbstractQuery imple
     private Result<R>               result;
     private ResultsImpl             results;
 
-    // Some temp variables for String interning
+    /** Some temp variables for String interning. */
     private final Intern            intern = new Intern();
 
     AbstractResultQuery(Configuration configuration) {
@@ -235,8 +235,9 @@ abstract class AbstractResultQuery<R extends Record> extends AbstractQuery imple
         // MySQL feature, where Integer.MIN_VALUE is used
         int f = SettingsTools.getFetchSize(fetchSize, ctx.settings());
         if (f != 0) {
-            if (log.isDebugEnabled())
-                log.debug("Setting fetch size", f);
+            if (log.isDebugEnabled()) {
+				log.debug("Setting fetch size", f);
+			}
 
             ctx.statement().setFetchSize(f);
         }
@@ -254,8 +255,9 @@ abstract class AbstractResultQuery<R extends Record> extends AbstractQuery imple
 
         // [#4511] [#4753] PostgreSQL doesn't like fetchSize with autoCommit == true
         int f = SettingsTools.getFetchSize(fetchSize, ctx.settings());
-        if (ctx.family() == POSTGRES && f != 0 && ctx.connection().getAutoCommit())
-            log.info("Fetch Size", "A fetch size of " + f + " was set on a auto-commit PostgreSQL connection, which is not recommended. See http://jdbc.postgresql.org/documentation/head/query.html#query-with-cursor");
+        if (ctx.family() == POSTGRES && f != 0 && ctx.connection().getAutoCommit()) {
+			log.info("Fetch Size", "A fetch size of " + f + " was set on a auto-commit PostgreSQL connection, which is not recommended. See http://jdbc.postgresql.org/documentation/head/query.html#query-with-cursor");
+		}
 
 
 
@@ -303,7 +305,7 @@ abstract class AbstractResultQuery<R extends Record> extends AbstractQuery imple
     }
 
     /**
-     * Subclasses should indicate whether they want an updatable {@link ResultSet}
+     * Subclasses should indicate whether they want an updatable {@link ResultSet}.
      */
     abstract boolean isForUpdate();
 
@@ -1255,7 +1257,7 @@ abstract class AbstractResultQuery<R extends Record> extends AbstractQuery imple
     /**
      * Subclasses may override this method
      * <p>
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Class<? extends R> getRecordType() {
@@ -1303,7 +1305,7 @@ abstract class AbstractResultQuery<R extends Record> extends AbstractQuery imple
     }
 
     /**
-     * A wrapper for the {@link ResultQuery#fetch()} method
+     * A wrapper for the {@link ResultQuery#fetch()} method.
      */
     private final class ResultQueryCallable implements Callable<Result<R>> {
 

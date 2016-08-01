@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -54,14 +54,14 @@ import org.jooq.Table;
 
 /**
  * Essentially, this is the same as <code>ArrayTable</code>, except that it simulates
- * unnested arrays using <code>UNION ALL</code>
+ * unnested arrays using <code>UNION ALL</code>.
  *
  * @author Lukas Eder
  */
 final class ArrayTableEmulation extends AbstractTable<Record> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long       serialVersionUID = 2392515064450536343L;
 
@@ -139,11 +139,11 @@ final class ArrayTableEmulation extends AbstractTable<Record> {
                 Field<?> val = DSL.val(element, field.fields[0].getDataType());
                 Select<Record> subselect = using(configuration).select(val.as("COLUMN_VALUE")).select();
 
-                if (select == null) {
-                    select = subselect;
+                if (select != null) {
+                    select = select.unionAll(subselect);
                 }
                 else {
-                    select = select.unionAll(subselect);
+                    select = subselect;
                 }
             }
 

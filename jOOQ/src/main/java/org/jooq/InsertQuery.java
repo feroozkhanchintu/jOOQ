@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -63,7 +63,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * A query for data insertion
+ * A query for data insertion.
  *
  * @param <R> The record type of the table being inserted into
  * @author Lukas Eder
@@ -238,7 +238,7 @@ public interface InsertQuery<R extends Record> extends StoreQuery<R>, Insert<R> 
     /**
      * {@inheritDoc}
      * <p>
-     * This feature works with <code>INSERT</code> statements for all SQL dialects
+     * This feature works with <code>INSERT</code> statements for all SQL dialects.
      */
     @Override
     @Support
@@ -247,7 +247,7 @@ public interface InsertQuery<R extends Record> extends StoreQuery<R>, Insert<R> 
     /**
      * {@inheritDoc}
      * <p>
-     * This feature works with <code>INSERT</code> statements for all SQL dialects
+     * This feature works with <code>INSERT</code> statements for all SQL dialects.
      */
     @Override
     @Support
@@ -256,7 +256,7 @@ public interface InsertQuery<R extends Record> extends StoreQuery<R>, Insert<R> 
     /**
      * {@inheritDoc}
      * <p>
-     * This feature works with <code>INSERT</code> statements for all SQL dialects
+     * This feature works with <code>INSERT</code> statements for all SQL dialects.
      */
     @Override
     @Support
@@ -265,7 +265,7 @@ public interface InsertQuery<R extends Record> extends StoreQuery<R>, Insert<R> 
     /**
      * {@inheritDoc}
      * <p>
-     * This feature works with <code>INSERT</code> statements for all SQL dialects
+     * This feature works with <code>INSERT</code> statements for all SQL dialects.
      */
     @Override
     @Support
@@ -274,7 +274,7 @@ public interface InsertQuery<R extends Record> extends StoreQuery<R>, Insert<R> 
     /**
      * {@inheritDoc}
      * <p>
-     * This feature works with <code>INSERT</code> statements for all SQL dialects
+     * This feature works with <code>INSERT</code> statements for all SQL dialects.
      */
     @Override
     @Support
@@ -283,7 +283,7 @@ public interface InsertQuery<R extends Record> extends StoreQuery<R>, Insert<R> 
     /**
      * {@inheritDoc}
      * <p>
-     * This feature works with <code>INSERT</code> statements for all SQL dialects
+     * This feature works with <code>INSERT</code> statements for all SQL dialects.
      */
     @Override
     @Support

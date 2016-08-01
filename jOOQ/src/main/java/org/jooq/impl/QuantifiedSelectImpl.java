@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -64,7 +64,7 @@ import org.jooq.Select;
 final class QuantifiedSelectImpl<R extends Record> extends AbstractQueryPart implements QuantifiedSelect<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long               serialVersionUID = -1224570388944748450L;
 
@@ -148,10 +148,11 @@ final class QuantifiedSelectImpl<R extends Record> extends AbstractQueryPart imp
 
                         Select<Record1<Object>> select = null;
                         for (Object value : values) {
-                            if (select == null)
-                                select = select(val(value));
-                            else
-                                select = select.unionAll(select(val(value)));
+                            if (select != null) {
+								select = select.unionAll(select(val(value)));
+							} else {
+								select = select(val(value));
+							}
                         }
 
                         return (QueryPartInternal) select;

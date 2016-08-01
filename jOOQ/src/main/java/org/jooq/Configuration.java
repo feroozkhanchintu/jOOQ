@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -333,7 +333,7 @@ public interface Configuration extends Serializable {
     ExecuteListenerProvider[] executeListenerProviders();
 
     /**
-     * TODO [#2667]
+     * TODO [#2667].
      */
     VisitListenerProvider[] visitListenerProviders();
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -67,7 +67,7 @@ import org.jooq.exception.DataAccessException;
 final class BatchCRUD implements Batch {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long      serialVersionUID = -2935544935267715011L;
 
@@ -238,27 +238,27 @@ final class BatchCRUD implements Batch {
     }
 
     /**
-     * The action to be performed by this operation
+     * The action to be performed by this operation.
      */
     enum Action {
 
         /**
-         * Corresponds to {@link UpdatableRecord#store()}
+         * Corresponds to {@link UpdatableRecord#store()}.
          */
         STORE,
 
         /**
-         * Corresponds to {@link UpdatableRecord#insert()}
+         * Corresponds to {@link UpdatableRecord#insert()}.
          */
         INSERT,
 
         /**
-         * Corresponds to {@link UpdatableRecord#update()}
+         * Corresponds to {@link UpdatableRecord#update()}.
          */
         UPDATE,
 
         /**
-         * Corresponds to {@link UpdatableRecord#delete()}
+         * Corresponds to {@link UpdatableRecord#delete()}.
          */
         DELETE
     }
@@ -273,7 +273,7 @@ final class BatchCRUD implements Batch {
     private static class QueryCollector extends DefaultExecuteListener {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = 7399239846062763212L;
 
@@ -292,7 +292,7 @@ final class BatchCRUD implements Batch {
     private static class QueryCollectorSignal extends ControlFlowSignal {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -9047250761846931903L;
         private final String      sql;

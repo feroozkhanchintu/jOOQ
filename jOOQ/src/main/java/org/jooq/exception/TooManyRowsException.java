@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -50,7 +50,7 @@ import org.jooq.ResultQuery;
 public class TooManyRowsException extends InvalidResultException {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -6460945824599280420L;
 

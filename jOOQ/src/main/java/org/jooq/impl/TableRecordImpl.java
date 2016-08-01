@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -84,7 +84,7 @@ import org.jooq.tools.JooqLogger;
 public class TableRecordImpl<R extends TableRecord<R>> extends AbstractRecord implements TableRecord<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long       serialVersionUID = 3216746611562261641L;
     private static final JooqLogger log              = JooqLogger.getLogger(TableRecordImpl.class);
@@ -101,16 +101,16 @@ public class TableRecordImpl<R extends TableRecord<R>> extends AbstractRecord im
         return table;
     }
 
-    /*
-     * Subclasses may override this method
+    /**
+     * Subclasses may override this method.
      */
     @Override
     public Row fieldsRow() {
         return fields;
     }
 
-    /*
-     * Subclasses may override this method
+    /**
+     * Subclasses may override this method.
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
@@ -168,8 +168,9 @@ public class TableRecordImpl<R extends TableRecord<R>> extends AbstractRecord im
 
         // Don't store records if no value was set by client code
         if (!insert.isExecutable()) {
-            if (log.isDebugEnabled())
-                log.debug("Query is not executable", insert);
+            if (log.isDebugEnabled()) {
+				log.debug("Query is not executable", insert);
+			}
 
             return 0;
         }
@@ -185,8 +186,9 @@ public class TableRecordImpl<R extends TableRecord<R>> extends AbstractRecord im
         int result = insert.execute();
 
         if (result > 0) {
-            for (Field<?> storeField : storeFields)
-                changed(storeField, false);
+            for (Field<?> storeField : storeFields) {
+				changed(storeField, false);
+			}
 
             // [#1596] If insert was successful, update timestamp and/or version columns
             setRecordVersionAndTimestamp(version, timestamp);
@@ -215,26 +217,26 @@ public class TableRecordImpl<R extends TableRecord<R>> extends AbstractRecord im
             }
 
             // [#1859] In some databases, not all fields can be fetched via getGeneratedKeys()
-            if (asList(DERBY, H2, MARIADB, MYSQL).contains(configuration().family()) && this instanceof UpdatableRecord)
-                ((UpdatableRecord<?>) this).refresh(key.toArray(EMPTY_FIELD));
+            if (asList(DERBY, H2, MARIADB, MYSQL).contains(configuration().family()) && this instanceof UpdatableRecord) {
+				((UpdatableRecord<?>) this).refresh(key.toArray(EMPTY_FIELD));
+			}
         }
     }
 
     final Collection<Field<?>> setReturningIfNeeded(StoreQuery<R> query) {
         Collection<Field<?>> key = null;
 
-        if (configuration() != null) {
-            if (!TRUE.equals(configuration().data(DATA_OMIT_RETURNING_CLAUSE))) {
+        if (configuration() != null && !TRUE.equals(configuration().data(DATA_OMIT_RETURNING_CLAUSE))) {
 
-                // [#1859] Return also non-key columns
-                if (TRUE.equals(configuration().settings().isReturnAllOnUpdatableRecord()))
-                    key = Arrays.asList(fields());
-                else
-                    key = getReturning();
+		    // [#1859] Return also non-key columns
+		    if (TRUE.equals(configuration().settings().isReturnAllOnUpdatableRecord())) {
+				key = Arrays.asList(fields());
+			} else {
+				key = getReturning();
+			}
 
-                query.setReturning(key);
-            }
-        }
+		    query.setReturning(key);
+		}
 
         return key;
     }
@@ -265,7 +267,7 @@ public class TableRecordImpl<R extends TableRecord<R>> extends AbstractRecord im
     }
 
     /**
-     * Set all changed values of this record to a store query
+     * Set all changed values of this record to a store query.
      */
     final void addChangedValues(Field<?>[] storeFields, StoreQuery<R> query) {
         Fields<Record> f = new Fields<Record>(storeFields);
@@ -292,7 +294,7 @@ public class TableRecordImpl<R extends TableRecord<R>> extends AbstractRecord im
     }
 
     /**
-     * Set an updated timestamp value to a store query
+     * Set an updated timestamp value to a store query.
      */
     final Timestamp addRecordTimestamp(StoreQuery<?> store) {
         Timestamp result = null;
@@ -312,7 +314,7 @@ public class TableRecordImpl<R extends TableRecord<R>> extends AbstractRecord im
     }
 
     /**
-     * Set an updated version value to a store query
+     * Set an updated version value to a store query.
      */
     final BigInteger addRecordVersion(StoreQuery<?> store) {
         BigInteger result = null;
@@ -324,11 +326,11 @@ public class TableRecordImpl<R extends TableRecord<R>> extends AbstractRecord im
                 Number value = get(version);
 
                 // Use BigInteger locally to avoid arithmetic overflows
-                if (value == null) {
-                    result = BigInteger.ONE;
+                if (value != null) {
+                    result = new BigInteger(value.toString()).add(BigInteger.ONE);
                 }
                 else {
-                    result = new BigInteger(value.toString()).add(BigInteger.ONE);
+                    result = BigInteger.ONE;
                 }
 
                 addValue(store, version, result);
@@ -346,12 +348,14 @@ public class TableRecordImpl<R extends TableRecord<R>> extends AbstractRecord im
         Collection<Field<?>> result = new LinkedHashSet<Field<?>>();
 
         Identity<R, ?> identity = getTable().getIdentity();
-        if (identity != null)
-            result.add(identity.getField());
+        if (identity != null) {
+			result.add(identity.getField());
+		}
 
         UniqueKey<?> key = getPrimaryKey();
-        if (key != null)
-            result.addAll(key.getFields());
+        if (key != null) {
+			result.addAll(key.getFields());
+		}
 
         return result;
     }

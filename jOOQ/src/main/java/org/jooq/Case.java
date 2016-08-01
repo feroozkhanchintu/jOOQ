@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -69,7 +69,7 @@ public interface Case {
      *            WHEN 2 THEN 'two'
      *            ELSE        'three'
      * END
-     * </pre></code>
+     * </pre></code>.
      *
      * @param <V> The generic value type parameter
      * @param value The value to do the case statement on
@@ -84,7 +84,7 @@ public interface Case {
      *            WHEN 2 THEN 'two'
      *            ELSE        'three'
      * END
-     * </pre></code>
+     * </pre></code>.
      *
      * @param <V> The generic value type parameter
      * @param value The value to do the case statement on
@@ -99,7 +99,7 @@ public interface Case {
      *      WHEN x &gt;= 2 THEN 'two'
      *      ELSE            'three'
      * END
-     * </pre></code>
+     * </pre></code>.
      *
      * @param <T> The generic field type parameter
      * @param condition A condition to check in the case statement
@@ -115,7 +115,7 @@ public interface Case {
      *      WHEN x &gt;= 2 THEN 'two'
      *      ELSE            'three'
      * END
-     * </pre></code>
+     * </pre></code>.
      *
      * @param <T> The generic field type parameter
      * @param condition A condition to check in the case statement
@@ -131,7 +131,7 @@ public interface Case {
      *      WHEN x &gt;= 2 THEN 'two'
      *      ELSE            'three'
      * END
-     * </pre></code>
+     * </pre></code>.
      *
      * @param <T> The generic field type parameter
      * @param condition A condition to check in the case statement

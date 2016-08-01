@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -64,10 +64,11 @@ final class UDTConstant<R extends UDTRecord<R>> extends AbstractParam<R> {
 
     @Override
     public void accept(Context<?> ctx) {
-        if (ctx instanceof RenderContext)
-            toSQL0((RenderContext) ctx);
-        else
-            bind0((BindContext) ctx);
+        if (ctx instanceof RenderContext) {
+			toSQL0((RenderContext) ctx);
+		} else {
+			bind0((BindContext) ctx);
+		}
     }
 
     final void toSQL0(RenderContext context) {
@@ -184,8 +185,9 @@ final class UDTConstant<R extends UDTRecord<R>> extends AbstractParam<R> {
             // Postgres cannot bind a complete structured type. The type is
             // inlined instead: ROW(.., .., ..)
             case POSTGRES: {
-                for (Field<?> field : value.fields())
-                    context.visit(val(value.get(field)));
+                for (Field<?> field : value.fields()) {
+					context.visit(val(value.get(field)));
+				}
 
                 break;
             }

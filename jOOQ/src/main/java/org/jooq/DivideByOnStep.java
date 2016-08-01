@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -44,7 +44,7 @@ import org.jooq.impl.DSL;
 
 
 /**
- * An intermediate type for the construction of a relational division
+ * An intermediate type for the construction of a relational division.
  *
  * @author Lukas Eder
  */
@@ -58,7 +58,7 @@ public interface DivideByOnStep {
     DivideByOnConditionStep on(Condition... conditions);
 
     /**
-     * Add a division condition to the <code>DIVIDE BY</code> clause
+     * Add a division condition to the <code>DIVIDE BY</code> clause.
      */
     @Support
     DivideByOnConditionStep on(Field<Boolean> condition);

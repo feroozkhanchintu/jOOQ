@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -53,7 +53,7 @@ import java.util.Map;
 public interface StoreQuery<R extends Record> extends Query {
 
     /**
-     * Add values to the store statement
+     * Add values to the store statement.
      *
      * @param record The record holding values that are stored by the query
      */
@@ -61,7 +61,7 @@ public interface StoreQuery<R extends Record> extends Query {
     void setRecord(R record);
 
     /**
-     * Add a value to the store statement
+     * Add a value to the store statement.
      *
      * @param field The field
      * @param value The value

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -88,13 +88,13 @@ import java.util.Collection;
 public interface SelectSelectStep<R extends Record> extends SelectDistinctOnStep<R> {
 
     /**
-     * Add additional fields to the <code>SELECT</code> clause of this query
+     * Add additional fields to the <code>SELECT</code> clause of this query.
      */
     @Support
     SelectSelectStep<Record> select(SelectField<?>... fields);
 
     /**
-     * Add additional fields to the <code>SELECT</code> clause of this query
+     * Add additional fields to the <code>SELECT</code> clause of this query.
      */
     @Support
     SelectSelectStep<Record> select(Collection<? extends SelectField<?>> fields);

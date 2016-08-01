@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -93,22 +93,25 @@ public class ThreadLocalTransactionProvider implements TransactionProvider {
     public void begin(TransactionContext ctx) {
         delegateTransactionProvider.begin(ctx);
         configurations().push(ctx.configuration());
-        if (delegateTransactionProvider.nestingLevel(ctx.configuration()) == 1)
-            localTxConnection.set(((DefaultConnectionProvider) ctx.configuration().data(DATA_DEFAULT_TRANSACTION_PROVIDER_CONNECTION)).connection);
+        if (delegateTransactionProvider.nestingLevel(ctx.configuration()) == 1) {
+			localTxConnection.set(((DefaultConnectionProvider) ctx.configuration().data(DATA_DEFAULT_TRANSACTION_PROVIDER_CONNECTION)).connection);
+		}
     }
 
     @Override
     public void commit(TransactionContext ctx) {
-        if (delegateTransactionProvider.nestingLevel(ctx.configuration()) == 1)
-            localTxConnection.remove();
+        if (delegateTransactionProvider.nestingLevel(ctx.configuration()) == 1) {
+			localTxConnection.remove();
+		}
         configurations().pop();
         delegateTransactionProvider.commit(ctx);
     }
 
     @Override
     public void rollback(TransactionContext ctx) {
-        if (delegateTransactionProvider.nestingLevel(ctx.configuration()) == 1)
-            localTxConnection.remove();
+        if (delegateTransactionProvider.nestingLevel(ctx.configuration()) == 1) {
+			localTxConnection.remove();
+		}
         configurations().pop();
         delegateTransactionProvider.rollback(ctx);
     }
@@ -141,21 +144,23 @@ public class ThreadLocalTransactionProvider implements TransactionProvider {
         public final Connection acquire() {
             Connection local = localTxConnection.get();
 
-            if (local == null)
-                return delegateConnectionProvider.acquire();
-            else
-                return local;
+            if (local != null) {
+				return local;
+			} else {
+				return delegateConnectionProvider.acquire();
+			}
         }
 
         @Override
         public final void release(Connection connection) {
             Connection local = localTxConnection.get();
 
-            if (local == null)
-                delegateConnectionProvider.release(connection);
-            else if (local != connection)
-                throw new IllegalStateException(
+            if (local == null) {
+				delegateConnectionProvider.release(connection);
+			} else if (local != connection) {
+				throw new IllegalStateException(
                     "A different connection was released than the thread-bound one that was expected");
+			}
         }
     }
 }

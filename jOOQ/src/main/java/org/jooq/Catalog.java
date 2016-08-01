@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -52,18 +52,18 @@ import java.util.List;
 public interface Catalog extends QueryPart {
 
     /**
-     * The name of this schema
+     * The name of this schema.
      */
     String getName();
 
     /**
-     * List all schemas contained in this catalog
+     * List all schemas contained in this catalog.
      */
     List<Schema> getSchemas();
 
     /**
      * Get a schema by its name (case-sensitive) in this catalog, or
-     * <code>null</code> if no such schema exists
+     * <code>null</code> if no such schema exists.
      */
     Schema getSchema(String name);
 }

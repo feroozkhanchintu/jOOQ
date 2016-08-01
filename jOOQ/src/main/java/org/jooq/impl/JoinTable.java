@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -112,14 +112,14 @@ import org.jooq.TableOptionalOnStep;
 import org.jooq.exception.DataAccessException;
 
 /**
- * A table consisting of two joined tables and possibly a join condition
+ * A table consisting of two joined tables and possibly a join condition.
  *
  * @author Lukas Eder
  */
 final class JoinTable extends AbstractTable<Record> implements TableOptionalOnStep<Record>, TableOnConditionStep<Record> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long             serialVersionUID = 8377996833996498178L;
     private static final Clause[]         CLAUSES          = { TABLE, TABLE_JOIN };
@@ -144,9 +144,11 @@ final class JoinTable extends AbstractTable<Record> implements TableOptionalOnSt
         this.using = new QueryPartList<Field<?>>();
     }
 
-    // ------------------------------------------------------------------------
-    // Table API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Table API
+     * ------------------------------------------------------------------------.
+     */
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
@@ -274,7 +276,7 @@ final class JoinTable extends AbstractTable<Record> implements TableOptionalOnSt
     }
 
     /**
-     * Translate the join type into a join clause
+     * Translate the join type into a join clause.
      */
     final Clause translateClause(JoinType translatedType) {
         switch (translatedType) {
@@ -296,7 +298,7 @@ final class JoinTable extends AbstractTable<Record> implements TableOptionalOnSt
     }
 
     /**
-     * Translate the join type for SQL rendering
+     * Translate the join type for SQL rendering.
      */
     final JoinType translateType(Context<?> context) {
         if (emulateCrossJoin(context)) {
@@ -459,9 +461,11 @@ final class JoinTable extends AbstractTable<Record> implements TableOptionalOnSt
         return true;
     }
 
-    // ------------------------------------------------------------------------
-    // Join API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Join API
+     * ------------------------------------------------------------------------.
+     */
 
 
 
@@ -555,10 +559,11 @@ final class JoinTable extends AbstractTable<Record> implements TableOptionalOnSt
 
     @Override
     public final JoinTable onKey(ForeignKey<?, ?> key) {
-        if (search(lhs, key.getTable()) != null)
-            return onKey(key, lhs, rhs);
-        else if (search(rhs, key.getTable()) != null)
-            return onKey(key, rhs, lhs);
+        if (search(lhs, key.getTable()) != null) {
+			return onKey(key, lhs, rhs);
+		} else if (search(rhs, key.getTable()) != null) {
+			return onKey(key, rhs, lhs);
+		}
 
         throw onKeyException();
     }
@@ -570,27 +575,30 @@ final class JoinTable extends AbstractTable<Record> implements TableOptionalOnSt
         if (tree instanceof TableImpl) {
             TableImpl<?> t = (TableImpl<?>) tree;
 
-            if (t.alias == null && search.equals(t))
-                return t;
-            else if (t.alias != null && search.equals(t.alias.wrapped()))
-                return t;
-            else
-                return null;
+            if (t.alias == null && search.equals(t)) {
+				return t;
+			} else if (t.alias != null && search.equals(t.alias.wrapped())) {
+				return t;
+			} else {
+				return null;
+			}
         }
         else if (tree instanceof TableAlias) {
             TableAlias<?> t = (TableAlias<?>) tree;
 
-            if (search.equals(t.alias.wrapped()))
-                return t;
-            else
-                return null;
+            if (search.equals(t.alias.wrapped())) {
+				return t;
+			} else {
+				return null;
+			}
         }
         else if (tree instanceof JoinTable) {
             JoinTable t = (JoinTable) tree;
 
             Table<?> r = search(t.lhs, search);
-            if (r == null)
-                r = search(t.rhs, search);
+            if (r == null) {
+				r = search(t.rhs, search);
+			}
 
             return r;
         }

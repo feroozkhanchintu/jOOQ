@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -50,7 +50,7 @@ import org.jooq.Field;
 final class Coerce<T> extends AbstractField<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -6776617606751542856L;
 

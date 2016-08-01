@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -55,7 +55,7 @@ import org.jooq.Record;
 final class Array<T> extends AbstractField<T[]> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long    serialVersionUID = -6629785423729163857L;
 
@@ -69,10 +69,11 @@ final class Array<T> extends AbstractField<T[]> {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private static <T> DataType<T[]> type(Collection<? extends Field<T>> fields) {
-        if (fields == null || fields.isEmpty())
-            return (DataType) SQLDataType.OTHER.getArrayDataType();
-        else
-            return fields.iterator().next().getDataType().getArrayDataType();
+        if (fields == null || fields.isEmpty()) {
+			return (DataType) SQLDataType.OTHER.getArrayDataType();
+		} else {
+			return fields.iterator().next().getDataType().getArrayDataType();
+		}
     }
 
     @Override
@@ -90,8 +91,9 @@ final class Array<T> extends AbstractField<T[]> {
                    .visit(fields)
                    .sql(']');
 
-                if (fields.fields.length == 0 && ctx.family() == POSTGRES)
-                    ctx.sql("::").keyword("int[]");
+                if (fields.fields.length == 0 && ctx.family() == POSTGRES) {
+					ctx.sql("::").keyword("int[]");
+				}
 
                 break;
         }

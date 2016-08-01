@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -130,7 +130,7 @@ import org.jooq.WindowDefinition;
 import org.jooq.exception.MappingException;
 
 /**
- * A wrapper for a {@link SelectQuery}
+ * A wrapper for a {@link SelectQuery}.
  *
  * @author Lukas Eder
  */
@@ -176,32 +176,32 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
     SelectForUpdateOfStep<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long               serialVersionUID = -5425308887382166448L;
 
     /**
-     * A temporary member holding a join table
+     * A temporary member holding a join table.
      */
     private transient TableLike<?>          joinTable;
 
     /**
-     * A temporary member holding a join partition by expression
+     * A temporary member holding a join partition by expression.
      */
     private transient Field<?>[]            joinPartitionBy;
 
     /**
-     * A temporary member holding a join type
+     * A temporary member holding a join type.
      */
     private transient JoinType              joinType;
 
     /**
-     * A temporary member holding a join condition
+     * A temporary member holding a join condition.
      */
     private transient ConditionProviderImpl joinConditions;
 
     /**
-     * The step that is currently receiving new conditions
+     * The step that is currently receiving new conditions.
      */
     private transient ConditionStep         conditionStep;
 
@@ -238,7 +238,7 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
 
     /**
      * This method must be able to return both incompatible types
-     * SelectSelectStep&lt;Record> and SelectSelectStep&lt;R>
+     * SelectSelectStep&lt;Record> and SelectSelectStep&lt;R>.
      */
     @Override
     public final SelectImpl select(SelectField<?>... fields) {
@@ -248,7 +248,7 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
 
     /**
      * This method must be able to return both incompatible types
-     * SelectSelectStep&lt;Record> and SelectSelectStep&lt;R>
+     * SelectSelectStep&lt;Record> and SelectSelectStep&lt;R>.
      */
     @Override
     public final SelectImpl select(Collection<? extends SelectField<?>> fields) {
@@ -674,7 +674,7 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
         return this;
     }
 
-// [jooq-tools] START [order-by-field-array]
+/** [jooq-tools] START [order-by-field-array]. */
 
     @Override
     @Generated("This method was generated using jOOQ-tools")
@@ -808,7 +808,7 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
         return orderBy(new Field[] { t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22 });
     }
 
-// [jooq-tools] END [order-by-field-array]
+/** [jooq-tools] END [order-by-field-array]. */
 
     @Override
     public final SelectImpl orderBy(Field<?>... fields) {
@@ -816,7 +816,7 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
         return this;
     }
 
-// [jooq-tools] START [order-by-sortfield-array]
+/** [jooq-tools] START [order-by-sortfield-array]. */
 
     @Override
     @Generated("This method was generated using jOOQ-tools")
@@ -950,7 +950,7 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
         return orderBy(new SortField[] { t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22 });
     }
 
-// [jooq-tools] END [order-by-sortfield-array]
+/** [jooq-tools] END [order-by-sortfield-array]. */
 
     @Override
     public final SelectImpl orderBy(SortField<?>... fields) {
@@ -998,7 +998,7 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
         return this;
     }
 
-// [jooq-tools] START [seek]
+/** [jooq-tools] START [seek]. */
 
     @Override
     @Generated("This method was generated using jOOQ-tools")
@@ -1792,7 +1792,7 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
         return seekAfter(new Field[] { t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22 });
     }
 
-// [jooq-tools] END [seek]
+/** [jooq-tools] END [seek]. */
 
     @Override
     public final SelectSeekLimitStep<R> seek(Object... values) {
@@ -1896,27 +1896,27 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
 
     private final SelectImpl limitOffset() {
         if (limit != null) {
-            if (offset != null)
-                getQuery().addLimit(offset, limit);
-            else if (offsetParam != null)
-                getQuery().addLimit(offsetParam, limit);
-            else
-                getQuery().addLimit(limit);
+            if (offset != null) {
+				getQuery().addLimit(offset, limit);
+			} else if (offsetParam != null) {
+				getQuery().addLimit(offsetParam, limit);
+			} else {
+				getQuery().addLimit(limit);
+			}
         }
         else if (limitParam != null) {
-            if (offset != null)
-                getQuery().addLimit(offset, limitParam);
-            else if (offsetParam != null)
-                getQuery().addLimit(offsetParam, limitParam);
-            else
-                getQuery().addLimit(limitParam);
-        }
-        else {
-            if (offset != null)
-                getQuery().addOffset(offset);
-            else if (offsetParam != null)
-                getQuery().addOffset(offsetParam);
-        }
+            if (offset != null) {
+				getQuery().addLimit(offset, limitParam);
+			} else if (offsetParam != null) {
+				getQuery().addLimit(offsetParam, limitParam);
+			} else {
+				getQuery().addLimit(limitParam);
+			}
+        } else if (offset != null) {
+			getQuery().addOffset(offset);
+		} else if (offsetParam != null) {
+			getQuery().addOffset(offsetParam);
+		}
 
         return this;
     }
@@ -3735,7 +3735,7 @@ final class SelectImpl<R extends Record, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10
      * <p>
      * This enumeration models the step that is currently receiving new
      * conditions via the {@link SelectImpl#and(Condition)},
-     * {@link SelectImpl#or(Condition)}, etc methods
+     * {@link SelectImpl#or(Condition)}, etc methods.
      *
      * @author Lukas Eder
      */

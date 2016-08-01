@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -43,7 +43,7 @@ package org.jooq;
 import org.jooq.conf.Settings;
 
 /**
- * An object that can behave like a field (a field-like object)
+ * An object that can behave like a field (a field-like object).
  *
  * @author Lukas Eder
  */

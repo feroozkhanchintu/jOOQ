@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -59,17 +59,17 @@ public interface Key<R extends Record> extends Serializable {
     String getName();
 
     /**
-     * The <code>Key</code>'s owner table
+     * The <code>Key</code>'s owner table.
      */
     Table<R> getTable();
 
     /**
-     * The fields that make up the <code>KEY</code>
+     * The fields that make up the <code>KEY</code>.
      */
     List<TableField<R, ?>> getFields();
 
     /**
-     * The fields that make up the <code>KEY</code>
+     * The fields that make up the <code>KEY</code>.
      *
      * @see #getFields()
      */

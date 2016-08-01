@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -104,7 +104,7 @@ public interface DAO<R extends TableRecord<R>, P, T> {
     RecordMapper<R, P> mapper();
 
     /**
-     * Performs an <code>INSERT</code> statement for a given POJO
+     * Performs an <code>INSERT</code> statement for a given POJO.
      *
      * @param object The POJO to be inserted
      * @throws DataAccessException if something went wrong executing the query
@@ -112,7 +112,7 @@ public interface DAO<R extends TableRecord<R>, P, T> {
     void insert(P object) throws DataAccessException;
 
     /**
-     * Performs a batch <code>INSERT</code> statement for a given set of POJOs
+     * Performs a batch <code>INSERT</code> statement for a given set of POJOs.
      *
      * @param objects The POJOs to be inserted
      * @throws DataAccessException if something went wrong executing the query
@@ -130,7 +130,7 @@ public interface DAO<R extends TableRecord<R>, P, T> {
     void insert(Collection<P> objects) throws DataAccessException;
 
     /**
-     * Performs an <code>UPDATE</code> statement for a given POJO
+     * Performs an <code>UPDATE</code> statement for a given POJO.
      *
      * @param object The POJO to be updated
      * @throws DataAccessException if something went wrong executing the query
@@ -138,7 +138,7 @@ public interface DAO<R extends TableRecord<R>, P, T> {
     void update(P object) throws DataAccessException;
 
     /**
-     * Performs a batch <code>UPDATE</code> statement for a given set of POJOs
+     * Performs a batch <code>UPDATE</code> statement for a given set of POJOs.
      *
      * @param objects The POJOs to be updated
      * @throws DataAccessException if something went wrong executing the query
@@ -156,7 +156,7 @@ public interface DAO<R extends TableRecord<R>, P, T> {
     void update(Collection<P> objects) throws DataAccessException;
 
     /**
-     * Performs a <code>DELETE</code> statement for a POJO
+     * Performs a <code>DELETE</code> statement for a POJO.
      *
      * @param object The POJO to be deleted
      * @throws DataAccessException if something went wrong executing the query
@@ -165,7 +165,7 @@ public interface DAO<R extends TableRecord<R>, P, T> {
     void delete(P object) throws DataAccessException;
 
     /**
-     * Performs a <code>DELETE</code> statement for a given set of POJOs
+     * Performs a <code>DELETE</code> statement for a given set of POJOs.
      *
      * @param objects The POJOs to be deleted
      * @throws DataAccessException if something went wrong executing the query
@@ -183,7 +183,7 @@ public interface DAO<R extends TableRecord<R>, P, T> {
     void delete(Collection<P> objects) throws DataAccessException;
 
     /**
-     * Performs a <code>DELETE</code> statement for a given set of IDs
+     * Performs a <code>DELETE</code> statement for a given set of IDs.
      *
      * @param ids The IDs to be deleted
      * @throws DataAccessException if something went wrong executing the query
@@ -201,7 +201,7 @@ public interface DAO<R extends TableRecord<R>, P, T> {
     void deleteById(Collection<T> ids) throws DataAccessException;
 
     /**
-     * Checks if a given POJO exists
+     * Checks if a given POJO exists.
      *
      * @param object The POJO whose existence is checked
      * @return Whether the POJO already exists
@@ -210,7 +210,7 @@ public interface DAO<R extends TableRecord<R>, P, T> {
     boolean exists(P object) throws DataAccessException;
 
     /**
-     * Checks if a given ID exists
+     * Checks if a given ID exists.
      *
      * @param id The ID whose existence is checked
      * @return Whether the ID already exists
@@ -286,12 +286,12 @@ public interface DAO<R extends TableRecord<R>, P, T> {
 
 
     /**
-     * Get the underlying table
+     * Get the underlying table.
      */
     Table<R> getTable();
 
     /**
-     * Get the underlying POJO type
+     * Get the underlying POJO type.
      */
     Class<P> getType();
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -568,7 +568,7 @@ public interface SelectJoinStep<R extends Record> extends SelectWhereStep<R> {
     /**
      * Convenience method to <code>LEFT OUTER JOIN</code> a table to the last
      * table added to the <code>FROM</code> clause using
-     * {@link Table#leftOuterJoin(TableLike)}
+     * {@link Table#leftOuterJoin(TableLike)}.
      *
      * @see Table#leftOuterJoin(TableLike)
      */
@@ -650,7 +650,7 @@ public interface SelectJoinStep<R extends Record> extends SelectWhereStep<R> {
     /**
      * Convenience method to <code>LEFT OUTER JOIN</code> a table to the last
      * table added to the <code>FROM</code> clause using
-     * {@link Table#leftOuterJoin(Name)}
+     * {@link Table#leftOuterJoin(Name)}.
      *
      * @see DSL#table(Name)
      * @see Table#leftOuterJoin(Name)
@@ -786,7 +786,7 @@ public interface SelectJoinStep<R extends Record> extends SelectWhereStep<R> {
      * table added to the <code>FROM</code> clause using
      * {@link Table#rightOuterJoin(TableLike)}
      * <p>
-     * This is only possible where the underlying RDBMS supports it
+     * This is only possible where the underlying RDBMS supports it.
      *
      * @see Table#rightOuterJoin(TableLike)
      */
@@ -878,7 +878,7 @@ public interface SelectJoinStep<R extends Record> extends SelectWhereStep<R> {
      * table added to the <code>FROM</code> clause using
      * {@link Table#rightOuterJoin(Name)}
      * <p>
-     * This is only possible where the underlying RDBMS supports it
+     * This is only possible where the underlying RDBMS supports it.
      *
      * @see DSL#table(Name)
      * @see Table#rightOuterJoin(Name)
@@ -891,7 +891,7 @@ public interface SelectJoinStep<R extends Record> extends SelectWhereStep<R> {
      * table added to the <code>FROM</code> clause using
      * {@link Table#fullOuterJoin(TableLike)}
      * <p>
-     * This is only possible where the underlying RDBMS supports it
+     * This is only possible where the underlying RDBMS supports it.
      *
      * @see Table#fullOuterJoin(TableLike)
      */
@@ -983,7 +983,7 @@ public interface SelectJoinStep<R extends Record> extends SelectWhereStep<R> {
      * table added to the <code>FROM</code> clause using
      * {@link Table#fullOuterJoin(Name)}
      * <p>
-     * This is only possible where the underlying RDBMS supports it
+     * This is only possible where the underlying RDBMS supports it.
      *
      * @see DSL#table(Name)
      * @see Table#fullOuterJoin(Name)

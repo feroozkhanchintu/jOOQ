@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -45,7 +45,7 @@ import java.util.Collection;
 import org.jooq.exception.DataAccessException;
 
 /**
- * A record originating from a single table
+ * A record originating from a single table.
  *
  * @param <R> The record type
  * @author Lukas Eder
@@ -57,9 +57,7 @@ public interface TableRecord<R extends TableRecord<R>> extends Record {
      */
     Table<R> getTable();
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     R original();
 

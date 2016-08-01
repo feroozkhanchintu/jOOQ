@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -73,8 +73,9 @@ public class DefaultExecuteListenerProvider implements ExecuteListenerProvider, 
     public static ExecuteListenerProvider[] providers(ExecuteListener... listeners) {
         ExecuteListenerProvider[] result = new ExecuteListenerProvider[listeners.length];
 
-        for (int i = 0; i < listeners.length; i++)
-            result[i] = new DefaultExecuteListenerProvider(listeners[i]);
+        for (int i = 0; i < listeners.length; i++) {
+			result[i] = new DefaultExecuteListenerProvider(listeners[i]);
+		}
 
         return result;
     }
@@ -88,17 +89,13 @@ public class DefaultExecuteListenerProvider implements ExecuteListenerProvider, 
         this.listener = listener;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public final ExecuteListener provide() {
         return listener;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return listener.toString();

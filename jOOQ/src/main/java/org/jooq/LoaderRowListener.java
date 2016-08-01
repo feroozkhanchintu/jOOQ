@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -48,7 +48,7 @@ package org.jooq;
 public interface LoaderRowListener {
 
     /**
-     * A row has been processed by the {@link Loader}
+     * A row has been processed by the {@link Loader}.
      */
     void row(LoaderContext ctx);
 }

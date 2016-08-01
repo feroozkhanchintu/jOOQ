@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -48,7 +48,7 @@ import static org.jooq.SQLDialect.MYSQL;
 
 
 /**
- * The type of join
+ * The type of join.
  *
  * @author Lukas Eder
  */

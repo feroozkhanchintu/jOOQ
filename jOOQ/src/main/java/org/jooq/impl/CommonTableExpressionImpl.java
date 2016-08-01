@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -55,7 +55,7 @@ import org.jooq.Table;
 final class CommonTableExpressionImpl<R extends Record> extends AbstractTable<R> implements CommonTableExpression<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long         serialVersionUID = 2520235151216758958L;
 
@@ -136,7 +136,6 @@ final class CommonTableExpressionImpl<R extends Record> extends AbstractTable<R>
             );
         }
 
-        Fields<R> result = new Fields<R>(f);
-        return result;
+        return new Fields<R>(f);
     }
 }

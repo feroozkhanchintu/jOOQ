@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -104,7 +104,7 @@ import org.jooq.tools.StringUtils;
 abstract class AbstractTable<R extends Record> extends AbstractQueryPart implements Table<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 3155496238969274871L;
     private static final Clause[] CLAUSES          = { TABLE };
@@ -130,9 +130,11 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
         this.tablecomment = comment;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: QueryPart API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: QueryPart API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public Clause[] clauses(Context<?> ctx) {
@@ -266,9 +268,11 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
         return as(alias, fieldAliases);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Table API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Table API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final Catalog getCatalog() {
@@ -293,7 +297,7 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
     /**
      * {@inheritDoc}
      * <p>
-     * Subclasses should override this method
+     * Subclasses should override this method.
      */
     @Override
     public Identity<R, ?> getIdentity() {
@@ -303,7 +307,7 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
     /**
      * {@inheritDoc}
      * <p>
-     * Subclasses may override this method
+     * Subclasses may override this method.
      */
     @Override
     public UniqueKey<R> getPrimaryKey() {
@@ -313,7 +317,7 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
     /**
      * {@inheritDoc}
      * <p>
-     * Subclasses may override this method
+     * Subclasses may override this method.
      */
     @Override
     public TableField<R, ? extends Number> getRecordVersion() {
@@ -323,7 +327,7 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
     /**
      * {@inheritDoc}
      * <p>
-     * Subclasses may override this method
+     * Subclasses may override this method.
      */
     @Override
     public TableField<R, ? extends java.util.Date> getRecordTimestamp() {
@@ -333,16 +337,14 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
     /**
      * {@inheritDoc}
      * <p>
-     * Subclasses should override this method
+     * Subclasses should override this method.
      */
     @Override
     public List<UniqueKey<R>> getKeys() {
         return Collections.emptyList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public final <O extends Record> List<ForeignKey<O, R>> getReferencesFrom(Table<O> other) {
         return other.getReferencesTo(this);
@@ -351,16 +353,14 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
     /**
      * {@inheritDoc}
      * <p>
-     * Subclasses should override this method
+     * Subclasses should override this method.
      */
     @Override
     public List<ForeignKey<R, ?>> getReferences() {
         return Collections.emptyList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public final <O extends Record> List<ForeignKey<R, O>> getReferencesTo(Table<O> other) {
@@ -401,7 +401,7 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
      * @param name The name of the field (case-sensitive!)
      * @param type The data type of the field
      */
-    protected static final <R extends Record, T> TableField<R, T> createField(String name, DataType<T> type, Table<R> table) {
+    protected static <R extends Record, T> TableField<R, T> createField(String name, DataType<T> type, Table<R> table) {
         return createField(name, type, table, null, null, null);
     }
 
@@ -412,7 +412,7 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
      * @param name The name of the field (case-sensitive!)
      * @param type The data type of the field
      */
-    protected static final <R extends Record, T> TableField<R, T> createField(String name, DataType<T> type, Table<R> table, String comment) {
+    protected static <R extends Record, T> TableField<R, T> createField(String name, DataType<T> type, Table<R> table, String comment) {
         return createField(name, type, table, comment, null, null);
     }
 
@@ -423,7 +423,7 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
      * @param name The name of the field (case-sensitive!)
      * @param type The data type of the field
      */
-    protected static final <R extends Record, T, U> TableField<R, U> createField(String name, DataType<T> type, Table<R> table, String comment, Converter<T, U> converter) {
+    protected static <R extends Record, T, U> TableField<R, U> createField(String name, DataType<T> type, Table<R> table, String comment, Converter<T, U> converter) {
         return createField(name, type, table, comment, converter, null);
     }
 
@@ -434,7 +434,7 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
      * @param name The name of the field (case-sensitive!)
      * @param type The data type of the field
      */
-    protected static final <R extends Record, T, U> TableField<R, U> createField(String name, DataType<T> type, Table<R> table, String comment, Binding<T, U> binding) {
+    protected static <R extends Record, T, U> TableField<R, U> createField(String name, DataType<T> type, Table<R> table, String comment, Binding<T, U> binding) {
         return createField(name, type, table, comment, null, binding);
     }
 
@@ -446,7 +446,7 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
      * @param type The data type of the field
      */
     @SuppressWarnings("unchecked")
-    protected static final <R extends Record, T, X, U> TableField<R, U> createField(String name, DataType<T> type, Table<R> table, String comment, Converter<X, U> converter, Binding<T, X> binding) {
+    protected static <R extends Record, T, X, U> TableField<R, U> createField(String name, DataType<T> type, Table<R> table, String comment, Converter<X, U> converter, Binding<T, X> binding) {
         final Binding<T, U> actualBinding = DefaultBinding.newBinding(converter, type, binding);
         final DataType<U> actualType =
             converter == null && binding == null
@@ -518,9 +518,11 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
         return createField(name, type, this, comment, converter, binding);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Convenience methods and synthetic methods
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Convenience methods and synthetic methods
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final Condition eq(Table<R> that) {
@@ -542,9 +544,11 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
         return new TableComparison<R>(this, that, Comparator.NOT_EQUALS);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Other API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Other API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final Table<R> useIndex(String... indexes) {
@@ -606,9 +610,11 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
         return new HintedTable<R>(this, "force index for group by", indexes);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: aliasing API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: aliasing API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final Table<R> as(Table<?> otherTable) {
@@ -710,9 +716,11 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
 
 
 
-    // ------------------------------------------------------------------------
-    // XXX: DIVISION API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: DIVISION API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final DivideByOnStep divideBy(Table<?> divisor) {
@@ -731,9 +739,11 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
         return (TableOnStep) join(table, LEFT_ANTI_JOIN);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: JOIN API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: JOIN API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final TableOptionalOnStep<Record> join(TableLike<?> table, JoinType type) {
@@ -1160,27 +1170,15 @@ abstract class AbstractTable<R extends Record> extends AbstractQueryPart impleme
         return straightJoin(table(name));
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Object API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-
-        // [#2144] Non-equality can be decided early, without executing the
-        // rather expensive implementation of AbstractQueryPart.equals()
-        if (that instanceof AbstractTable) {
-            if (StringUtils.equals(tablename, (((AbstractTable<?>) that).tablename))) {
-                return super.equals(that);
-            }
-
-            return false;
-        }
-
-        return false;
+        return this == that || (that instanceof AbstractTable && StringUtils.equals(tablename, ((AbstractTable<?>) that).tablename) && super.equals(that));
     }
 
     @Override

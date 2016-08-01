@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -79,7 +79,7 @@ final class CreateViewImpl<R extends Record> extends AbstractQuery implements
 
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 8904572826501186329L;
     private static final Clause[] CLAUSES          = { CREATE_VIEW };
@@ -97,9 +97,11 @@ final class CreateViewImpl<R extends Record> extends AbstractQuery implements
         this.ifNotExists = ifNotExists;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: DSL API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: DSL API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final CreateViewFinalStep as(Select<? extends R> s) {
@@ -107,9 +109,11 @@ final class CreateViewImpl<R extends Record> extends AbstractQuery implements
         return this;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: QueryPart API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: QueryPart API
+     * ------------------------------------------------------------------------
+     */
 
     private final boolean supportsIfNotExists(Context<?> ctx) {
         return !asList(DERBY, FIREBIRD).contains(ctx.family());
@@ -140,9 +144,10 @@ final class CreateViewImpl<R extends Record> extends AbstractQuery implements
            .keyword("create view")
            .sql(' ');
 
-        if (ifNotExists && supportsIfNotExists(ctx))
-            ctx.keyword("if not exists")
+        if (ifNotExists && supportsIfNotExists(ctx)) {
+			ctx.keyword("if not exists")
                .sql(' ');
+		}
 
         ctx.visit(view);
 

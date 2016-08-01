@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -54,7 +54,7 @@ import org.jooq.Field;
 final class CurrentTime extends AbstractFunction<Time> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -7273879239726265322L;
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -55,7 +55,7 @@ import org.jooq.WindowSpecification;
 final class WindowDefinitionImpl extends AbstractQueryPart implements WindowDefinition {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long         serialVersionUID = -7779419148766154430L;
 

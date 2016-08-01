@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -68,7 +68,7 @@ final class DropSequenceImpl extends AbstractQuery implements
     DropSequenceFinalStep {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 8904572826501186329L;
     private static final Clause[] CLAUSES          = { DROP_SEQUENCE };
@@ -87,9 +87,11 @@ final class DropSequenceImpl extends AbstractQuery implements
         this.ifExists = ifExists;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: QueryPart API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: QueryPart API
+     * ------------------------------------------------------------------------
+     */
 
     private final boolean supportsIfExists(Context<?> ctx) {
         return !asList(DERBY, FIREBIRD).contains(ctx.family());
@@ -114,8 +116,9 @@ final class DropSequenceImpl extends AbstractQuery implements
            .keyword(ctx.family() == CUBRID ? "serial" : "sequence")
            .sql(' ');
 
-        if (ifExists && supportsIfExists(ctx))
-            ctx.keyword("if exists").sql(' ');
+        if (ifExists && supportsIfExists(ctx)) {
+			ctx.keyword("if exists").sql(' ');
+		}
 
         switch (ctx.family()) {
 
@@ -136,8 +139,9 @@ final class DropSequenceImpl extends AbstractQuery implements
             }
         }
 
-        if (ctx.family() == DERBY)
-            ctx.sql(' ').keyword("restrict");
+        if (ctx.family() == DERBY) {
+			ctx.sql(' ').keyword("restrict");
+		}
 
         ctx.end(DROP_SEQUENCE_SEQUENCE);
     }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -51,7 +51,7 @@ import org.jooq.TableField;
 final class IdentityImpl<R extends Record, T> implements Identity<R, T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long      serialVersionUID = 162853300137140844L;
 
@@ -80,15 +80,7 @@ final class IdentityImpl<R extends Record, T> implements Identity<R, T> {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj instanceof Identity) {
-            return toString().equals(obj.toString());
-        }
-
-        return false;
+        return this == obj || (obj instanceof Identity && toString().equals(obj.toString()));
     }
 
     @Override

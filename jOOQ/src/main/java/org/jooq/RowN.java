@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -314,7 +314,7 @@ public interface RowN extends Row {
     Condition notEqual(RowN row);
 
     /**
-     * Compare this row value expression with a record for non-equality
+     * Compare this row value expression with a record for non-equality.
      *
      * @see #notEqual(RowN)
      */

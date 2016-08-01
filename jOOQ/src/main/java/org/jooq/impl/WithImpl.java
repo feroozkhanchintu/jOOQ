@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -156,7 +156,7 @@ implements
 {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long               serialVersionUID = -1813359431778402705L;
     private static final Clause[]           CLAUSES          = { WITH };
@@ -165,7 +165,7 @@ implements
     private final boolean                   recursive;
     private Configuration                   configuration;
 
-    // Intermediary properties for CTE construction
+    /** Intermediary properties for CTE construction. */
 
     private String                          alias;
     private String[]                        fieldAliases;
@@ -176,18 +176,21 @@ implements
         this.cte = new CommonTableExpressionList();
     }
 
-    // -------------------------------------------------------------------------
-    // XXX QueryPart API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX QueryPart API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final void accept(Context<?> ctx) {
         ctx.keyword("with")
            .sql(' ');
 
-        if (recursive && !asList().contains(ctx.configuration().dialect().family()))
-            ctx.keyword("recursive")
+        if (recursive && !asList().contains(ctx.configuration().dialect().family())) {
+			ctx.keyword("recursive")
                .sql(' ');
+		}
 
         ctx.declareCTE(true)
            .visit(cte)
@@ -199,9 +202,11 @@ implements
         return CLAUSES;
     }
 
-    // -------------------------------------------------------------------------
-    // XXX With API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX With API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final WithStep as(Select select) {
@@ -226,7 +231,7 @@ implements
         return this;
     }
 
-    // [jooq-tools] START [with]
+    /** [jooq-tools] START [with]. */
 
     @Override
     public final WithAsStep1 with(String a, String fieldAlias1) {
@@ -404,12 +409,13 @@ implements
         return this;
     }
 
-// [jooq-tools] END [with]
+/** [jooq-tools] END [with]. */
 
     @Override
     public final WithStep with(CommonTableExpression<?>... tables) {
-        for (CommonTableExpression<?> table : tables)
-            cte.add(table);
+        for (CommonTableExpression<?> table : tables) {
+			cte.add(table);
+		}
 
         return this;
     }
@@ -429,7 +435,7 @@ implements
         return new SelectImpl(configuration, this).select(fields);
     }
 
-    // [jooq-tools] START [select]
+    /** [jooq-tools] START [select]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -563,7 +569,7 @@ implements
         return (SelectSelectStep) select(new SelectField[] { field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22 });
     }
 
-// [jooq-tools] END [select]
+/** [jooq-tools] END [select]. */
 
     @Override
     public final SelectSelectStep<Record> selectDistinct(Collection<? extends SelectField<?>> fields) {
@@ -575,7 +581,7 @@ implements
         return new SelectImpl(configuration, this, true).select(fields);
     }
 
-    // [jooq-tools] START [selectDistinct]
+    /** [jooq-tools] START [selectDistinct]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -709,7 +715,7 @@ implements
         return (SelectSelectStep) selectDistinct(new SelectField[] { field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22 });
     }
 
-// [jooq-tools] END [selectDistinct]
+/** [jooq-tools] END [selectDistinct]. */
 
     @Override
     public final SelectSelectStep<Record1<Integer>> selectZero() {
@@ -731,7 +737,7 @@ implements
         return new InsertImpl(configuration, this, into);
     }
 
-    // [jooq-tools] START [insert]
+    /** [jooq-tools] START [insert]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -865,7 +871,7 @@ implements
         return insertInto(into, Arrays.asList(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22));
     }
 
-// [jooq-tools] END [insert]
+/** [jooq-tools] END [insert]. */
 
     @Override
     public final <R extends Record> InsertImpl insertInto(Table<R> into, Field<?>... fields) {
@@ -887,7 +893,7 @@ implements
         return new MergeImpl(configuration, this, table);
     }
 
-    // [jooq-tools] START [merge]
+    /** [jooq-tools] START [merge]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -1021,7 +1027,7 @@ implements
         return mergeInto(table, Arrays.asList(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22));
     }
 
-// [jooq-tools] END [merge]
+/** [jooq-tools] END [merge]. */
 
     @Override
     public final <R extends Record> MergeImpl mergeInto(Table<R> table, Field<?>... fields) {

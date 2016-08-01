@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -50,7 +50,7 @@ import org.jooq.UniqueKey;
 final class CountTable extends Function<Integer> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 7292087943334025737L;
 
@@ -75,10 +75,11 @@ final class CountTable extends Function<Integer> {
             default: {
                 UniqueKey<?> pk = table.getPrimaryKey();
 
-                if (pk != null)
-                    ctx.visit(new Function<Integer>("count", distinct, SQLDataType.INTEGER, table.fields(pk.getFieldsArray())));
-                else
-                    super.accept(ctx);
+                if (pk != null) {
+					ctx.visit(new Function<Integer>("count", distinct, SQLDataType.INTEGER, table.fields(pk.getFieldsArray())));
+				} else {
+					super.accept(ctx);
+				}
 
                 break;
             }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -60,7 +60,7 @@ final class CreateSchemaImpl<R extends Record> extends AbstractQuery implements
 
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 8904572826501186329L;
     private static final Clause[] CLAUSES          = { CREATE_SCHEMA };
@@ -75,21 +75,24 @@ final class CreateSchemaImpl<R extends Record> extends AbstractQuery implements
         this.ifNotExists = ifNotExists;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: DSL API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: DSL API
+     * ------------------------------------------------------------------------
 
-    // ------------------------------------------------------------------------
-    // XXX: QueryPart API
-    // ------------------------------------------------------------------------
+     * ------------------------------------------------------------------------
+     * XXX: QueryPart API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final void accept(Context<?> ctx) {
         ctx.start(CREATE_SCHEMA_NAME)
            .keyword("create schema");
 
-        if (ifNotExists)
-            ctx.sql(' ').keyword("if not exists");
+        if (ifNotExists) {
+			ctx.sql(' ').keyword("if not exists");
+		}
 
         ctx.sql(' ').visit(schema)
            .end(CREATE_SCHEMA_NAME);

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -56,7 +56,7 @@ public interface ConditionProvider {
 
     /**
      * Adds new conditions to the query, connecting them to existing
-     * conditions with {@link Operator#AND}
+     * conditions with {@link Operator#AND}.
      *
      * @param conditions The condition
      */
@@ -65,7 +65,7 @@ public interface ConditionProvider {
 
     /**
      * Adds new conditions to the query, connecting them to existing
-     * conditions with {@link Operator#AND}
+     * conditions with {@link Operator#AND}.
      *
      * @param conditions The condition
      */
@@ -74,7 +74,7 @@ public interface ConditionProvider {
 
     /**
      * Adds new conditions to the query, connecting them to existing
-     * conditions with the provided operator
+     * conditions with the provided operator.
      *
      * @param conditions The condition
      */
@@ -83,7 +83,7 @@ public interface ConditionProvider {
 
     /**
      * Adds new conditions to the query, connecting them to existing
-     * conditions with the provided operator
+     * conditions with the provided operator.
      *
      * @param conditions The condition
      */

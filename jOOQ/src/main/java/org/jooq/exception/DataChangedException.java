@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -44,7 +44,7 @@ import org.jooq.UpdatableRecord;
 
 /**
  * An error occurred while storing a record whose underlying data had already
- * been changed
+ * been changed.
  *
  * @see UpdatableRecord#store()
  * @author Lukas Eder
@@ -52,7 +52,7 @@ import org.jooq.UpdatableRecord;
 public class DataChangedException extends DataAccessException {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -6460945824599280420L;
 

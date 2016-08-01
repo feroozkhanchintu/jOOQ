@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -107,7 +107,7 @@ import org.jooq.tools.StringUtils;
 abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 2884811923648354905L;
     private static final Clause[] CLAUSES          = { FIELD };
@@ -129,9 +129,11 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         this.dataType = type.asConvertedDataType((Binding<T, T>) binding);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: API (not implemented)
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: API (not implemented)
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public abstract void accept(Context<?> ctx);
@@ -141,9 +143,11 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         return CLAUSES;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public Field<T> as(String alias) {
@@ -190,9 +194,11 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         return dataType.getType();
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Type casts
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Type casts
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final <Z> Field<Z> cast(Field<Z> field) {
@@ -225,9 +231,11 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         }
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Type coercions
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Type coercions
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final <Z> Field<Z> coerce(Field<Z> field) {
@@ -252,9 +260,11 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         return coerce(DefaultDataType.getDataType(null, type));
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Conversion of field into a sort field
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Conversion of field into a sort field
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final SortField<T> asc() {
@@ -317,25 +327,27 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         CaseWhenStep<T, Z> result = null;
 
         for (Entry<T, Z> entry : sortMap.entrySet()) {
-            if (result == null) {
-                result = decode.when(entry.getKey(), inline(entry.getValue()));
+            if (result != null) {
+                result.when(entry.getKey(), inline(entry.getValue()));
             }
             else {
-                result.when(entry.getKey(), inline(entry.getValue()));
+                result = decode.when(entry.getKey(), inline(entry.getValue()));
             }
         }
 
-        if (result == null) {
-            return null;
+        if (result != null) {
+            return result.asc();
         }
         else {
-            return result.asc();
+            return null;
         }
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Arithmetic operations
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Arithmetic operations
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final Field<T> neg() {
@@ -347,7 +359,7 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         return add(Tools.field(value));
     }
 
-    /*
+    /**
      * This default implementation is known to be overridden by
      * Expression to generate neater expressions
      */
@@ -373,7 +385,7 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
 
     /**
      * This default implementation is known to be overridden by
-     * <code>Expression</code> to generate neater expressions
+     * <code>Expression</code> to generate neater expressions.
      */
     @Override
     public Field<T> mul(Field<? extends Number> value) {
@@ -400,9 +412,11 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         return new Mod<T>(this, nullSafe(value));
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Arithmetic operation aliases
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Arithmetic operation aliases
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final Field<T> plus(Number value) {
@@ -464,151 +478,121 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         return mod(value);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Bitwise operations
-    // ------------------------------------------------------------------------
-    // Unsafe casting is needed here, as bitwise operations only work on
-    // numeric values...
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Bitwise operations
+     * ------------------------------------------------------------------------
+     * Unsafe casting is needed here, as bitwise operations only work on
+     * numeric values...
+     */
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitNot() {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitNot((Field) this);
-        return result;
+        return DSL.bitNot((Field) this);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitAnd(T value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitAnd((Field) this, (Field) val(value, this));
-        return result;
+        return DSL.bitAnd((Field) this, (Field) val(value, this));
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitAnd(Field<T> value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitAnd((Field) this, (Field) value);
-        return result;
+        return DSL.bitAnd((Field) this, (Field) value);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitNand(T value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitNand((Field) this, (Field) val(value, this));
-        return result;
+        return DSL.bitNand((Field) this, (Field) val(value, this));
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitNand(Field<T> value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitNand((Field) this, (Field) value);
-        return result;
+        return DSL.bitNand((Field) this, (Field) value);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitOr(T value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitOr((Field) this, (Field) val(value, this));
-        return result;
+        return DSL.bitOr((Field) this, (Field) val(value, this));
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitOr(Field<T> value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitOr((Field) this, (Field) value);
-        return result;
+        return DSL.bitOr((Field) this, (Field) value);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitNor(T value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitNor((Field) this, (Field) val(value, this));
-        return result;
+        return DSL.bitNor((Field) this, (Field) val(value, this));
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitNor(Field<T> value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitNor((Field) this, (Field) value);
-        return result;
+        return DSL.bitNor((Field) this, (Field) value);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitXor(T value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitXor((Field) this, (Field) val(value, this));
-        return result;
+        return DSL.bitXor((Field) this, (Field) val(value, this));
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitXor(Field<T> value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitXor((Field) this, (Field) value);
-        return result;
+        return DSL.bitXor((Field) this, (Field) value);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitXNor(T value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitXNor((Field) this, (Field) val(value, this));
-        return result;
+        return DSL.bitXNor((Field) this, (Field) val(value, this));
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> bitXNor(Field<T> value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.bitXNor((Field) this, (Field) value);
-        return result;
+        return DSL.bitXNor((Field) this, (Field) value);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> shl(Number value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.shl((Field) this, (Field) Tools.field(value));
-        return result;
+        return DSL.shl((Field) this, (Field) Tools.field(value));
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> shl(Field<? extends Number> value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.shl((Field) this, value);
-        return result;
+        return DSL.shl((Field) this, value);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> shr(Number value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.shr((Field) this, (Field) Tools.field(value));
-        return result;
+        return DSL.shr((Field) this, (Field) Tools.field(value));
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public final Field<T> shr(Field<? extends Number> value) {
-        // Workaround assignment for https://bugs.eclipse.org/bugs/show_bug.cgi?id=473657
-        final Field result = DSL.shr((Field) this, (Field) value);
-        return result;
+        return DSL.shr((Field) this, (Field) value);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Conditions created from this field
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Conditions created from this field
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final Condition isNull() {
@@ -645,14 +629,15 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
     public final Condition isTrue() {
         Class<?> type = getType();
 
-        if (type == String.class)
-            return ((Field<String>) this).in(Tools.inline(TRUE_VALUES.toArray(EMPTY_STRING)));
-        else if (Number.class.isAssignableFrom(type))
-            return ((Field<Number>) this).equal(inline((Number) getDataType().convert(1)));
-        else if (Boolean.class.isAssignableFrom(type))
-            return ((Field<Boolean>) this).equal(inline(true));
-        else
-            return cast(String.class).in(TRUE_VALUES);
+        if (type == String.class) {
+			return ((Field<String>) this).in(Tools.inline(TRUE_VALUES.toArray(EMPTY_STRING)));
+		} else if (Number.class.isAssignableFrom(type)) {
+			return ((Field<Number>) this).equal(inline((Number) getDataType().convert(1)));
+		} else if (Boolean.class.isAssignableFrom(type)) {
+			return ((Field<Boolean>) this).equal(inline(true));
+		} else {
+			return cast(String.class).in(TRUE_VALUES);
+		}
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -660,14 +645,15 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
     public final Condition isFalse() {
         Class<?> type = getType();
 
-        if (type == String.class)
-            return ((Field<String>) this).in(Tools.inline(FALSE_VALUES.toArray(EMPTY_STRING)));
-        else if (Number.class.isAssignableFrom(type))
-            return ((Field<Number>) this).equal(inline((Number) getDataType().convert(0)));
-        else if (Boolean.class.isAssignableFrom(type))
-            return ((Field<Boolean>) this).equal(inline(false));
-        else
-            return cast(String.class).in(Tools.inline(FALSE_VALUES.toArray(EMPTY_STRING)));
+        if (type == String.class) {
+			return ((Field<String>) this).in(Tools.inline(FALSE_VALUES.toArray(EMPTY_STRING)));
+		} else if (Number.class.isAssignableFrom(type)) {
+			return ((Field<Number>) this).equal(inline((Number) getDataType().convert(0)));
+		} else if (Boolean.class.isAssignableFrom(type)) {
+			return ((Field<Boolean>) this).equal(inline(false));
+		} else {
+			return cast(String.class).in(Tools.inline(FALSE_VALUES.toArray(EMPTY_STRING)));
+		}
     }
 
     @Override
@@ -805,11 +791,11 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
     }
 
     private final boolean isAccidentalSelect(T[] values) {
-        return (values != null && values.length == 1 && values[0] instanceof Select);
+        return values != null && values.length == 1 && values[0] instanceof Select;
     }
 
     private final boolean isAccidentalCollection(T[] values) {
-        return (values != null && values.length == 1 && values[0] instanceof Collection);
+        return values != null && values.length == 1 && values[0] instanceof Collection;
     }
 
     @SuppressWarnings("unchecked")
@@ -817,12 +803,14 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
     public final Condition in(T... values) {
 
         // [#3362] Prevent "rogue" API usage when using Field<Object>.in(Object... values)
-        if (isAccidentalSelect(values))
-            return in((Select<Record1<T>>) values[0]);
+        if (isAccidentalSelect(values)) {
+			return in((Select<Record1<T>>) values[0]);
+		}
 
         // [#3347] Prevent "rogue" API usage when using Field<Object>.in(Object... values)
-        if (isAccidentalCollection(values))
-            return in((Collection<?>) values[0]);
+        if (isAccidentalCollection(values)) {
+			return in((Collection<?>) values[0]);
+		}
 
         return in(Tools.fields(values, this).toArray(EMPTY_FIELD));
     }
@@ -836,8 +824,9 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
     public final Condition in(Collection<?> values) {
         List<Field<?>> fields = new ArrayList<Field<?>>();
 
-        for (Object value : values)
-            fields.add(Tools.field(value, this));
+        for (Object value : values) {
+			fields.add(Tools.field(value, this));
+		}
 
         return in(fields.toArray(EMPTY_FIELD));
     }
@@ -857,12 +846,14 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
     public final Condition notIn(T... values) {
 
         // [#3362] Prevent "rogue" API usage when using Field<Object>.in(Object... values)
-        if (isAccidentalSelect(values))
-            return notIn((Select<Record1<T>>) values[0]);
+        if (isAccidentalSelect(values)) {
+			return notIn((Select<Record1<T>>) values[0]);
+		}
 
         // [#3347] Prevent "rogue" API usage when using Field<Object>.in(Object... values)
-        if (isAccidentalCollection(values))
-            return notIn((Collection<?>) values[0]);
+        if (isAccidentalCollection(values)) {
+			return notIn((Collection<?>) values[0]);
+		}
 
         return notIn(Tools.fields(values, this).toArray(EMPTY_FIELD));
     }
@@ -876,8 +867,9 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
     public final Condition notIn(Collection<?> values) {
         List<Field<?>> fields = new ArrayList<Field<?>>();
 
-        for (Object value : values)
-            fields.add(Tools.field(value, this));
+        for (Object value : values) {
+			fields.add(Tools.field(value, this));
+		}
 
         return notIn(fields.toArray(EMPTY_FIELD));
     }
@@ -1266,11 +1258,13 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
 
 
 
-    // ------------------------------------------------------------------------
-    // XXX: Pre-2.0 API. This API is maintained for backwards-compatibility. It
-    // will be removed in the future. Consider using equivalent methods from
-    // org.jooq.impl.DSL
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Pre-2.0 API. This API is maintained for backwards-compatibility. It
+     * will be removed in the future. Consider using equivalent methods from
+     * org.jooq.impl.DSL
+     * ------------------------------------------------------------------------
+     */
 
     @SuppressWarnings("unchecked")
     private final <Z extends Number> Field<Z> numeric() {
@@ -1951,9 +1945,11 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         return DSL.coalesce(this, Tools.combine(option, options));
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Object API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public boolean equals(Object that) {
@@ -1964,11 +1960,7 @@ abstract class AbstractField<T> extends AbstractQueryPart implements Field<T> {
         // [#2144] Non-equality can be decided early, without executing the
         // rather expensive implementation of AbstractQueryPart.equals()
         if (that instanceof AbstractField) {
-            if (StringUtils.equals(name, (((AbstractField<?>) that).name))) {
-                return super.equals(that);
-            }
-
-            return false;
+            return (StringUtils.equals(name, (((AbstractField<?>) that).name))) && (super.equals(that));
         }
 
         return false;

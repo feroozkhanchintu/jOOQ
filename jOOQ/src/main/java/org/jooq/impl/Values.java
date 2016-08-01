@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -56,7 +56,7 @@ import org.jooq.Table;
 final class Values<R extends Record> extends AbstractTable<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -637982217747670311L;
 
@@ -69,8 +69,9 @@ final class Values<R extends Record> extends AbstractTable<R> {
     }
 
     static Row[] assertNotEmpty(Row[] rows) {
-        if (rows == null || rows.length == 0)
-            throw new IllegalArgumentException("Cannot create a VALUES() constructor with an empty set of rows");
+        if (rows == null || rows.length == 0) {
+			throw new IllegalArgumentException("Cannot create a VALUES() constructor with an empty set of rows");
+		}
 
         return rows;
     }
@@ -117,11 +118,11 @@ final class Values<R extends Record> extends AbstractTable<R> {
                 for (Row row : rows) {
                     Select<Record> select = create().select(row.fields());
 
-                    if (selects == null) {
-                        selects = select;
+                    if (selects != null) {
+                        selects = selects.unionAll(select);
                     }
                     else {
-                        selects = selects.unionAll(select);
+                        selects = select;
                     }
                 }
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -76,7 +76,7 @@ public interface UpdateWhereStep<R extends Record> extends UpdateFinalStep<R>, U
     UpdateConditionStep<R> where(Collection<? extends Condition> conditions);
 
     /**
-     * Add conditions to the query
+     * Add conditions to the query.
      */
     @Support
     UpdateConditionStep<R> where(Field<Boolean> condition);
@@ -156,13 +156,13 @@ public interface UpdateWhereStep<R extends Record> extends UpdateFinalStep<R>, U
     UpdateConditionStep<R> where(String sql, QueryPart... parts);
 
     /**
-     * Add an EXISTS clause to the query
+     * Add an EXISTS clause to the query.
      */
     @Support
     UpdateConditionStep<R> whereExists(Select<?> select);
 
     /**
-     * Add a NOT EXISTS clause to the query
+     * Add a NOT EXISTS clause to the query.
      */
     @Support
     UpdateConditionStep<R> whereNotExists(Select<?> select);

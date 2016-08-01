@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -99,12 +99,12 @@ public interface Routine<T> extends QueryPart {
     Catalog getCatalog();
 
     /**
-     * Get the routine schema
+     * Get the routine schema.
      */
     Schema getSchema();
 
     /**
-     * The name of this routine
+     * The name of this routine.
      */
     String getName();
 
@@ -157,14 +157,14 @@ public interface Routine<T> extends QueryPart {
     // -------------------------------------------------------------------------
 
     /**
-     * Execute the stored object using a {@link Configuration} object
+     * Execute the stored object using a {@link Configuration} object.
      *
      * @throws DataAccessException if something went wrong executing the query
      */
     int execute(Configuration configuration) throws DataAccessException;
 
     /**
-     * Execute the stored object on an underlying connection
+     * Execute the stored object on an underlying connection.
      *
      * @throws DataAccessException if something went wrong executing the query
      */

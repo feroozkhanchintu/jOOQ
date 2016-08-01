@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -78,7 +78,7 @@ import org.jooq.Row;
 final class RowIsNull extends AbstractCondition {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = -1806139685201770706L;
     private static final Clause[] CLAUSES_NULL     = { CONDITION, CONDITION_IS_NULL };
@@ -124,7 +124,7 @@ final class RowIsNull extends AbstractCondition {
     private class Native extends AbstractCondition {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -2977241780111574353L;
 

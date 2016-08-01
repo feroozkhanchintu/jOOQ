@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -61,7 +61,7 @@ import org.jooq.exception.DataAccessException;
 final class Limit extends AbstractQueryPart {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long           serialVersionUID  = 2053741242981425602L;
     private static final Field<Integer> ZERO              = zero();
@@ -120,10 +120,11 @@ final class Limit extends AbstractQueryPart {
                        .keyword("limit")
                        .sql(' ').visit(numberOfRowsOrMax);
 
-                if (!offsetZero())
-                    context.formatSeparator()
+                if (!offsetZero()) {
+					context.formatSeparator()
                            .keyword("offset")
                            .sql(' ').visit(offsetOrZero);
+				}
 
                 context.castMode(castMode);
 
@@ -138,15 +139,17 @@ final class Limit extends AbstractQueryPart {
             case POSTGRES_9_5: {
                 context.castMode(NEVER);
 
-                if (!limitZero())
-                    context.formatSeparator()
+                if (!limitZero()) {
+					context.formatSeparator()
                            .keyword("limit")
                            .sql(' ').visit(numberOfRows);
+				}
 
-                if (!offsetZero())
-                    context.formatSeparator()
+                if (!offsetZero()) {
+					context.formatSeparator()
                            .keyword("offset")
                            .sql(' ').visit(offsetOrZero);
+				}
 
                 context.castMode(castMode);
 
@@ -198,10 +201,11 @@ final class Limit extends AbstractQueryPart {
                        .sql(' ').visit(offsetOrZero)
                        .sql(' ').keyword("rows");
 
-                if (!limitZero())
-                    context.sql(' ').keyword("fetch next")
+                if (!limitZero()) {
+					context.sql(' ').keyword("fetch next")
                            .sql(' ').visit(numberOfRows)
                            .sql(' ').keyword("rows only");
+				}
 
                 context.castMode(castMode);
 
@@ -305,9 +309,10 @@ final class Limit extends AbstractQueryPart {
                        .sql(' ').visit(numberOfRows);
 
 
-                if (!offsetZero())
-                    context.sql(' ').keyword("offset")
+                if (!offsetZero()) {
+					context.sql(' ').keyword("offset")
                            .sql(' ').visit(offsetOrZero);
+				}
 
                 context.castMode(castMode);
 
@@ -322,28 +327,28 @@ final class Limit extends AbstractQueryPart {
     }
 
     /**
-     * Whether this limit has an offset of zero
+     * Whether this limit has an offset of zero.
      */
     final boolean limitZero() {
         return numberOfRows == null;
     }
 
     /**
-     * Whether this limit has an offset of zero
+     * Whether this limit has an offset of zero.
      */
     final boolean offsetZero() {
         return offset == null;
     }
 
     /**
-     * The lower bound, such that ROW_NUMBER() > getLowerRownum()
+     * The lower bound, such that ROW_NUMBER() > getLowerRownum().
      */
     final Field<Integer> getLowerRownum() {
         return offsetOrZero;
     }
 
     /**
-     * The upper bound, such that ROW_NUMBER() &lt;= getUpperRownum()
+     * The upper bound, such that ROW_NUMBER() &lt;= getUpperRownum().
      */
     final Field<Integer> getUpperRownum() {
         return offsetOrZero.add(numberOfRowsOrMax);

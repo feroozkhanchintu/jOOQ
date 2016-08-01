@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -49,7 +49,7 @@ package org.jooq.exception;
 public class IOException extends DataAccessException {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 491834858363345767L;
 
@@ -71,8 +71,9 @@ public class IOException extends DataAccessException {
 
     @Override
     public synchronized Throwable initCause(Throwable cause) {
-        if (!(cause instanceof java.io.IOException))
-            throw new IllegalArgumentException("Can only wrap java.io.IOException: " + cause);
+        if (!(cause instanceof java.io.IOException)) {
+			throw new IllegalArgumentException("Can only wrap java.io.IOException: " + cause);
+		}
 
         return super.initCause(cause);
     }

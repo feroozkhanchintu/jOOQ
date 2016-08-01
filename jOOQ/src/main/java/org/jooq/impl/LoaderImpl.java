@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -109,8 +109,10 @@ final class LoaderImpl<R extends Record> implements
     LoaderJSONOptionsStep<R>,
     Loader<R> {
 
-    // Configuration constants
-    // -----------------------
+    /**
+     * Configuration constants
+     * -----------------------.
+     */
     private static final int             ON_DUPLICATE_KEY_ERROR  = 0;
     private static final int             ON_DUPLICATE_KEY_IGNORE = 1;
     private static final int             ON_DUPLICATE_KEY_UPDATE = 2;
@@ -135,8 +137,10 @@ final class LoaderImpl<R extends Record> implements
     private static final int             CONTENT_JSON            = 2;
     private static final int             CONTENT_ARRAYS          = 3;
 
-    // Configuration data
-    // ------------------
+    /**
+     * Configuration data
+     * ------------------.
+     */
     private final DSLContext             create;
     private final Configuration          configuration;
     private final Table<R>               table;
@@ -152,19 +156,23 @@ final class LoaderImpl<R extends Record> implements
     private final InputDelay             data                    = new InputDelay();
     private Iterator<? extends Object[]> arrays;
 
-    // CSV configuration data
-    // ----------------------
+    /**
+     * CSV configuration data
+     * ----------------------.
+     */
     private int                          ignoreRows              = 1;
     private char                         quote                   = CSVParser.DEFAULT_QUOTE_CHARACTER;
     private char                         separator               = CSVParser.DEFAULT_SEPARATOR;
-    private String                       nullString              = null;
+    private String                       nullString;
     private Field<?>[]                   source;
     private Field<?>[]                   fields;
     private LoaderFieldMapper            fieldMapper;
     private boolean[]                    primaryKey;
 
-    // Result data
-    // -----------
+    /**
+     * Result data
+     * -----------.
+     */
     private LoaderRowListener            listener;
     private LoaderContext                result                  = new DefaultLoaderContext();
     private int                          ignored;
@@ -181,9 +189,11 @@ final class LoaderImpl<R extends Record> implements
         this.errors = new ArrayList<LoaderError>();
     }
 
-    // -------------------------------------------------------------------------
-    // Configuration setup
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Configuration setup
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final LoaderImpl<R> onDuplicateKeyError() {
@@ -318,11 +328,13 @@ final class LoaderImpl<R extends Record> implements
         return loadArrays(new MappingIterator<Record, Object[]>(records, new MappingIterator.Function<Record, Object[]>() {
             @Override
             public final Object[] map(Record value) {
-                if (value == null)
-                    return null;
+                if (value == null) {
+					return null;
+				}
 
-                if (source == null)
-                    source = value.fields();
+                if (source == null) {
+					source = value.fields();
+				}
 
                 return value.intoArray();
             }
@@ -519,9 +531,11 @@ final class LoaderImpl<R extends Record> implements
         return this;
     }
 
-    // -------------------------------------------------------------------------
-    // CSV configuration
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * CSV configuration
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final LoaderImpl<R> fields(Field<?>... f) {
@@ -530,11 +544,9 @@ final class LoaderImpl<R extends Record> implements
 
         if (table.getPrimaryKey() != null) {
             for (int i = 0; i < fields.length; i++) {
-                if (fields[i] != null) {
-                    if (table.getPrimaryKey().getFields().contains(fields[i])) {
-                        primaryKey[i] = true;
-                    }
-                }
+                if (fields[i] != null && table.getPrimaryKey().getFields().contains(fields[i])) {
+				    primaryKey[i] = true;
+				}
             }
         }
 
@@ -557,8 +569,9 @@ final class LoaderImpl<R extends Record> implements
 
         // [#5145] When loading arrays, or when CSV headers are ignored,
         // the source is still null at this stage.
-        if (source == null)
-            source = Tools.fields(row.length);
+        if (source == null) {
+			source = Tools.fields(row.length);
+		}
 
         for (int i = 0; i < row.length; i++) {
             final int index = i;
@@ -603,15 +616,17 @@ final class LoaderImpl<R extends Record> implements
         return this;
     }
 
-    // -------------------------------------------------------------------------
-    // XML configuration
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XML configuration
+     * -------------------------------------------------------------------------
 
-    // [...] to be specified
+     * [...] to be specified
 
-    // -------------------------------------------------------------------------
-    // Listening
-    // -------------------------------------------------------------------------
+     * -------------------------------------------------------------------------
+     * Listening
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final LoaderImpl<R> onRow(LoaderRowListener l) {
@@ -619,9 +634,11 @@ final class LoaderImpl<R extends Record> implements
         return this;
     }
 
-    // -------------------------------------------------------------------------
-    // Execution
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Execution
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final LoaderImpl<R> execute() throws IOException {
@@ -647,11 +664,13 @@ final class LoaderImpl<R extends Record> implements
     }
 
     private void checkFlags() {
-        if (batch != BATCH_NONE && onDuplicate == ON_DUPLICATE_KEY_IGNORE)
-            throw new LoaderConfigurationException("Cannot apply batch loading with onDuplicateKeyIgnore flag. Turn off either flag.");
+        if (batch != BATCH_NONE && onDuplicate == ON_DUPLICATE_KEY_IGNORE) {
+			throw new LoaderConfigurationException("Cannot apply batch loading with onDuplicateKeyIgnore flag. Turn off either flag.");
+		}
 
-        if (bulk != BULK_NONE && onDuplicate != ON_DUPLICATE_KEY_ERROR)
-            throw new LoaderConfigurationException("Cannot apply bulk loading with onDuplicateKey flags. Turn off either flag.");
+        if (bulk != BULK_NONE && onDuplicate != ON_DUPLICATE_KEY_ERROR) {
+			throw new LoaderConfigurationException("Cannot apply bulk loading with onDuplicateKey flags. Turn off either flag.");
+		}
     }
 
     private void executeJSON() throws IOException {
@@ -673,8 +692,9 @@ final class LoaderImpl<R extends Record> implements
             throw Tools.translate(null, e);
         }
         finally {
-            if (reader != null)
-                reader.close();
+            if (reader != null) {
+				reader.close();
+			}
         }
     }
 
@@ -699,8 +719,9 @@ final class LoaderImpl<R extends Record> implements
             throw Tools.translate(null, e);
         }
         finally {
-            if (reader != null)
-                reader.close();
+            if (reader != null) {
+				reader.close();
+			}
         }
     }
 
@@ -727,13 +748,16 @@ final class LoaderImpl<R extends Record> implements
 
                 	// [#5145] Lazy initialisation of fields off the first row
                 	//         in case LoaderFieldMapper was used.
-                    if (fields == null)
-                        fields0(row);
+                    if (fields == null) {
+						fields0(row);
+					}
 
                     // [#1627] Handle NULL values
-                    for (int i = 0; i < row.length; i++)
-                        if (StringUtils.equals(nullString, row[i]))
-                            row[i] = null;
+                    for (int i = 0; i < row.length; i++) {
+						if (StringUtils.equals(nullString, row[i])) {
+							row[i] = null;
+						}
+					}
 
                     // TODO: In batch mode, we can probably optimise this by not creating
                     // new statements every time, just to convert bind values to their
@@ -746,9 +770,11 @@ final class LoaderImpl<R extends Record> implements
                     if (onDuplicate == ON_DUPLICATE_KEY_IGNORE) {
                         SelectQuery<R> select = create.selectQuery(table);
 
-                        for (int i = 0; i < row.length; i++)
-                            if (i < fields.length && primaryKey[i])
-                                select.addConditions(getCondition(fields[i], row[i]));
+                        for (int i = 0; i < row.length; i++) {
+							if (i < fields.length && primaryKey[i]) {
+								select.addConditions(getCondition(fields[i], row[i]));
+							}
+						}
 
                         try {
                             if (create.fetchExists(select)) {
@@ -763,49 +789,55 @@ final class LoaderImpl<R extends Record> implements
 
                     buffered++;
 
-                    if (insert == null)
-                        insert = create.insertQuery(table);
+                    if (insert == null) {
+						insert = create.insertQuery(table);
+					}
 
-                    for (int i = 0; i < row.length; i++)
-                        if (i < fields.length && fields[i] != null)
-                            addValue0(insert, fields[i], row[i]);
+                    for (int i = 0; i < row.length; i++) {
+						if (i < fields.length && fields[i] != null) {
+							addValue0(insert, fields[i], row[i]);
+						}
+					}
 
                     // TODO: This is only supported by some dialects. Let other
                     // dialects execute a SELECT and then either an INSERT or UPDATE
                     if (onDuplicate == ON_DUPLICATE_KEY_UPDATE) {
                         insert.onDuplicateKeyUpdate(true);
 
-                        for (int i = 0; i < row.length; i++)
-                            if (i < fields.length && fields[i] != null && !primaryKey[i])
-                                addValueForUpdate0(insert, fields[i], row[i]);
+                        for (int i = 0; i < row.length; i++) {
+							if (i < fields.length && fields[i] != null && !primaryKey[i]) {
+								addValueForUpdate0(insert, fields[i], row[i]);
+							}
+						}
                     }
 
                     // Don't do anything. Let the execution fail
                     else if (onDuplicate == ON_DUPLICATE_KEY_ERROR) {}
 
                     try {
-                        if (bulk != BULK_NONE) {
-                            if (bulk == BULK_ALL || processed % bulkAfter != 0) {
-                                insert.newRecord();
-                                continue rows;
-                            }
-                        }
+                        if (bulk != BULK_NONE && (bulk == BULK_ALL || processed % bulkAfter != 0)) {
+						    insert.newRecord();
+						    continue rows;
+						}
 
                         if (batch != BATCH_NONE) {
-                            if (bind == null)
-                                bind = create.batch(insert);
+                            if (bind == null) {
+								bind = create.batch(insert);
+							}
 
                             bind.bind(insert.getBindValues().toArray());
                             insert = null;
 
-                            if (batch == BATCH_ALL || processed % (bulkAfter * batchAfter) != 0)
-                                continue rows;
+                            if (batch == BATCH_ALL || processed % (bulkAfter * batchAfter) != 0) {
+								continue rows;
+							}
                         }
 
-                        if (bind != null)
-                            bind.execute();
-                        else if (insert != null)
-                            insert.execute();
+                        if (bind != null) {
+							bind.execute();
+						} else if (insert != null) {
+							insert.execute();
+						}
 
                         stored += buffered;
                         executed++;
@@ -814,23 +846,25 @@ final class LoaderImpl<R extends Record> implements
                         bind = null;
                         insert = null;
 
-                        if (commit == COMMIT_AFTER)
-                            if ((processed % batchAfter == 0) && ((processed / batchAfter) % commitAfter == 0))
-                                commit();
+                        if (commit == COMMIT_AFTER && processed % batchAfter == 0 && (processed / batchAfter) % commitAfter == 0) {
+							commit();
+						}
                     }
                     catch (DataAccessException e) {
                         errors.add(new LoaderErrorImpl(e, row, processed - 1, insert));
                         ignored += buffered;
                         buffered = 0;
 
-                        if (onError == ON_ERROR_ABORT)
-                            break execution;
+                        if (onError == ON_ERROR_ABORT) {
+							break execution;
+						}
                     }
 
                 }
                 finally {
-                    if (listener != null)
-                        listener.row(result);
+                    if (listener != null) {
+						listener.row(result);
+					}
                 }
                 // rows:
             }
@@ -838,10 +872,12 @@ final class LoaderImpl<R extends Record> implements
             // Execute remaining batch
             if (buffered != 0) {
                 try {
-                    if (bind != null)
-                        bind.execute();
-                    if (insert != null)
-                        insert.execute();
+                    if (bind != null) {
+						bind.execute();
+					}
+                    if (insert != null) {
+						insert.execute();
+					}
 
                     stored += buffered;
                     executed++;
@@ -854,8 +890,9 @@ final class LoaderImpl<R extends Record> implements
                     buffered = 0;
                 }
 
-                if (onError == ON_ERROR_ABORT)
-                    break execution;
+                if (onError == ON_ERROR_ABORT) {
+					break execution;
+				}
             }
 
             // execution:
@@ -920,15 +957,17 @@ final class LoaderImpl<R extends Record> implements
     }
 
     /**
-     * Get a type-safe condition
+     * Get a type-safe condition.
      */
     private <T> Condition getCondition(Field<T> field, Object string) {
         return field.equal(field.getDataType().convert(string));
     }
 
-    // -------------------------------------------------------------------------
-    // Outcome
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Outcome
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final List<LoaderError> errors() {
@@ -997,30 +1036,34 @@ final class LoaderImpl<R extends Record> implements
      */
     private class InputDelay {
 
-        // Either, we already have an external Reader resource, in case of which
-        // client code is responsible for resource management...
+        /**
+         * Either, we already have an external Reader resource, in case of which
+         * client code is responsible for resource management...
+         */
         BufferedReader reader;
 
-        // ... or we create the resource explicitly as late as possible
+        /** ... or we create the resource explicitly as late as possible */
         File           file;
         String         charsetName;
         Charset        cs;
         CharsetDecoder dec;
 
         BufferedReader reader() throws IOException {
-            if (reader != null)
-                return reader;
+            if (reader != null) {
+				return reader;
+			}
 
             if (file != null) {
                 try {
-                    if (charsetName != null)
-                        return new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
-                    else if (cs != null)
-                        return new BufferedReader(new InputStreamReader(new FileInputStream(file), cs));
-                    else if (dec != null)
-                        return new BufferedReader(new InputStreamReader(new FileInputStream(file), dec));
-                    else
-                        return new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+                    if (charsetName != null) {
+						return new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName));
+					} else if (cs != null) {
+						return new BufferedReader(new InputStreamReader(new FileInputStream(file), cs));
+					} else if (dec != null) {
+						return new BufferedReader(new InputStreamReader(new FileInputStream(file), dec));
+					} else {
+						return new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+					}
                 }
                 catch (Exception e) {
                     throw new IOException(e);

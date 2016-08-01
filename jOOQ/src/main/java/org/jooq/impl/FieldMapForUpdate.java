@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -58,7 +58,7 @@ import org.jooq.Field;
 final class FieldMapForUpdate extends AbstractQueryPartMap<Field<?>, Field<?>> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -6139709404698673799L;
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -42,7 +42,7 @@ package org.jooq;
 
 
 /**
- * A wrapper for a {@link Field} and a {@link SortField}
+ * A wrapper for a {@link Field} and a {@link SortField}.
  *
  * @param <T> The field type
  * @author Lukas Eder
@@ -52,23 +52,23 @@ package org.jooq;
 public interface SortField<T> extends QueryPart {
 
     /**
-     * The name of this sort field
+     * The name of this sort field.
      */
     String getName();
 
     /**
-     * Get the underlying sort order of this sort field
+     * Get the underlying sort order of this sort field.
      */
     SortOrder getOrder();
 
     /**
-     * Add a <code>NULLS FIRST</code> clause to this sort field
+     * Add a <code>NULLS FIRST</code> clause to this sort field.
      */
     @Support
     SortField<T> nullsFirst();
 
     /**
-     * Add a <code>NULLS LAST</code> clause to this sort field
+     * Add a <code>NULLS LAST</code> clause to this sort field.
      */
     @Support
     SortField<T> nullsLast();

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -76,9 +76,11 @@ public class DefaultConnectionProvider implements ConnectionProvider {
         this.finalize = finalize;
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: ConnectionProvider API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: ConnectionProvider API
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final Connection acquire() {
@@ -90,15 +92,18 @@ public class DefaultConnectionProvider implements ConnectionProvider {
 
     @Override
     protected void finalize() throws Throwable {
-        if (finalize)
-            JDBCUtils.safeClose(connection);
+        if (finalize) {
+			JDBCUtils.safeClose(connection);
+		}
 
         super.finalize();
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: Original DSLContext/Factory API (JDBC utility methods)
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: Original DSLContext/Factory API (JDBC utility methods)
+     * -------------------------------------------------------------------------
+     */
 
     public final void setConnection(Connection connection) {
         this.connection = connection;

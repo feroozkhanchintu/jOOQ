@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -43,7 +43,7 @@ package org.jooq;
 /**
  * A <code>RecordMapper</code> is a mapper that can receive {@link Record}
  * objects, when fetching data from the database, transforming them into a
- * custom type <code>&lt;E&gt;</code>
+ * custom type <code>&lt;E&gt;</code>.
  *
  * @author Lukas Eder
  */

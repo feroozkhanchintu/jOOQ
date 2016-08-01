@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -50,13 +50,13 @@ package org.jooq;
 public interface BetweenAndStep<T> {
 
     /**
-     * Create a condition to check this field against some bounds
+     * Create a condition to check this field against some bounds.
      */
     @Support
     Condition and(T value);
 
     /**
-     * Create a condition to check this field against some bounds
+     * Create a condition to check this field against some bounds.
      */
     @Support
     Condition and(Field<T> field);

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -144,7 +144,7 @@ import org.xml.sax.helpers.AttributesImpl;
 final class ResultImpl<R extends Record> implements Result<R>, AttachableInternal {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 6416154375799578362L;
 
@@ -166,17 +166,21 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         this.records = new ArrayList<R>();
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: Attachable API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: Attachable API
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final void attach(Configuration c) {
         this.configuration = c;
 
-        for (R record : records)
-            if (record != null)
-                record.attach(c);
+        for (R record : records) {
+			if (record != null) {
+				record.attach(c);
+			}
+		}
     }
 
     @Override
@@ -189,9 +193,11 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         return configuration;
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: Result API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: Result API
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final RecordType<R> recordType() {
@@ -557,7 +563,7 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
             // Write truncation message, if applicable
             if (maxRecords < size()) {
                 writer.append("\n|...");
-                writer.append("" + (size() - maxRecords));
+                writer.append(size() - maxRecords);
                 writer.append(" record(s) truncated...");
             }
 
@@ -568,7 +574,7 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         }
     }
 
-    private static final String alignNumberValue(Integer columnDecimalPlaces, String value) {
+    private static String alignNumberValue(Integer columnDecimalPlaces, String value) {
         if (!"{null}".equals(value) && columnDecimalPlaces != 0) {
             int decimalPlaces = getDecimalPlaces(value);
             int rightPadSize = value.length() + columnDecimalPlaces - decimalPlaces;
@@ -585,7 +591,7 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         return value;
     }
 
-    private static final int getDecimalPlaces(String value) {
+    private static int getDecimalPlaces(String value) {
         int decimalPlaces = 0;
 
         int dotIndex = value.indexOf(".");
@@ -793,11 +799,13 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
     private final String formatCSV0(Object value, CSVFormat format) {
 
         // [#4746] Escape null and empty strings
-        if (value == null)
-            return format.nullString();
+        if (value == null) {
+			return format.nullString();
+		}
 
-        if ("".equals(value.toString()))
-            return format.emptyString();
+        if ("".equals(value.toString())) {
+			return format.emptyString();
+		}
 
         String result = format0(value, false, false);
         switch (format.quote()) {
@@ -805,8 +813,9 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
                 return result;
 
             case SPECIAL_CHARACTERS:
-                if (!StringUtils.containsAny(result, ',', ';', '\t', '"', '\n', '\r', '\'', '\\'))
-                    return result;
+                if (!StringUtils.containsAny(result, ',', ';', '\t', '"', '\n', '\r', '\'', '\\')) {
+					return result;
+				}
 
                 // no break
             case ALWAYS:
@@ -819,8 +828,9 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
     }
 
     private final Object formatJSON0(Object value) {
-        if (value instanceof byte[])
-            return DatatypeConverter.printBase64Binary((byte[]) value);
+        if (value instanceof byte[]) {
+			return DatatypeConverter.printBase64Binary((byte[]) value);
+		}
 
         return value;
     }
@@ -830,7 +840,7 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
      * @param visual Whether the formatted output is to be consumed visually
      *            (HTML, TEXT) or by a machine (CSV, JSON, XML)
      */
-    private static final String format0(Object value, boolean changed, boolean visual) {
+    private static String format0(Object value, boolean changed, boolean visual) {
         String formatted = changed && visual ? "*" : "";
 
         if (value == null) {
@@ -853,10 +863,11 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         else if (value instanceof Date) {
             String date = value.toString();
 
-            if (Date.valueOf(date).equals(value))
-                formatted += date;
-            else
-                formatted += new Timestamp(((Date) value).getTime());
+            if (Date.valueOf(date).equals(value)) {
+				formatted += date;
+			} else {
+				formatted += new Timestamp(((Date) value).getTime());
+			}
         }
         else {
             formatted += value.toString();
@@ -912,8 +923,9 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
                         if (table != null) {
                             Schema schema = table.getSchema();
 
-                            if (schema != null)
-                                fieldMap.put("schema", schema.getName());
+                            if (schema != null) {
+								fieldMap.put("schema", schema.getName());
+							}
 
                             fieldMap.put("table", table.getName());
                         }
@@ -931,8 +943,9 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
                     for (Record record : this) {
                         List<Object> list = new ArrayList<Object>();
 
-                        for (int index = 0; index < fields.fields.length; index++)
-                            list.add(formatJSON0(record.get(index)));
+                        for (int index = 0; index < fields.fields.length; index++) {
+							list.add(formatJSON0(record.get(index)));
+						}
 
                         r.add(list);
                     }
@@ -942,8 +955,9 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
                     for (Record record : this) {
                         Map<String, Object> map = new LinkedHashMap<String, Object>();
 
-                        for (int index = 0; index < fields.fields.length; index++)
-                            map.put(record.field(index).getName(), formatJSON0(record.get(index)));
+                        for (int index = 0; index < fields.fields.length; index++) {
+							map.put(record.field(index).getName(), formatJSON0(record.get(index)));
+						}
 
                         r.add(map);
                     }
@@ -1071,11 +1085,13 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
     public final void formatInsert(Writer writer) {
         Table<?> table = null;
 
-        if (records.size() > 0 && records.get(0) instanceof TableRecord)
-            table = ((TableRecord<?>) records.get(0)).getTable();
+        if (records.size() > 0 && records.get(0) instanceof TableRecord) {
+			table = ((TableRecord<?>) records.get(0)).getTable();
+		}
 
-        if (table == null)
-            table = table(name("UNKNOWN_TABLE"));
+        if (table == null) {
+			table = table(name("UNKNOWN_TABLE"));
+		}
 
         formatInsert(writer, table, fields());
     }
@@ -1278,9 +1294,11 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
     private final <K> Map<K, R> intoMap0(int keyFieldIndex) {
         Map<K, R> map = new LinkedHashMap<K, R>();
 
-        for (R record : this)
-            if (map.put((K) record.get(keyFieldIndex), record) != null)
-                throw new InvalidResultException("Key " + keyFieldIndex + " is not unique in Result for " + this);
+        for (R record : this) {
+			if (map.put((K) record.get(keyFieldIndex), record) != null) {
+				throw new InvalidResultException("Key " + keyFieldIndex + " is not unique in Result for " + this);
+			}
+		}
 
         return map;
     }
@@ -1311,9 +1329,11 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
     private final <K, V> Map<K, V> intoMap0(int kIndex, int vIndex) {
         Map<K, V> map = new LinkedHashMap<K, V>();
 
-        for (R record : this)
-            if (map.put((K) record.get(kIndex), (V) record.get(vIndex)) != null)
-                throw new InvalidResultException("Key " + kIndex + " is not unique in Result for " + this);
+        for (R record : this) {
+			if (map.put((K) record.get(kIndex), (V) record.get(vIndex)) != null) {
+				throw new InvalidResultException("Key " + kIndex + " is not unique in Result for " + this);
+			}
+		}
 
         return map;
     }
@@ -1437,8 +1457,9 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         for (R record : this) {
             K key = keyMapper.map(record);
 
-            if (map.put(key, record) != null)
-                throw new InvalidResultException("Key list " + key + " is not unique in Result for " + this);
+            if (map.put(key, record) != null) {
+				throw new InvalidResultException("Key list " + key + " is not unique in Result for " + this);
+			}
         }
 
         return map;
@@ -1457,8 +1478,9 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
             K key = keyMapper.map(record);
             V value = valueMapper.map(record);
 
-            if (map.put(key, value) != null)
-                throw new InvalidResultException("Key list " + key + " is not unique in Result for " + this);
+            if (map.put(key, value) != null) {
+				throw new InvalidResultException("Key list " + key + " is not unique in Result for " + this);
+			}
         }
 
         return map;
@@ -1471,8 +1493,9 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         for (R record : this) {
             S key = record.into(table);
 
-            if (map.put(key, record) != null)
-                throw new InvalidResultException("Key list " + key + " is not unique in Result for " + this);
+            if (map.put(key, record) != null) {
+				throw new InvalidResultException("Key list " + key + " is not unique in Result for " + this);
+			}
         }
 
         return map;
@@ -1490,8 +1513,9 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         for (R record : this) {
             S key = record.into(table);
 
-            if (map.put(key, mapper.map(record)) != null)
-                throw new InvalidResultException("Key list " + key + " is not unique in Result for " + this);
+            if (map.put(key, mapper.map(record)) != null) {
+				throw new InvalidResultException("Key list " + key + " is not unique in Result for " + this);
+			}
         }
 
         return map;
@@ -1540,9 +1564,11 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
     private final <K, E> Map<K, E> intoMap0(int keyFieldIndex, RecordMapper<? super R, E> mapper) {
         Map<K, E> map = new LinkedHashMap<K, E>();
 
-        for (R record : this)
-            if (map.put((K) record.get(keyFieldIndex), mapper.map(record)) != null)
-                throw new InvalidResultException("Key " + keyFieldIndex + " is not unique in Result for " + this);
+        for (R record : this) {
+			if (map.put((K) record.get(keyFieldIndex), mapper.map(record)) != null) {
+				throw new InvalidResultException("Key " + keyFieldIndex + " is not unique in Result for " + this);
+			}
+		}
 
         return map;
     }
@@ -2039,13 +2065,14 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
     public final Result<Record> into(Field<?>... f) {
         Result<Record> result = new ResultImpl<Record>(Tools.configuration(this), f);
 
-        for (Record record : this)
-            result.add(record.into(f));
+        for (Record record : this) {
+			result.add(record.into(f));
+		}
 
         return result;
     }
 
-    // [jooq-tools] START [into-fields]
+    /** [jooq-tools] START [into-fields]. */
     @Override
     public final <T1> Result<Record1<T1>> into(Field<T1> field1) {
         return (Result) into(new Field[] { field1 });
@@ -2156,7 +2183,7 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         return (Result) into(new Field[] { field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22 });
     }
 
-// [jooq-tools] END [into-fields]
+/** [jooq-tools] END [into-fields]. */
 
     @Override
     public final <E> List<E> into(Class<? extends E> type) {
@@ -2326,7 +2353,7 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
     }
 
     /**
-     * A comparator for records, wrapping another comparator for &lt;T&gt;
+     * A comparator for records, wrapping another comparator for &lt;T&gt;.
      */
     private static class RecordComparator<T, R extends Record> implements Comparator<R> {
 
@@ -2345,7 +2372,7 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
     }
 
     /**
-     * A natural comparator
+     * A natural comparator.
      */
     private static class NaturalComparator<T extends Comparable<? super T>> implements Comparator<T> {
 
@@ -2364,9 +2391,11 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         }
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Fetching of parents or children
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Fetching of parents or children
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final <O extends UpdatableRecord<O>> Result<O> fetchParents(ForeignKey<R, O> key) {
@@ -2378,9 +2407,11 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         return key.fetchChildren(this);
     }
 
-    // -------------------------------------------------------------------------
-    // XXX Object API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX Object API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public String toString() {
@@ -2406,9 +2437,11 @@ final class ResultImpl<R extends Record> implements Result<R>, AttachableInterna
         return false;
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: List API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: List API
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final int size() {

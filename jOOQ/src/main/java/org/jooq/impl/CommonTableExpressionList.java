@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -50,7 +50,7 @@ import org.jooq.CommonTableExpression;
 final class CommonTableExpressionList extends QueryPartList<CommonTableExpression<?>> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 4284724883554582081L;
 

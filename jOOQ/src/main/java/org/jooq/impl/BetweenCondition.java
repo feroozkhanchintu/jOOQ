@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -139,16 +139,20 @@ final class BetweenCondition<T> extends AbstractCondition implements BetweenAndS
     private class Native extends AbstractQueryPart {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = 2915703568738921575L;
 
         @Override
         public final void accept(Context<?> ctx) {
                            ctx.visit(field);
-            if (not)       ctx.sql(' ').keyword("not");
+            if (not) {
+				ctx.sql(' ').keyword("not");
+			}
                            ctx.sql(' ').keyword("between");
-            if (symmetric) ctx.sql(' ').keyword("symmetric");
+            if (symmetric) {
+				ctx.sql(' ').keyword("symmetric");
+			}
                            ctx.sql(' ').visit(minValue);
                            ctx.sql(' ').keyword("and");
                            ctx.sql(' ').visit(maxValue);

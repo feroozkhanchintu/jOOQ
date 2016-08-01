@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -42,7 +42,7 @@
 package org.jooq;
 
 /**
- * A field contained in a table
+ * A field contained in a table.
  *
  * @param <R> The record type
  * @param <T> The field type

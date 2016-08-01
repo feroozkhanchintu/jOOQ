@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -6495,20 +6495,22 @@ public class DSL {
         int size = result.size();
 
         RowN[] rows = new RowN[size];
-        for (int i = 0; i < size; i++)
-            rows[i] = (RowN) result.get(i).valuesRow();
+        for (int i = 0; i < size; i++) {
+			rows[i] = (RowN) result.get(i).valuesRow();
+		}
 
         Field<?>[] fields = result.fields();
         String[] columns = new String[fields.length];
-        for (int i = 0; i < fields.length; i++)
-            columns[i] = fields[i].getName();
+        for (int i = 0; i < fields.length; i++) {
+			columns[i] = fields[i].getName();
+		}
 
         // TODO [#2986] Coerce the record type upon the resulting table.
         return (Table<R>) values(rows).as("v", columns);
     }
 
     /**
-     * Use a previously obtained record as a new Table
+     * Use a previously obtained record as a new Table.
      */
     @Support
     public static <R extends Record> Table<R> table(R record) {
@@ -6516,12 +6518,13 @@ public class DSL {
     }
 
     /**
-     * Use a previously obtained set of records as a new Table
+     * Use a previously obtained set of records as a new Table.
      */
     @Support
     public static <R extends Record> Table<R> table(R... records) {
-        if (records == null || records.length == 0)
-            return (Table<R>) new Dual();
+        if (records == null || records.length == 0) {
+			return (Table<R>) new Dual();
+		}
 
         Result<R> result = new ResultImpl(configuration(records[0]), records[0].fields());
         result.addAll(Arrays.asList(records));
@@ -7075,11 +7078,13 @@ public class DSL {
     @Deprecated
     @Support({ CUBRID, DERBY, FIREBIRD, H2, HSQLDB, POSTGRES })
     public static <T extends Number> Sequence<T> sequenceByName(DataType<T> type, String... qualifiedName) {
-        if (qualifiedName == null)
-            throw new NullPointerException();
+        if (qualifiedName == null) {
+			throw new NullPointerException();
+		}
 
-        if (qualifiedName.length < 1 || qualifiedName.length > 2)
-            throw new IllegalArgumentException("Must provide a qualified name of length 1 or 2 : " + name(qualifiedName));
+        if (qualifiedName.length < 1 || qualifiedName.length > 2) {
+			throw new IllegalArgumentException("Must provide a qualified name of length 1 or 2 : " + name(qualifiedName));
+		}
 
         String name = qualifiedName[qualifiedName.length - 1];
         Schema schema = qualifiedName.length == 2 ? schemaByName(qualifiedName[0]) : null;
@@ -7150,11 +7155,13 @@ public class DSL {
      */
     @Support({ CUBRID, DERBY, FIREBIRD, H2, HSQLDB, POSTGRES })
     public static <T extends Number> Sequence<T> sequence(Name name, DataType<T> type) {
-        if (name == null)
-            throw new NullPointerException();
+        if (name == null) {
+			throw new NullPointerException();
+		}
 
-        if (name.getName().length < 1 || name.getName().length > 2)
-            throw new IllegalArgumentException("Must provide a qualified name of length 1 or 2 : " + name);
+        if (name.getName().length < 1 || name.getName().length > 2) {
+			throw new IllegalArgumentException("Must provide a qualified name of length 1 or 2 : " + name);
+		}
 
         String n = name.getName()[name.getName().length - 1];
         Schema s = name.getName().length == 2 ? schema(name(name.getName()[0])) : null;
@@ -8860,7 +8867,7 @@ public class DSL {
     // -------------------------------------------------------------------------
 
     /**
-     * Wrap a {@link SelectField} in a general-purpose {@link Field}
+     * Wrap a {@link SelectField} in a general-purpose {@link Field}.
      */
     @Support
     public static <T> Field<T> field(SelectField<T> field) {
@@ -9580,10 +9587,11 @@ public class DSL {
      */
     @Support
     public static <T> Field<T> field(Select<? extends Record1<T>> select) {
-        if (select == null)
-            return (Field) NULL();
-        else
-            return select.<T>asField();
+        if (select != null) {
+			return select.<T>asField();
+		} else {
+			return (Field) NULL();
+		}
     }
 
     /**
@@ -10069,8 +10077,10 @@ public class DSL {
         return coalesce0(field, fields);
     }
 
-    // Java 8 is stricter than Java 7 with respect to generics and overload
-    // resolution (http://stackoverflow.com/q/5361513/521799)
+    /**
+     * Java 8 is stricter than Java 7 with respect to generics and overload
+     * resolution (http://stackoverflow.com/q/5361513/521799)
+     */
     static <T> Field<T> coalesce0(Field<T> field, Field<?>... fields) {
         return new Coalesce<T>(nullSafeDataType(field), nullSafe(combine(field, fields)));
     }
@@ -10218,8 +10228,10 @@ public class DSL {
         return nvl(value, defaultValue);
     }
 
-    // Java 8 is stricter than Java 7 with respect to generics and overload
-    // resolution (http://stackoverflow.com/q/5361513/521799)
+    /**
+     * Java 8 is stricter than Java 7 with respect to generics and overload
+     * resolution (http://stackoverflow.com/q/5361513/521799)
+     */
     static <T> Field<T> nvl0(Field<T> value, Field<T> defaultValue) {
         return new Nvl<T>(nullSafe(value), nullSafe(defaultValue));
     }
@@ -10271,8 +10283,10 @@ public class DSL {
         return nvl20(value, valueIfNotNull, valueIfNull);
     }
 
-    // Java 8 is stricter than Java 7 with respect to generics and overload
-    // resolution (http://stackoverflow.com/q/5361513/521799)
+    /**
+     * Java 8 is stricter than Java 7 with respect to generics and overload
+     * resolution (http://stackoverflow.com/q/5361513/521799)
+     */
     static <Z> Field<Z> nvl20(Field<?> value, Field<Z> valueIfNotNull, Field<Z> valueIfNull) {
         return new Nvl2<Z>(nullSafe(value), nullSafe(valueIfNotNull), nullSafe(valueIfNull));
     }
@@ -10322,8 +10336,10 @@ public class DSL {
         return nullif0(value, other);
     }
 
-    // Java 8 is stricter than Java 7 with respect to generics and overload
-    // resolution (http://stackoverflow.com/q/5361513/521799)
+    /**
+     * Java 8 is stricter than Java 7 with respect to generics and overload
+     * resolution (http://stackoverflow.com/q/5361513/521799)
+     */
     static <T> Field<T> nullif0(Field<T> value, Field<T> other) {
         return new NullIf<T>(nullSafe(value), nullSafe(other));
     }
@@ -10683,9 +10699,7 @@ public class DSL {
         String esc = "" + escape;
         replace = replace(replace, inline(esc), inline(esc + esc));
         replace = replace(replace, inline("%"), inline(esc + "%"));
-        replace = replace(replace, inline("_"), inline(esc + "_"));
-
-        return replace;
+        return replace(replace, inline("_"), inline(esc + "_"));
     }
 
     /**
@@ -16983,8 +16997,9 @@ public class DSL {
     public static RowN row(Collection<?> values) {
         Collection<Field<?>> fields = new ArrayList<Field<?>>();
 
-        for (Object o : values)
-            fields.add(o instanceof Field<?> ? (Field<?>) o : val(o));
+        for (Object o : values) {
+			fields.add(o instanceof Field<?> ? (Field<?>) o : val(o));
+		}
 
         return new RowImpl(fields);
     }
@@ -17026,8 +17041,9 @@ public class DSL {
 
         String[] columns = new String[size];
 
-        for (int i = 0; i < size; i++)
-            columns[i] = "c" + i;
+        for (int i = 0; i < size; i++) {
+			columns[i] = "c" + i;
+		}
 
         return new Values<Record>(rows).as("v", columns);
     }
@@ -17828,8 +17844,9 @@ public class DSL {
      * Null-safety of a field.
      */
     protected static Field<?>[] nullSafe(Field<?>... fields) {
-        if (fields == null)
-            return EMPTY_FIELD;
+        if (fields == null) {
+			return EMPTY_FIELD;
+		}
 
         Field<?>[] result = new Field<?>[fields.length];
 

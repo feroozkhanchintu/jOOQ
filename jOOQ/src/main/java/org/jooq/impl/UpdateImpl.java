@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -117,7 +117,7 @@ import org.jooq.UpdateSetMoreStep;
 import org.jooq.UpdateWhereStep;
 
 /**
- * A wrapper for an {@link UpdateQuery}
+ * A wrapper for an {@link UpdateQuery}.
  *
  * @author Lukas Eder
  */
@@ -132,7 +132,7 @@ final class UpdateImpl<R extends Record>
     UpdateResultStep<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long    serialVersionUID = -2444876472650065331L;
 
@@ -154,10 +154,11 @@ final class UpdateImpl<R extends Record>
 
     @Override
     public final <T> UpdateImpl<R> set(Field<T> field, Select<? extends Record1<T>> value) {
-        if (value == null)
-            return set(field, (T) null);
-        else
-            return set(field, value.<T>asField());
+        if (value != null) {
+			return set(field, value.<T>asField());
+		} else {
+			return set(field, (T) null);
+		}
     }
 
     @Override
@@ -171,7 +172,7 @@ final class UpdateImpl<R extends Record>
         return set(Tools.mapOfChangedValues(record));
     }
 
-// [jooq-tools] START [set]
+/** [jooq-tools] START [set]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -495,7 +496,7 @@ final class UpdateImpl<R extends Record>
         return this;
     }
 
-// [jooq-tools] END [set]
+/** [jooq-tools] END [set]. */
 
     @Override
     public final UpdateWhereStep<R> from(TableLike<?> table) {

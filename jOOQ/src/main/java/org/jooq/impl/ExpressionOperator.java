@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -41,84 +41,84 @@
 package org.jooq.impl;
 
 /**
- * The operator used in <code>Expression</code>
+ * The operator used in <code>Expression</code>.
  *
  * @author Lukas Eder
  */
 enum ExpressionOperator {
 
     /**
-     * Concatenation
+     * Concatenation.
      */
     CONCAT("||"),
 
     /**
-     * Addition
+     * Addition.
      */
     ADD("+"),
 
     /**
-     * Subtraction
+     * Subtraction.
      */
     SUBTRACT("-"),
 
     /**
-     * Multiplication
+     * Multiplication.
      */
     MULTIPLY("*"),
 
     /**
-     * Division
+     * Division.
      */
     DIVIDE("/"),
 
     /**
-     * Modulo
+     * Modulo.
      */
     MODULO("%"),
 
     /**
-     * Bitwise not
+     * Bitwise not.
      */
     BIT_NOT("~"),
 
     /**
-     * Bitwise and
+     * Bitwise and.
      */
     BIT_AND("&"),
 
     /**
-     * Bitwise or
+     * Bitwise or.
      */
     BIT_OR("|"),
 
     /**
-     * Bitwise xor
+     * Bitwise xor.
      */
     BIT_XOR("^"),
 
     /**
-     * Bitwise and
+     * Bitwise and.
      */
     BIT_NAND("~&"),
 
     /**
-     * Bitwise or
+     * Bitwise or.
      */
     BIT_NOR("~|"),
 
     /**
-     * Bitwise xor
+     * Bitwise xor.
      */
     BIT_XNOR("~^"),
 
     /**
-     * Bitwise shift left
+     * Bitwise shift left.
      */
     SHL("<<"),
 
     /**
-     * Bitwise shift right
+     * Bitwise shift right.
      */
     SHR(">>"),
 

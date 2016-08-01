@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -43,20 +43,20 @@ package org.jooq;
 import java.util.Collection;
 
 /**
- * An intermediate type for the construction of a relational division
+ * An intermediate type for the construction of a relational division.
  *
  * @author Lukas Eder
  */
 public interface DivideByReturningStep {
 
     /**
-     * Specify the fields that you want the division to return from the dividend
+     * Specify the fields that you want the division to return from the dividend.
      */
     @Support
     Table<Record> returning(Field<?>... fields);
 
     /**
-     * Specify the fields that you want the division to return from the dividend
+     * Specify the fields that you want the division to return from the dividend.
      */
     @Support
     Table<Record> returning(Collection<? extends Field<?>> fields);

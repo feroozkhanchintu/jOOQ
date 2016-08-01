@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -94,7 +94,7 @@ import org.jooq.types.UShort;
 public class DefaultDataType<T> implements DataType<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long                            serialVersionUID = 4155588654449505119L;
 
@@ -303,11 +303,9 @@ public class DefaultDataType<T> implements DataType<T> {
         }
 
         // Global data types
-        if (dialect == null) {
-            if (SQL_DATATYPES_BY_TYPE.get(type) == null) {
-                SQL_DATATYPES_BY_TYPE.put(type, this);
-            }
-        }
+        if (dialect == null && SQL_DATATYPES_BY_TYPE.get(type) == null) {
+		    SQL_DATATYPES_BY_TYPE.put(type, this);
+		}
 
         this.binding = binding != null
             ? binding
@@ -335,7 +333,7 @@ public class DefaultDataType<T> implements DataType<T> {
         this.binding = t.binding;
     }
 
-    private static final int precision0(Class<?> type, int precision) {
+    private static int precision0(Class<?> type, int precision) {
         if (precision == 0) {
             if (type == Long.class || type == ULong.class) {
                 precision = LONG_PRECISION;
@@ -397,14 +395,13 @@ public class DefaultDataType<T> implements DataType<T> {
 
     @Override
     public final DataType<T> precision(int p, int s) {
-        if (precision == p && scale == s)
-            return this;
-
-        // [#4120] LOB types are not allowed to have precision
-        else if (isLob())
-            return this;
-        else
-            return new DefaultDataType<T>(this, p, s, length, nullable, defaultValue);
+        if (precision == p && scale == s) {
+			return this;
+		} else if (isLob()) {
+			return this;
+		} else {
+			return new DefaultDataType<T>(this, p, s, length, nullable, defaultValue);
+		}
     }
 
     @Override
@@ -419,14 +416,16 @@ public class DefaultDataType<T> implements DataType<T> {
 
     @Override
     public final DataType<T> scale(int s) {
-        if (scale == s)
-            return this;
+        if (scale == s) {
+			return this;
+		}
 
         // [#4120] LOB types are not allowed to have scale
-        if (isLob())
-            return this;
-        else
-            return new DefaultDataType<T>(this, precision, s, length, nullable, defaultValue);
+        if (isLob()) {
+			return this;
+		} else {
+			return new DefaultDataType<T>(this, precision, s, length, nullable, defaultValue);
+		}
     }
 
     @Override
@@ -441,14 +440,16 @@ public class DefaultDataType<T> implements DataType<T> {
 
     @Override
     public final DataType<T> length(int l) {
-        if (length == l)
-            return this;
+        if (length == l) {
+			return this;
+		}
 
         // [#4120] LOB types are not allowed to have length
-        if (isLob())
-            return this;
-        else
-            return new DefaultDataType<T>(this, precision, scale, l, nullable, defaultValue);
+        if (isLob()) {
+			return this;
+		} else {
+			return new DefaultDataType<T>(this, precision, scale, l, nullable, defaultValue);
+		}
     }
 
     @Override
@@ -670,11 +671,13 @@ public class DefaultDataType<T> implements DataType<T> {
     @SuppressWarnings("deprecation")
     @Override
     public final <U> DataType<U> asConvertedDataType(Binding<? super T, U> newBinding) {
-        if (binding == newBinding)
-            return (DataType<U>) this;
+        if (binding == newBinding) {
+			return (DataType<U>) this;
+		}
 
-        if (newBinding == null)
-            newBinding = (Binding<? super T, U>) new DefaultBinding<T, T>(Converters.identity(getType()), isLob());
+        if (newBinding == null) {
+			newBinding = (Binding<? super T, U>) new DefaultBinding<T, T>(Converters.identity(getType()), isLob());
+		}
 
         return new ConvertedDataType<T, U>(this, newBinding);
     }
@@ -728,17 +731,20 @@ public class DefaultDataType<T> implements DataType<T> {
         }
 
         // UDT data types and others are registered using DEFAULT
-        if (result == null)
-            result = TYPES_BY_NAME[SQLDialect.DEFAULT.ordinal()].get(typeName);
+        if (result == null) {
+			result = TYPES_BY_NAME[SQLDialect.DEFAULT.ordinal()].get(typeName);
+		}
 
         // [#4065] PostgreSQL reports array types as _typename, e.g. _varchar
-        if (result == null && dialect.family() == SQLDialect.POSTGRES && typeName.charAt(0) == '_')
-            result = getDataType(dialect, typeName.substring(1)).getArrayDataType();
+        if (result == null && dialect.family() == SQLDialect.POSTGRES && typeName.charAt(0) == '_') {
+			result = getDataType(dialect, typeName.substring(1)).getArrayDataType();
+		}
 
         // [#366] Don't log a warning here. The warning is logged when
         // catching the exception in jOOQ-codegen
-        if (result == null)
-            throw new SQLDialectNotSupportedException("Type " + typeName + " is not supported in dialect " + dialect, false);
+        if (result == null) {
+			throw new SQLDialectNotSupportedException("Type " + typeName + " is not supported in dialect " + dialect, false);
+		}
 
         return result;
     }
@@ -841,10 +847,11 @@ public class DefaultDataType<T> implements DataType<T> {
     public final boolean isLob() {
         DataType<T> t = getSQLDataType();
 
-        if (t == this)
-            return getTypeName().endsWith("lob");
-        else
-            return (t == BLOB || t == CLOB || t == NCLOB);
+        if (t == this) {
+			return getTypeName().endsWith("lob");
+		} else {
+			return t == BLOB || t == CLOB || t == NCLOB;
+		}
     }
 
     @Override
@@ -855,12 +862,14 @@ public class DefaultDataType<T> implements DataType<T> {
     @Override
     public final boolean isArray() {
         return
-            (!isBinary() && type.isArray());
+            !isBinary() && type.isArray();
     }
 
-    // ------------------------------------------------------------------------
-    // The Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * The Object API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public String toString() {
@@ -876,39 +885,49 @@ public class DefaultDataType<T> implements DataType<T> {
         result = prime * result + precision;
         result = prime * result + scale;
         result = prime * result + ((type == null) ? 0 : type.hashCode());
-        result = prime * result + ((typeName == null) ? 0 : typeName.hashCode());
-        return result;
+        return prime * result + ((typeName == null) ? 0 : typeName.hashCode());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) {
+			return true;
+		}
+        if (obj == null) {
+			return false;
+		}
+        if (getClass() != obj.getClass()) {
+			return false;
+		}
         DefaultDataType<?> other = (DefaultDataType<?>) obj;
-        if (dialect != other.dialect)
-            return false;
-        if (length != other.length)
-            return false;
-        if (precision != other.precision)
-            return false;
-        if (scale != other.scale)
-            return false;
+        if (dialect != other.dialect) {
+			return false;
+		}
+        if (length != other.length) {
+			return false;
+		}
+        if (precision != other.precision) {
+			return false;
+		}
+        if (scale != other.scale) {
+			return false;
+		}
         if (type == null) {
-            if (other.type != null)
-                return false;
+            if (other.type != null) {
+				return false;
+			}
         }
-        else if (!type.equals(other.type))
-            return false;
+        else if (!type.equals(other.type)) {
+			return false;
+		}
         if (typeName == null) {
-            if (other.typeName != null)
-                return false;
+            if (other.typeName != null) {
+				return false;
+			}
         }
-        else if (!typeName.equals(other.typeName))
-            return false;
+        else if (!typeName.equals(other.typeName)) {
+			return false;
+		}
         return true;
     }
 
@@ -920,7 +939,7 @@ public class DefaultDataType<T> implements DataType<T> {
     }
 
     /**
-     * Convert a type name (using precision and scale) into a Java class
+     * Convert a type name (using precision and scale) into a Java class.
      */
     public static DataType<?> getDataType(SQLDialect dialect, String t, int p, int s) throws SQLDialectNotSupportedException {
         DataType<?> result = DefaultDataType.getDataType(dialect, t);
@@ -933,14 +952,14 @@ public class DefaultDataType<T> implements DataType<T> {
     }
 
     /**
-     * Convert a type name (using precision and scale) into a Java class
+     * Convert a type name (using precision and scale) into a Java class.
      */
     public static Class<?> getType(SQLDialect dialect, String t, int p, int s) throws SQLDialectNotSupportedException {
         return getDataType(dialect, t, p, s).getType();
     }
 
     /**
-     * Get the most suitable Java class for a given precision and scale
+     * Get the most suitable Java class for a given precision and scale.
      */
     private static Class<?> getNumericClass(int precision, int scale) {
 

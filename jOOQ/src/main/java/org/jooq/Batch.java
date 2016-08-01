@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -77,7 +77,7 @@ public interface Batch extends Serializable {
     int[] execute() throws DataAccessException;
 
     /**
-     * Get the number of executed queries in this batch operation
+     * Get the number of executed queries in this batch operation.
      */
     int size();
 }

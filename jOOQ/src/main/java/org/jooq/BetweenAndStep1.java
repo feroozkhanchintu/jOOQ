@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -52,25 +52,25 @@ import javax.annotation.Generated;
 public interface BetweenAndStep1<T1> {
 
     /**
-     * Create a condition to check this field against some bounds
+     * Create a condition to check this field against some bounds.
      */
     @Support
     Condition and(Field<T1> maxValue1);
 
     /**
-     * Create a condition to check this field against some bounds
+     * Create a condition to check this field against some bounds.
      */
     @Support
     Condition and(T1 maxValue1);
 
     /**
-     * Create a condition to check this field against some bounds
+     * Create a condition to check this field against some bounds.
      */
     @Support
     Condition and(Row1<T1> maxValue);
 
     /**
-     * Create a condition to check this field against some bounds
+     * Create a condition to check this field against some bounds.
      */
     @Support
     Condition and(Record1<T1> maxValue);

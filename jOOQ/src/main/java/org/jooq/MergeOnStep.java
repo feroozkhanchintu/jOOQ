@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -79,7 +79,7 @@ public interface MergeOnStep<R extends Record> {
     MergeOnConditionStep<R> on(Condition... conditions);
 
     /**
-     * Provide join conditions and proceed to the next step
+     * Provide join conditions and proceed to the next step.
      */
     @Support({ CUBRID, FIREBIRD_3_0, HSQLDB })
     MergeOnConditionStep<R> on(Field<Boolean> condition);

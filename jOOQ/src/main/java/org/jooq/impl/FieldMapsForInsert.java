@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -57,7 +57,7 @@ import org.jooq.Select;
 final class FieldMapsForInsert extends AbstractQueryPart {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID      = -6227074228534414225L;
 
@@ -68,9 +68,11 @@ final class FieldMapsForInsert extends AbstractQueryPart {
         insertMaps.add(null);
     }
 
-    // -------------------------------------------------------------------------
-    // The QueryPart API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * The QueryPart API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final void accept(Context<?> ctx) {
@@ -151,11 +153,11 @@ final class FieldMapsForInsert extends AbstractQueryPart {
             if (map != null) {
                 Select<Record> iteration = DSL.using(context.configuration()).select(map.values());
 
-                if (select == null) {
-                    select = iteration;
+                if (select != null) {
+                    select = select.unionAll(iteration);
                 }
                 else {
-                    select = select.unionAll(iteration);
+                    select = iteration;
                 }
             }
         }
@@ -182,9 +184,11 @@ final class FieldMapsForInsert extends AbstractQueryPart {
         return null;
     }
 
-    // -------------------------------------------------------------------------
-    // The FieldMapsForInsert API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * The FieldMapsForInsert API
+     * -------------------------------------------------------------------------.
+     */
 
     final boolean isExecutable() {
         return !insertMaps.isEmpty() && insertMaps.get(0) != null;

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -73,8 +73,9 @@ public class DefaultTransactionListenerProvider implements TransactionListenerPr
     public static TransactionListenerProvider[] providers(TransactionListener... listeners) {
         TransactionListenerProvider[] result = new TransactionListenerProvider[listeners.length];
 
-        for (int i = 0; i < listeners.length; i++)
-            result[i] = new DefaultTransactionListenerProvider(listeners[i]);
+        for (int i = 0; i < listeners.length; i++) {
+			result[i] = new DefaultTransactionListenerProvider(listeners[i]);
+		}
 
         return result;
     }
@@ -88,17 +89,13 @@ public class DefaultTransactionListenerProvider implements TransactionListenerPr
         this.listener = listener;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public final TransactionListener provide() {
         return listener;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return listener.toString();

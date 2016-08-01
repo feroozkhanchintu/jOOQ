@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -51,14 +51,14 @@ import org.jooq.QueryPartInternal;
 import org.jooq.Record;
 
 /**
- * A plain SQL query that returns results
+ * A plain SQL query that returns results.
  *
  * @author Lukas Eder
  */
 final class SQLResultQuery extends AbstractResultQuery<Record> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 1740879770879469220L;
 
@@ -70,9 +70,11 @@ final class SQLResultQuery extends AbstractResultQuery<Record> {
         this.delegate = delegate;
     }
 
-    // ------------------------------------------------------------------------
-    // ResultQuery API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * ResultQuery API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final void accept(Context<?> ctx) {

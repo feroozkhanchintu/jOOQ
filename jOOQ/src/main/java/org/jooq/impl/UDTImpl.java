@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -149,7 +149,7 @@ public class UDTImpl<R extends UDTRecord<R>> extends AbstractQueryPart implement
 
     /**
      * Subclasses must override this method if they use the generic type
-     * parameter <R> for other types than {@link Record}
+     * parameter <R> for other types than {@link Record}.
      */
     @Override
     public Class<R> getRecordType() {
@@ -194,7 +194,7 @@ public class UDTImpl<R extends UDTRecord<R>> extends AbstractQueryPart implement
      * @param name The name of the field (case-sensitive!)
      * @param type The data type of the field
      */
-    protected static final <R extends UDTRecord<R>, T> UDTField<R, T> createField(String name, DataType<T> type, UDT<R> udt) {
+    protected static <R extends UDTRecord<R>, T> UDTField<R, T> createField(String name, DataType<T> type, UDT<R> udt) {
         return createField(name, type, udt, "", null, null);
     }
 
@@ -205,7 +205,7 @@ public class UDTImpl<R extends UDTRecord<R>> extends AbstractQueryPart implement
      * @param name The name of the field (case-sensitive!)
      * @param type The data type of the field
      */
-    protected static final <R extends UDTRecord<R>, T> UDTField<R, T> createField(String name, DataType<T> type, UDT<R> udt, String comment) {
+    protected static <R extends UDTRecord<R>, T> UDTField<R, T> createField(String name, DataType<T> type, UDT<R> udt, String comment) {
         return createField(name, type, udt, comment, null, null);
     }
 
@@ -216,7 +216,7 @@ public class UDTImpl<R extends UDTRecord<R>> extends AbstractQueryPart implement
      * @param name The name of the field (case-sensitive!)
      * @param type The data type of the field
      */
-    protected static final <R extends UDTRecord<R>, T, U> UDTField<R, U> createField(String name, DataType<T> type, UDT<R> udt, String comment, Converter<T, U> converter) {
+    protected static <R extends UDTRecord<R>, T, U> UDTField<R, U> createField(String name, DataType<T> type, UDT<R> udt, String comment, Converter<T, U> converter) {
         return createField(name, type, udt, comment, converter, null);
     }
 
@@ -227,7 +227,7 @@ public class UDTImpl<R extends UDTRecord<R>> extends AbstractQueryPart implement
      * @param name The name of the field (case-sensitive!)
      * @param type The data type of the field
      */
-    protected static final <R extends UDTRecord<R>, T, U> UDTField<R, U> createField(String name, DataType<T> type, UDT<R> udt, String comment, Binding<T, U> binding) {
+    protected static <R extends UDTRecord<R>, T, U> UDTField<R, U> createField(String name, DataType<T> type, UDT<R> udt, String comment, Binding<T, U> binding) {
         return createField(name, type, udt, comment, null, binding);
     }
 
@@ -239,20 +239,20 @@ public class UDTImpl<R extends UDTRecord<R>> extends AbstractQueryPart implement
      * @param type The data type of the field
      */
     @SuppressWarnings("unchecked")
-    protected static final <R extends UDTRecord<R>, T, X, U> UDTField<R, U> createField(String name, DataType<T> type, UDT<R> udt, String comment, Converter<X, U> converter, Binding<T, X> binding) {
+    protected static <R extends UDTRecord<R>, T, X, U> UDTField<R, U> createField(String name, DataType<T> type, UDT<R> udt, String comment, Converter<X, U> converter, Binding<T, X> binding) {
         final Binding<T, U> actualBinding = DefaultBinding.newBinding(converter, type, binding);
         final DataType<U> actualType = converter == null && binding == null
             ? (DataType<U>) type
             : type.asConvertedDataType(actualBinding);
 
-        final UDTFieldImpl<R, U> udtField = new UDTFieldImpl<R, U>(name, actualType, udt, comment, actualBinding);
-
-        return udtField;
+        return new UDTFieldImpl<R, U>(name, actualType, udt, comment, actualBinding);
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Object API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public int hashCode() {

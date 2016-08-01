@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -71,7 +71,7 @@ public interface MergeMatchedStep<R extends Record> extends MergeNotMatchedStep<
 
     /**
      * Add the <code>WHEN MATCHED THEN UPDATE</code> clause to the
-     * <code>MERGE</code> statement
+     * <code>MERGE</code> statement.
      */
     @Support({ CUBRID, FIREBIRD_3_0, HSQLDB })
     MergeMatchedSetStep<R> whenMatchedThenUpdate();

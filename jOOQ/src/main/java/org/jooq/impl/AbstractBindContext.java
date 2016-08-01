@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -54,7 +54,7 @@ import org.jooq.QueryPartInternal;
 import org.jooq.exception.DataAccessException;
 
 /**
- * A base class for {@link BindContext} implementations
+ * A base class for {@link BindContext} implementations.
  *
  * @author Lukas Eder
  */
@@ -64,9 +64,11 @@ abstract class AbstractBindContext extends AbstractContext<BindContext> implemen
         super(configuration, stmt);
     }
 
-    // ------------------------------------------------------------------------
-    // BindContext API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * BindContext API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     @Deprecated
@@ -131,9 +133,11 @@ abstract class AbstractBindContext extends AbstractContext<BindContext> implemen
         }
     }
 
-    // ------------------------------------------------------------------------
-    // RenderContext API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * RenderContext API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final String peekAlias() {
@@ -250,7 +254,7 @@ abstract class AbstractBindContext extends AbstractContext<BindContext> implemen
     // ------------------------------------------------------------------------
 
     /**
-     * Subclasses may override this method to achieve different behaviour
+     * Subclasses may override this method to achieve different behaviour.
      */
     @SuppressWarnings("deprecation")
     protected void bindInternal(QueryPartInternal internal) {
@@ -258,16 +262,18 @@ abstract class AbstractBindContext extends AbstractContext<BindContext> implemen
     }
 
     /**
-     * Subclasses may override this method to achieve different behaviour
+     * Subclasses may override this method to achieve different behaviour.
      */
     @SuppressWarnings("unused")
     protected BindContext bindValue0(Object value, Field<?> field) throws SQLException {
         return this;
     }
 
-    // ------------------------------------------------------------------------
-    // Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Object API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public String toString() {

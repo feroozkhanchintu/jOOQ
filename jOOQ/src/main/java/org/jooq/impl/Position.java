@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -72,8 +72,8 @@ final class Position extends AbstractFunction<Integer> {
 
     @Override
     final Field<Integer> getFunction0(Configuration configuration) {
-        if (startIndex != null)
-            switch (configuration.family()) {
+        if (startIndex != null) {
+			switch (configuration.family()) {
 
 
 
@@ -82,8 +82,8 @@ final class Position extends AbstractFunction<Integer> {
                 default:
                     return DSL.position(DSL.substring(in, startIndex), search).add(startIndex).sub(one());
             }
-        else
-            switch (configuration.family()) {
+		} else {
+			switch (configuration.family()) {
 
 
 
@@ -109,5 +109,6 @@ final class Position extends AbstractFunction<Integer> {
                 default:
                     return field("{position}({0} {in} {1})", SQLDataType.INTEGER, search, in);
             }
+		}
     }
 }

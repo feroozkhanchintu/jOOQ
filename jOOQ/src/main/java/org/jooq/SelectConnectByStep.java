@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -91,13 +91,13 @@ import org.jooq.impl.DSL;
 public interface SelectConnectByStep<R extends Record> extends SelectGroupByStep<R> {
 
     /**
-     * Add an Oracle-specific <code>CONNECT BY</code> clause to the query
+     * Add an Oracle-specific <code>CONNECT BY</code> clause to the query.
      */
     @Support({ CUBRID })
     SelectConnectByConditionStep<R> connectBy(Condition condition);
 
     /**
-     * Add an Oracle-specific <code>CONNECT BY</code> clause to the query
+     * Add an Oracle-specific <code>CONNECT BY</code> clause to the query.
      */
     @Support({ CUBRID })
     SelectConnectByConditionStep<R> connectBy(Field<Boolean> condition);
@@ -178,14 +178,14 @@ public interface SelectConnectByStep<R extends Record> extends SelectGroupByStep
 
     /**
      * Add an Oracle-specific <code>CONNECT BY NOCYCLE</code> clause to the
-     * query
+     * query.
      */
     @Support({ CUBRID })
     SelectConnectByConditionStep<R> connectByNoCycle(Condition condition);
 
     /**
      * Add an Oracle-specific <code>CONNECT BY NOCYCLE</code> clause to the
-     * query
+     * query.
      */
     @Support({ CUBRID })
     SelectConnectByConditionStep<R> connectByNoCycle(Field<Boolean> condition);

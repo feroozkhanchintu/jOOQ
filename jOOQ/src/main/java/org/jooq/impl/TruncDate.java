@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -56,7 +56,7 @@ import org.jooq.QueryPart;
 final class TruncDate<T extends java.util.Date> extends AbstractFunction<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -4617792768119885313L;
 

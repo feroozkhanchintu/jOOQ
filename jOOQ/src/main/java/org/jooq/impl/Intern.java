@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -52,11 +52,11 @@ import org.jooq.Record;
 final class Intern implements Serializable {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 6455756912567274014L;
 
-    // Some temp variables for String interning
+    /** Some temp variables for String interning. */
     int[]      internIndexes;
     Field<?>[] internFields;
     String[]   internNameStrings;

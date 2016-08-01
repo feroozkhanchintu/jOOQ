@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -141,7 +141,7 @@ import org.jooq.UniqueKey;
 import org.jooq.tools.StringUtils;
 
 /**
- * The SQL standard MERGE statement
+ * The SQL standard MERGE statement.
  *
  * @author Lukas Eder
  */
@@ -215,7 +215,7 @@ implements
     MergeNotMatchedValuesStepN<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long           serialVersionUID = -8835479296876774391L;
     private static final Clause[]       CLAUSES          = { MERGE };
@@ -225,18 +225,18 @@ implements
     private final ConditionProviderImpl on;
     private TableLike<?>                using;
 
-    // [#998] Oracle extensions to the MERGE statement
+    /** [#998] Oracle extensions to the MERGE statement. */
     private Condition                   matchedWhere;
     private Condition                   matchedDeleteWhere;
     private Condition                   notMatchedWhere;
 
-    // Flags to keep track of DSL object creation state
+    /** Flags to keep track of DSL object creation state. */
     private boolean                     matchedClause;
     private FieldMapForUpdate           matchedUpdate;
     private boolean                     notMatchedClause;
     private FieldMapForInsert           notMatchedInsert;
 
-    // Objects for the UPSERT syntax (including H2 MERGE, HANA UPSERT, etc.)
+    /** Objects for the UPSERT syntax (including H2 MERGE, HANA UPSERT, etc.) */
     private boolean                     upsertStyle;
     private QueryPartList<Field<?>>     upsertFields;
     private QueryPartList<Field<?>>     upsertKeys;
@@ -254,13 +254,16 @@ implements
         this.table = table;
         this.on = new ConditionProviderImpl();
 
-        if (fields != null)
-            columns(fields);
+        if (fields != null) {
+			columns(fields);
+		}
     }
 
-    // -------------------------------------------------------------------------
-    // UPSERT API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * UPSERT API
+     * -------------------------------------------------------------------------.
+     */
 
     QueryPartList<Field<?>> getUpsertFields() {
         if (upsertFields == null) {
@@ -299,7 +302,7 @@ implements
         return this;
     }
 
-    // [jooq-tools] START [columns]
+    /** [jooq-tools] START [columns]. */
 
     @Generated("This method was generated using jOOQ-tools")
     @Override
@@ -455,7 +458,7 @@ implements
         return columns(Arrays.asList(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, field14, field15, field16, field17, field18, field19, field20, field21, field22));
     }
 
-// [jooq-tools] END [columns]
+/** [jooq-tools] END [columns]. */
 
     @Override
     public final MergeImpl select(Select select) {
@@ -476,11 +479,14 @@ implements
         return this;
     }
 
-    // -------------------------------------------------------------------------
-    // Shared MERGE API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Shared MERGE API
+     * -------------------------------------------------------------------------
 
-// [jooq-tools] START [values]
+ * [jooq-tools] START [values].
+
+ */
 
     @Override
     public final MergeImpl values(T1 value1) {
@@ -703,7 +709,7 @@ implements
         return values(new Field[] { value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14, value15, value16, value17, value18, value19, value20, value21, value22 });
     }
 
-// [jooq-tools] END [values]
+/** [jooq-tools] END [values]. */
 
     @Override
     public final MergeImpl values(Object... values) {
@@ -732,9 +738,11 @@ implements
         return values(values.toArray());
     }
 
-    // -------------------------------------------------------------------------
-    // Merge API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Merge API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final MergeImpl using(TableLike<?> u) {
@@ -942,10 +950,11 @@ implements
 
     @Override
     public final <T> MergeImpl set(Field<T> field, Select<? extends Record1<T>> value) {
-        if (value == null)
-            return set(field, (T) null);
-        else
-            return set(field, value.<T>asField());
+        if (value != null) {
+			return set(field, value.<T>asField());
+		} else {
+			return set(field, (T) null);
+		}
     }
 
     @Override
@@ -973,7 +982,7 @@ implements
         return whenNotMatchedThenInsert(Collections.<Field<?>>emptyList());
     }
 
-// [jooq-tools] START [whenNotMatchedThenInsert]
+/** [jooq-tools] START [whenNotMatchedThenInsert]. */
 
     @Override
     @SuppressWarnings("hiding")
@@ -1108,7 +1117,7 @@ implements
     }
 
 
-// [jooq-tools] END [whenNotMatchedThenInsert]
+/** [jooq-tools] END [whenNotMatchedThenInsert]. */
 
     @Override
     public final MergeImpl whenNotMatchedThenInsert(Field<?>... fields) {
@@ -1173,15 +1182,15 @@ implements
     // -------------------------------------------------------------------------
 
     /**
-     * Return a standard MERGE statement emulating the H2-specific syntax
+     * Return a standard MERGE statement emulating the H2-specific syntax.
      */
     private final QueryPart getStandardMerge() {
 
         // The SRC for the USING() clause:
         // ------------------------------
         Table<?> src;
-        if (upsertSelect != null) {
-            List<Field<?>> v = new ArrayList<Field<?>>();
+        List<Field<?>> v = new ArrayList<Field<?>>();
+		if (upsertSelect != null) {
             Row row = upsertSelect.fieldsRow();
 
             for (int i = 0; i < row.size(); i++) {
@@ -1193,8 +1202,6 @@ implements
             src = DSL.select(v).from(upsertSelect).asTable("src");
         }
         else {
-            List<Field<?>> v = new ArrayList<Field<?>>();
-
             for (int i = 0; i < getUpsertValues().size(); i++) {
                 v.add(getUpsertValues().get(i).as("s" + (i + 1)));
             }
@@ -1215,11 +1222,11 @@ implements
                 for (int i = 0; i < key.getFields().size(); i++) {
                     Condition rhs = key.getFields().get(i).equal((Field) src.field(i));
 
-                    if (condition == null) {
-                        condition = rhs;
+                    if (condition != null) {
+                        condition = condition.and(rhs);
                     }
                     else {
-                        condition = condition.and(rhs);
+                        condition = rhs;
                     }
                 }
             }
@@ -1239,11 +1246,11 @@ implements
                 onFields.addAll(getUpsertKeys());
                 Condition rhs = getUpsertKeys().get(i).equal((Field) src.field(matchIndex));
 
-                if (condition == null) {
-                    condition = rhs;
+                if (condition != null) {
+                    condition = condition.and(rhs);
                 }
                 else {
-                    condition = condition.and(rhs);
+                    condition = rhs;
                 }
             }
         }
@@ -1274,8 +1281,9 @@ implements
 
     @Override
     public final void accept(Context<?> ctx) {
-        if (with != null)
-            ctx.visit(with).formatSeparator();
+        if (with != null) {
+			ctx.visit(with).formatSeparator();
+		}
 
         if (upsertStyle) {
             switch (ctx.family()) {
@@ -1311,8 +1319,9 @@ implements
     private final void toSQLMySQLOnDuplicateKeyUpdate(Context<?> ctx) {
         Fields<?> fields = new Fields<Record>(getUpsertFields());
         Map<Field<?>, Field<?>> map = new LinkedHashMap<Field<?>, Field<?>>();
-        for (Field<?> field : fields.fields)
-            map.put(field, getUpsertValues().get(fields.indexOf(field)));
+        for (Field<?> field : fields.fields) {
+			map.put(field, getUpsertValues().get(fields.indexOf(field)));
+		}
 
         if (upsertSelect != null) {
             ctx.sql("[ merge with select is not supported in MySQL / MariaDB ]");
@@ -1328,8 +1337,9 @@ implements
     private final void toPostgresInsertOnConflict(Context<?> ctx) {
         Fields<?> fields = new Fields<Record>(getUpsertFields());
         Map<Field<?>, Field<?>> map = new LinkedHashMap<Field<?>, Field<?>>();
-        for (Field<?> field : fields.fields)
-            map.put(field, getUpsertValues().get(fields.indexOf(field)));
+        for (Field<?> field : fields.fields) {
+			map.put(field, getUpsertValues().get(fields.indexOf(field)));
+		}
 
         if (upsertSelect != null) {
             ctx.sql("[ merge with select is not supported in PostgreSQL ]");

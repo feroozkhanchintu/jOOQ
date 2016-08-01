@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -56,7 +56,7 @@ import org.jooq.exception.DataTypeException;
 import org.jooq.impl.DSL;
 
 /**
- * Any query
+ * Any query.
  *
  * @author Lukas Eder
  */

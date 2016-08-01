@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -71,7 +71,7 @@ final class WindowSpecificationImpl extends AbstractQueryPart implements
     {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long             serialVersionUID = 2996016924769376361L;
 

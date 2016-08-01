@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -56,7 +56,7 @@ import org.jooq.exception.ControlFlowSignal;
 final class BatchMultiple implements Batch {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long   serialVersionUID = -7337667281292354043L;
 
@@ -105,8 +105,9 @@ final class BatchMultiple implements Batch {
 
             int[] result = ctx.statement().executeBatch();
             int[] batchRows = ctx.batchRows();
-            for (int i = 0; i < batchRows.length && i < result.length; i++)
-                batchRows[i] = result[i];
+            for (int i = 0; i < batchRows.length && i < result.length; i++) {
+				batchRows[i] = result[i];
+			}
 
             listener.executeEnd(ctx);
             return result;

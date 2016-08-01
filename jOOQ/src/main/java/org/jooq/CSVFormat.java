@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -345,7 +345,7 @@ public final class CSVFormat {
     }
 
     /**
-     * When to apply the quote
+     * When to apply the quote.
      */
     public enum Quote {
 

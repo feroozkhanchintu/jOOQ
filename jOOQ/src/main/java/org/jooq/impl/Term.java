@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -44,7 +44,7 @@ import org.jooq.SQLDialect;
 
 /**
  * The term dictionary enumerates standard expressions and their
- * dialect-specific variants if applicable
+ * dialect-specific variants if applicable.
  *
  * @author Lukas Eder
  */
@@ -292,7 +292,7 @@ enum Term {
     }
 
     /**
-     * Translate the term to its dialect-specific variant
+     * Translate the term to its dialect-specific variant.
      */
     abstract String translate(SQLDialect dialect);
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -57,7 +57,7 @@ import org.jooq.UniqueKey;
 final class UniqueKeyImpl<R extends Record> extends AbstractKey<R> implements UniqueKey<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long    serialVersionUID = 162853300137140844L;
 
@@ -91,9 +91,10 @@ final class UniqueKeyImpl<R extends Record> extends AbstractKey<R> implements Un
 
     @Override
     public Constraint constraint() {
-        if (isPrimary())
-            return DSL.constraint(getName()).primaryKey(getFieldsArray());
-        else
-            return DSL.constraint(getName()).unique(getFieldsArray());
+        if (isPrimary()) {
+			return DSL.constraint(getName()).primaryKey(getFieldsArray());
+		} else {
+			return DSL.constraint(getName()).unique(getFieldsArray());
+		}
     }
 }

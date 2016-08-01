@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -98,7 +98,7 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
     private boolean                       separator;
     private boolean                       newline;
 
-    // [#1632] Cached values from Settings
+    /** [#1632] Cached values from Settings. */
     RenderKeywordStyle                    cachedRenderKeywordStyle;
     RenderNameStyle                       cachedRenderNameStyle;
     boolean                               cachedRenderFormatted;
@@ -131,9 +131,11 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
         declareAliases = context.declareAliases();
     }
 
-    // ------------------------------------------------------------------------
-    // BindContext API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * BindContext API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final BindContext bindValue(Object value, Field<?> field) throws DataAccessException {
@@ -144,9 +146,11 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
         return bindValues;
     }
 
-    // ------------------------------------------------------------------------
-    // RenderContext API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * RenderContext API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final String peekAlias() {
@@ -155,7 +159,7 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
 
     @Override
     public final String nextAlias() {
-        return "alias_" + (++alias);
+        return "alias_" + ++alias;
     }
 
     @Override
@@ -170,12 +174,13 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
 
     @Override
     public final RenderContext keyword(String keyword) {
-        if (RenderKeywordStyle.UPPER == cachedRenderKeywordStyle)
-            return sql(keyword.toUpperCase(), true);
-        else if (RenderKeywordStyle.LOWER == cachedRenderKeywordStyle)
-            return sql(keyword.toLowerCase(), true);
-        else
-            return sql(keyword, true);
+        if (RenderKeywordStyle.UPPER == cachedRenderKeywordStyle) {
+			return sql(keyword.toUpperCase(), true);
+		} else if (RenderKeywordStyle.LOWER == cachedRenderKeywordStyle) {
+			return sql(keyword.toLowerCase(), true);
+		} else {
+			return sql(keyword, true);
+		}
     }
 
     @Override
@@ -185,11 +190,13 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
 
     @Override
     public final RenderContext sql(String s, boolean literal) {
-        if (!literal)
-            s = NEWLINE.matcher(s).replaceAll("$0" + indentation());
+        if (!literal) {
+			s = NEWLINE.matcher(s).replaceAll("$0" + indentation());
+		}
 
-        if (stringLiteral())
-            s = StringUtils.replace(s, "'", stringLiteralEscapedApos);
+        if (stringLiteral()) {
+			s = StringUtils.replace(s, "'", stringLiteralEscapedApos);
+		}
 
         sql.append(s);
         separator = false;
@@ -202,8 +209,9 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
     public final RenderContext sql(char c) {
         sql.append(c);
 
-        if (c == '\'' && stringLiteral())
-            sql.append(c);
+        if (c == '\'' && stringLiteral()) {
+			sql.append(c);
+		}
 
         separator = false;
         newline = false;
@@ -232,9 +240,9 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
 
     @Override
     public final RenderContext formatNewLineAfterPrintMargin() {
-        if (cachedRenderFormatted && printMargin > 0)
-            if (sql.length() - sql.lastIndexOf("\n") > printMargin)
-                formatNewLine();
+        if (cachedRenderFormatted && printMargin > 0 && sql.length() - sql.lastIndexOf("\n") > printMargin) {
+			formatNewLine();
+		}
 
         return this;
     }
@@ -257,10 +265,11 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
     @Override
     public final RenderContext formatSeparator() {
         if (!separator && !newline) {
-            if (cachedRenderFormatted)
-                formatNewLine();
-            else
-                sql(" ", true);
+            if (cachedRenderFormatted) {
+				formatNewLine();
+			} else {
+				sql(" ", true);
+			}
 
             separator = true;
         }
@@ -280,23 +289,26 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
 
     @Override
     public final RenderContext formatIndentStart(int i) {
-        if (cachedRenderFormatted)
-            indent += i;
+        if (cachedRenderFormatted) {
+			indent += i;
+		}
 
         return this;
     }
 
     @Override
     public final RenderContext formatIndentEnd(int i) {
-        if (cachedRenderFormatted)
-            indent -= i;
+        if (cachedRenderFormatted) {
+			indent -= i;
+		}
 
         return this;
     }
 
     private final Deque<Integer> indentLock() {
-        if (indentLock == null)
-            indentLock = new ArrayDeque<Integer>();
+        if (indentLock == null) {
+			indentLock = new ArrayDeque<Integer>();
+		}
 
         return indentLock;
     }
@@ -314,8 +326,9 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
 
     @Override
     public final RenderContext formatIndentLockEnd() {
-        if (cachedRenderFormatted)
-            indent = indentLock().pop();
+        if (cachedRenderFormatted) {
+			indent = indentLock().pop();
+		}
 
         return this;
     }
@@ -330,8 +343,9 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
     public final RenderContext literal(String literal) {
         // Literal usually originates from NamedQueryPart.getName(). This could
         // be null for CustomTable et al.
-        if (literal == null)
-            return this;
+        if (literal == null) {
+			return this;
+		}
 
         SQLDialect family = family();
 
@@ -354,10 +368,11 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
             (family == SQLITE && !IDENTIFIER_PATTERN.matcher(literal).matches());
 
         if (!needsQuote) {
-            if (LOWER == cachedRenderNameStyle)
-                literal = literal.toLowerCase();
-            else if (UPPER == cachedRenderNameStyle)
-                literal = literal.toUpperCase();
+            if (LOWER == cachedRenderNameStyle) {
+				literal = literal.toLowerCase();
+			} else if (UPPER == cachedRenderNameStyle) {
+				literal = literal.toUpperCase();
+			}
 
             sql(literal, true);
         }
@@ -372,10 +387,11 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
             // [#4922] This micro optimisation does seem to have a significant
             //         effect as the replace call can be avoided in almost all
             //         situations
-            if (literal.indexOf(end) > -1)
-                sql(StringUtils.replace(literal, quotes[QUOTE_END_DELIMITER][0], quotes[QUOTE_END_DELIMITER_ESCAPED][0]), true);
-            else
-                sql(literal, true);
+            if (literal.indexOf(end) > -1) {
+				sql(StringUtils.replace(literal, quotes[QUOTE_END_DELIMITER][0], quotes[QUOTE_END_DELIMITER_ESCAPED][0]), true);
+			} else {
+				sql(literal, true);
+			}
 
             sql(end);
         }
@@ -442,9 +458,9 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
     }
 
     private final void checkForceInline(int max) throws ForceInlineSignal {
-        if (bindValues.size() > max)
-            if (Boolean.TRUE.equals(data(DATA_COUNT_BIND_VALUES)))
-                throw new ForceInlineSignal();
+        if (bindValues.size() > max && Boolean.TRUE.equals(data(DATA_COUNT_BIND_VALUES))) {
+			throw new ForceInlineSignal();
+		}
     }
 
     @Override
@@ -473,9 +489,11 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
         return this;
     }
 
-    // ------------------------------------------------------------------------
-    // Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Object API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public String toString() {
@@ -492,15 +510,14 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
         return sb.toString();
     }
 
-    // ------------------------------------------------------------------------
-    // Static initialisation
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Static initialisation
+     * ------------------------------------------------------------------------.
+     */
 
     static {
-        SQLITE_KEYWORDS = new HashSet<String>();
-
-        // [#2367] Taken from http://www.sqlite.org/lang_keywords.html
-        SQLITE_KEYWORDS.addAll(Arrays.asList(
+        SQLITE_KEYWORDS = new HashSet<String>(Arrays.asList(
             "ABORT",
             "ACTION",
             "ADD",
@@ -624,6 +641,8 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
             "WHERE"
         ));
 
+        
+
         /* [trial] */
 
         /*
@@ -700,13 +719,14 @@ class DefaultRenderContext extends AbstractContext<RenderContext> implements Ren
     class ForceInlineSignal extends ControlFlowSignal {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -9131368742983295195L;
 
         public ForceInlineSignal() {
-            if (log.isDebugEnabled())
-                log.debug("Re-render query", "Forcing bind variable inlining as " + configuration().dialect() + " does not support " + params + " bind variables (or more) in a single query");
+            if (log.isDebugEnabled()) {
+				log.debug("Re-render query", "Forcing bind variable inlining as " + configuration().dialect() + " does not support " + params + " bind variables (or more) in a single query");
+			}
         }
     }
 }

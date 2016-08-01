@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -44,7 +44,7 @@ package org.jooq;
  * An intermediate type for the construction of a <code>JOIN</code> clause,
  * where there may optionally be a join criteria added using an <code>ON</code>
  * clause (with a {@link Condition}), or using a <code>USING</code> clause (with
- * a list of {@link Field})
+ * a list of {@link Field}).
  *
  * @author Lukas Eder
  */

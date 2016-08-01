@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -60,7 +60,7 @@ import javax.xml.bind.JAXB;
 abstract class SettingsBase implements Serializable, Cloneable {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 958655542175990197L;
 

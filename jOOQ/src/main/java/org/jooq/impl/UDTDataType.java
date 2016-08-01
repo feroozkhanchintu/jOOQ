@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -50,7 +50,7 @@ import org.jooq.UDTRecord;
 final class UDTDataType<R extends UDTRecord<R>> extends DefaultDataType<R> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 3262508265391094581L;
 

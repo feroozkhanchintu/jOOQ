@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -55,22 +55,24 @@ import org.jooq.tools.StopWatchListener;
 
 /**
  * A queue implementation for several {@link ExecuteListener} objects as defined
- * in {@link Settings#getExecuteListeners()}
+ * in {@link Settings#getExecuteListeners()}.
  *
  * @author Lukas Eder
  */
 final class ExecuteListeners implements ExecuteListener {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long       serialVersionUID = 7399239846062763212L;
 
     private final ExecuteListener[] listeners;
 
-    // In some setups, these two events may get mixed up chronologically by the
-    // Cursor. Postpone fetchEnd event until after resultEnd event, if there is
-    // an open Result
+    /**
+     * In some setups, these two events may get mixed up chronologically by the
+     * Cursor. Postpone fetchEnd event until after resultEnd event, if there is
+     * an open Result
+     */
     private boolean                 resultStart;
     private boolean                 fetchEnd;
 
@@ -81,16 +83,17 @@ final class ExecuteListeners implements ExecuteListener {
     }
 
     /**
-     * Provide delegate listeners from an <code>ExecuteContext</code>
+     * Provide delegate listeners from an <code>ExecuteContext</code>.
      */
     private static ExecuteListener[] listeners(ExecuteContext ctx) {
         List<ExecuteListener> result = new ArrayList<ExecuteListener>();
 
-        for (ExecuteListenerProvider provider : ctx.configuration().executeListenerProviders())
-
-            // Could be null after deserialisation
-            if (provider != null)
-                result.add(provider.provide());
+        for (ExecuteListenerProvider provider : ctx.configuration().executeListenerProviders()) {
+			// Could be null after deserialisation
+            if (provider != null) {
+				result.add(provider.provide());
+			}
+		}
 
         if (!FALSE.equals(ctx.configuration().settings().isExecuteLogging())) {
             result.add(new LoggerListener());

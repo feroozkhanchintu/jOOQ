@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -104,7 +104,7 @@ public interface InsertSetMoreStep<R extends Record> extends InsertOnDuplicateSt
     InsertSetMoreStep<R> set(Record record);
 
     /**
-     * Add an additional record to the <code>INSERT</code> statement
+     * Add an additional record to the <code>INSERT</code> statement.
      *
      * @see InsertQuery#newRecord()
      */

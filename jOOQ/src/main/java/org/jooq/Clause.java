@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -48,29 +48,37 @@ package org.jooq;
  */
 public enum Clause {
 
-    // -------------------------------------------------------------------------
-    // Clauses used in a any type of statement to model constraint references
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Clauses used in a any type of statement to model constraint references
+     * -------------------------------------------------------------------------.
+     */
 
     CONSTRAINT,
 
-    // -------------------------------------------------------------------------
-    // Clauses used in a any type of statement to model catalog references
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Clauses used in a any type of statement to model catalog references
+     * -------------------------------------------------------------------------.
+     */
 
     CATALOG,
     CATALOG_REFERENCE,
 
-    // -------------------------------------------------------------------------
-    // Clauses used in a any type of statement to model schema references
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Clauses used in a any type of statement to model schema references
+     * -------------------------------------------------------------------------.
+     */
 
     SCHEMA,
     SCHEMA_REFERENCE,
 
-    // -------------------------------------------------------------------------
-    // Clauses used in a any type of statement to model sequence references
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * Clauses used in a any type of statement to model sequence references
+     * -------------------------------------------------------------------------.
+     */
 
     SEQUENCE,
     SEQUENCE_REFERENCE,
@@ -138,7 +146,7 @@ public enum Clause {
      * <li>a <code>VALUES</code> keyword</li>
      * <li>a table constructor with several {@link #FIELD_ROW} value expressions
      * </li>
-     * </ul>
+     * </ul>.
      */
     TABLE_VALUES,
 
@@ -199,11 +207,13 @@ public enum Clause {
      */
     CONDITION_IS_NOT_NULL,
 
-    // TODO: Should operators be distinguished?
-    // - LIKE predicate
-    // - Subselect predicates
-    // - RVE predicates
-    // - Quantified predicates
+    /**
+     * TODO: Should operators be distinguished?
+     * - LIKE predicate
+     * - Subselect predicates
+     * - RVE predicates
+     * - Quantified predicates
+     */
     CONDITION_COMPARISON,
 
     /**

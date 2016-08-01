@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -53,7 +53,7 @@ import org.jooq.QueryPart;
 final class Left extends AbstractFunction<String> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long       serialVersionUID = 2200760781944082146L;
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -167,9 +167,11 @@ public enum SQLDialect {
      */
     SQLITE("SQLite", false),
 
-    // -------------------------------------------------------------------------
-    // SQL dialects for commercial usage
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * SQL dialects for commercial usage
+     * -------------------------------------------------------------------------.
+     */
 
 
 
@@ -367,8 +369,9 @@ public enum SQLDialect {
         this.family = family == null ? this : family;
         this.predecessor = predecessor == null ? this : predecessor;
 
-        if (family != null)
-            family.predecessor = this;
+        if (family != null) {
+			family.predecessor = this;
+		}
 
         this.thirdParty = new ThirdParty();
     }
@@ -445,16 +448,19 @@ public enum SQLDialect {
      * </pre></code>
      */
     public final boolean precedes(SQLDialect other) {
-        if (family != other.family)
-            return false;
+        if (family != other.family) {
+			return false;
+		}
 
         SQLDialect candidate = other;
         while (candidate != null) {
-            if (this == candidate)
-                return true;
+            if (this == candidate) {
+				return true;
+			}
 
-            if (candidate == candidate.predecessor())
-                return false;
+            if (candidate == candidate.predecessor()) {
+				return false;
+			}
 
             candidate = candidate.predecessor();
         }
@@ -477,13 +483,7 @@ public enum SQLDialect {
      * {@link Support} annotation, whereas this dialect is the user dialect.
      */
     public final boolean supports(SQLDialect other) {
-        if (family != other.family)
-            return false;
-
-        if (isFamily() || other.isFamily())
-            return true;
-
-        return other.precedes(this);
+        return family == other.family && (isFamily() || other.isFamily() || other.precedes(this));
     }
 
     /**
@@ -510,7 +510,7 @@ public enum SQLDialect {
     /**
      * Get a list of all {@link SQLDialect#family()} values.
      */
-    public static final SQLDialect[] families() {
+    public static SQLDialect[] families() {
         return FAMILIES.clone();
     }
 

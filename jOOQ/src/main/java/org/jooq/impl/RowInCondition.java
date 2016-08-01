@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -77,7 +77,7 @@ import org.jooq.Row;
 final class RowInCondition extends AbstractCondition {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long                  serialVersionUID = -1806139685201770706L;
     private static final Clause[]              CLAUSES_IN       = { CONDITION, CONDITION_IN };
@@ -127,17 +127,18 @@ final class RowInCondition extends AbstractCondition {
     private class Native extends AbstractCondition {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -7019193803316281371L;
 
         @Override
         public final void accept(Context<?> ctx) {
             if (right.size() == 0) {
-                if (comparator == IN)
-                    ctx.visit(falseCondition());
-                else
-                    ctx.visit(trueCondition());
+                if (comparator == IN) {
+					ctx.visit(falseCondition());
+				} else {
+					ctx.visit(trueCondition());
+				}
             }
             else {
                 ctx.visit(left)

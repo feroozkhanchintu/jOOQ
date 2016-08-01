@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -56,7 +56,7 @@ import org.jooq.Field;
 final class FieldMapForInsert extends AbstractQueryPartMap<Field<?>, Field<?>> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = -2192833491610583485L;
     private static final Clause[] CLAUSES          = { FIELD_ROW };
@@ -66,27 +66,30 @@ final class FieldMapForInsert extends AbstractQueryPartMap<Field<?>, Field<?>> {
 
     @Override
     public final void accept(Context<?> ctx) {
-        boolean indent = (size() > 1);
+        boolean indent = size() > 1;
 
         ctx.sql('(');
 
-        if (indent)
-            ctx.formatIndentStart();
+        if (indent) {
+			ctx.formatIndentStart();
+		}
 
         String separator = "";
         for (Field<?> field : values()) {
             ctx.sql(separator);
 
-            if (indent)
-                ctx.formatNewLine();
+            if (indent) {
+				ctx.formatNewLine();
+			}
 
             ctx.visit(field);
             separator = ", ";
         }
 
-        if (indent)
-            ctx.formatIndentEnd()
+        if (indent) {
+			ctx.formatIndentEnd()
                .formatNewLine();
+		}
 
         ctx.sql(')');
     }
@@ -94,15 +97,17 @@ final class FieldMapForInsert extends AbstractQueryPartMap<Field<?>, Field<?>> {
     final void toSQLReferenceKeys(Context<?> ctx) {
 
         // [#2995] Do not generate empty column lists.
-        if (size() == 0)
-            return;
+        if (size() == 0) {
+			return;
+		}
 
-        boolean indent = (size() > 1);
+        boolean indent = size() > 1;
 
         ctx.sql(" (");
 
-        if (indent)
-            ctx.formatIndentStart();
+        if (indent) {
+			ctx.formatIndentStart();
+		}
 
         // [#989] Avoid qualifying fields in INSERT field declaration
         boolean qualify = ctx.qualify();
@@ -112,8 +117,9 @@ final class FieldMapForInsert extends AbstractQueryPartMap<Field<?>, Field<?>> {
         for (Field<?> field : keySet()) {
             ctx.sql(separator);
 
-            if (indent)
-                ctx.formatNewLine();
+            if (indent) {
+				ctx.formatNewLine();
+			}
 
             ctx.visit(field);
             separator = ", ";
@@ -121,9 +127,10 @@ final class FieldMapForInsert extends AbstractQueryPartMap<Field<?>, Field<?>> {
 
         ctx.qualify(qualify);
 
-        if (indent)
-            ctx.formatIndentEnd()
+        if (indent) {
+			ctx.formatIndentEnd()
                .formatNewLine();
+		}
 
         ctx.sql(')');
     }
@@ -134,17 +141,20 @@ final class FieldMapForInsert extends AbstractQueryPartMap<Field<?>, Field<?>> {
     }
 
     final void putFields(Collection<? extends Field<?>> fields) {
-        for (Field<?> field : fields)
-            put(field, null);
+        for (Field<?> field : fields) {
+			put(field, null);
+		}
     }
 
     final void putValues(Collection<? extends Field<?>> values) {
-        if (values.size() != size())
-            throw new IllegalArgumentException("The number of values must match the number of fields: " + this);
+        if (values.size() != size()) {
+			throw new IllegalArgumentException("The number of values must match the number of fields: " + this);
+		}
 
         Iterator<? extends Field<?>> it = values.iterator();
-        for (Entry<Field<?>, Field<?>> entry : entrySet())
-            entry.setValue(it.next());
+        for (Entry<Field<?>, Field<?>> entry : entrySet()) {
+			entry.setValue(it.next());
+		}
     }
 
     final void set(Map<? extends Field<?>, ?> map) {

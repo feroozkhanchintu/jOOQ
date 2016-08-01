@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -62,7 +62,7 @@ final class AlterIndexImpl extends AbstractQuery implements
     AlterIndexFinalStep {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 8904572826501186329L;
     private static final Clause[] CLAUSES          = { ALTER_INDEX };
@@ -82,9 +82,11 @@ final class AlterIndexImpl extends AbstractQuery implements
         this.ifExists = ifExists;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: DSL API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: DSL API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final AlterIndexImpl renameTo(Name newName) {
@@ -97,17 +99,20 @@ final class AlterIndexImpl extends AbstractQuery implements
         return renameTo(name(newName));
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: QueryPart API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: QueryPart API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public final void accept(Context<?> ctx) {
         ctx.start(ALTER_INDEX_INDEX)
            .keyword("alter index");
 
-        if (ifExists)
-            ctx.sql(' ').keyword("if exists");
+        if (ifExists) {
+			ctx.sql(' ').keyword("if exists");
+		}
 
         ctx.sql(' ').visit(index)
            .end(ALTER_INDEX_INDEX)

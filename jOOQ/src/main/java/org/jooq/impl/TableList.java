@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -91,8 +91,9 @@ final class TableList extends QueryPartList<Table<?>> {
         boolean unqualified = asList(DERBY, FIREBIRD, H2, HSQLDB).contains(ctx.family());
         boolean qualify = ctx.qualify();
 
-        if (unqualified)
-            ctx.qualify(false);
+        if (unqualified) {
+			ctx.qualify(false);
+		}
 
         for (Table<?> table : this) {
             for (Field<?> field : table.fieldsRow().fields()) {
@@ -103,7 +104,8 @@ final class TableList extends QueryPartList<Table<?>> {
             }
         }
 
-        if (unqualified)
-            ctx.qualify(qualify);
+        if (unqualified) {
+			ctx.qualify(qualify);
+		}
     }
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -49,7 +49,7 @@ import org.jooq.Context;
 final class WrappedList extends AbstractQueryPart {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long      serialVersionUID = -6722573826107165561L;
 

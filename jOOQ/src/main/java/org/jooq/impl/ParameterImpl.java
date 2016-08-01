@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -51,7 +51,7 @@ import org.jooq.Parameter;
 import org.jooq.tools.StringUtils;
 
 /**
- * A common base class for stored procedure parameters
+ * A common base class for stored procedure parameters.
  *
  * @author Lukas Eder
  */
@@ -122,9 +122,11 @@ final class ParameterImpl<T> extends AbstractQueryPart implements Parameter<T> {
         return isUnnamed;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Object API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public int hashCode() {

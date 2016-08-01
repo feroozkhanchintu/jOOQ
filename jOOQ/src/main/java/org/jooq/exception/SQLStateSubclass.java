@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -476,18 +476,21 @@ public enum SQLStateSubclass {
     }
 
     public static SQLStateSubclass fromCode(String code) {
-        if (code == null || code.length() != 5)
-            return SQLStateSubclass.OTHER;
+        if (code == null || code.length() != 5) {
+			return SQLStateSubclass.OTHER;
+		}
 
         SQLStateSubclass result;
         result = lookup.get(code);
-        if (result != null)
-            return result;
+        if (result != null) {
+			return result;
+		}
 
         result = lookup.get(code.substring(0, 2) + "000");
-        if (result != null)
-            return result;
-        else
-            return SQLStateSubclass.OTHER;
+        if (result != null) {
+			return result;
+		} else {
+			return SQLStateSubclass.OTHER;
+		}
     }
 }

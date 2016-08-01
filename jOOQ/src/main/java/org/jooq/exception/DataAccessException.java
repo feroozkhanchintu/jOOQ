@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -54,7 +54,7 @@ import java.sql.SQLException;
 public class DataAccessException extends RuntimeException {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 491834858363345767L;
 
@@ -85,8 +85,9 @@ public class DataAccessException extends RuntimeException {
      */
     public String sqlState() {
         Throwable t = getCause();
-        if (t instanceof SQLException)
-            return ((SQLException) t).getSQLState();
+        if (t instanceof SQLException) {
+			return ((SQLException) t).getSQLState();
+		}
 
         return "00000";
     }
@@ -98,8 +99,9 @@ public class DataAccessException extends RuntimeException {
      */
     public SQLStateClass sqlStateClass() {
         Throwable t = getCause();
-        if (t instanceof SQLException)
-            return SQLStateClass.fromCode(((SQLException) t).getSQLState());
+        if (t instanceof SQLException) {
+			return SQLStateClass.fromCode(((SQLException) t).getSQLState());
+		}
 
         return SQLStateClass.NONE;
     }
@@ -111,8 +113,9 @@ public class DataAccessException extends RuntimeException {
      */
     public SQLStateSubclass sqlStateSubclass() {
         Throwable t= getCause();
-        if (t instanceof SQLException)
-            return SQLStateSubclass.fromCode(((SQLException) t).getSQLState());
+        if (t instanceof SQLException) {
+			return SQLStateSubclass.fromCode(((SQLException) t).getSQLState());
+		}
 
         return SQLStateSubclass.NONE;
     }

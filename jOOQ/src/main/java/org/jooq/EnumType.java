@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -60,7 +60,7 @@ package org.jooq;
 public interface EnumType {
 
     /**
-     * The literal as defined in the database
+     * The literal as defined in the database.
      */
     String getLiteral();
 

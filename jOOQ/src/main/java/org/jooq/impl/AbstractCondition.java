@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -59,7 +59,7 @@ import org.jooq.Select;
 abstract class AbstractCondition extends AbstractQueryPart implements Condition {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = -6683692251799468624L;
     private static final Clause[] CLAUSES          = { CONDITION };
@@ -76,9 +76,9 @@ abstract class AbstractCondition extends AbstractQueryPart implements Condition 
         return DSL.and(this, other);
     }
 
-    /*
+    /**
      * Subclasses may override this implementation when implementing
-     * A BETWEEN B AND C
+     * A BETWEEN B AND C.
      */
     @Override
     public Condition and(Field<Boolean> other) {

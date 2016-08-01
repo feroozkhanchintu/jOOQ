@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -54,7 +54,7 @@ import org.jooq.Table;
 final class TableComparison<R extends Record> extends AbstractCondition {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 7033304130029726093L;
     private final Table<R>    lhs;

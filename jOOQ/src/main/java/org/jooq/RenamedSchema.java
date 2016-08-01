@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -45,14 +45,14 @@ import java.util.List;
 import org.jooq.impl.SchemaImpl;
 
 /**
- * A mapped schema
+ * A mapped schema.
  *
  * @author Lukas Eder
  */
 class RenamedSchema extends SchemaImpl {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -3579885830845728730L;
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -81,9 +81,11 @@ final class SortFieldList extends QueryPartList<SortField<?>> {
      * all {@link SortOrder#ASC} or all {@link SortOrder#DESC}.
      */
     final boolean uniform() {
-        for (SortField<?> field : this)
-            if (field.getOrder() != get(0).getOrder())
-                return false;
+        for (SortField<?> field : this) {
+			if (field.getOrder() != get(0).getOrder()) {
+				return false;
+			}
+		}
 
         return true;
     }
@@ -93,10 +95,12 @@ final class SortFieldList extends QueryPartList<SortField<?>> {
      * <code>NULLS FIRST</code> or <code>NULLS LAST</code> clause.
      */
     final boolean nulls() {
-        for (SortField<?> field : this)
-            if (((SortFieldImpl<?>) field).getNullsFirst() ||
-                ((SortFieldImpl<?>) field).getNullsLast())
-                return true;
+        for (SortField<?> field : this) {
+			if (((SortFieldImpl<?>) field).getNullsFirst() ||
+                ((SortFieldImpl<?>) field).getNullsLast()) {
+				return true;
+			}
+		}
 
         return false;
     }
@@ -104,8 +108,9 @@ final class SortFieldList extends QueryPartList<SortField<?>> {
     final List<Field<?>> fields() {
         List<Field<?>> result = new ArrayList<Field<?>>();
 
-        for (SortField<?> field : this)
-            result.add(((SortFieldImpl<?>) field).getField());
+        for (SortField<?> field : this) {
+			result.add(((SortFieldImpl<?>) field).getField());
+		}
 
         return result;
     }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -62,14 +62,14 @@ public interface UpdateConditionStep<R extends Record> extends UpdateFinalStep<R
 
     /**
      * Combine the currently assembled conditions with another one using the
-     * {@link Operator#AND} operator
+     * {@link Operator#AND} operator.
      */
     @Support
     UpdateConditionStep<R> and(Condition condition);
 
     /**
      * Combine the currently assembled conditions with another one using the
-     * {@link Operator#AND} operator
+     * {@link Operator#AND} operator.
      */
     @Support
     UpdateConditionStep<R> and(Field<Boolean> condition);
@@ -155,14 +155,14 @@ public interface UpdateConditionStep<R extends Record> extends UpdateFinalStep<R
 
     /**
      * Combine the currently assembled conditions with a negated other one using
-     * the {@link Operator#AND} operator
+     * the {@link Operator#AND} operator.
      */
     @Support
     UpdateConditionStep<R> andNot(Condition condition);
 
     /**
      * Combine the currently assembled conditions with a negated other one using
-     * the {@link Operator#AND} operator
+     * the {@link Operator#AND} operator.
      */
     @Support
     UpdateConditionStep<R> andNot(Field<Boolean> condition);
@@ -184,28 +184,28 @@ public interface UpdateConditionStep<R extends Record> extends UpdateFinalStep<R
 
     /**
      * Combine the currently assembled conditions with an EXISTS clause using
-     * the {@link Operator#AND} operator
+     * the {@link Operator#AND} operator.
      */
     @Support
     UpdateConditionStep<R> andExists(Select<?> select);
 
     /**
      * Combine the currently assembled conditions with a NOT EXISTS clause using
-     * the {@link Operator#AND} operator
+     * the {@link Operator#AND} operator.
      */
     @Support
     UpdateConditionStep<R> andNotExists(Select<?> select);
 
     /**
      * Combine the currently assembled conditions with another one using the
-     * {@link Operator#OR} operator
+     * {@link Operator#OR} operator.
      */
     @Support
     UpdateConditionStep<R> or(Condition condition);
 
     /**
      * Combine the currently assembled conditions with another one using the
-     * {@link Operator#OR} operator
+     * {@link Operator#OR} operator.
      */
     @Support
     UpdateConditionStep<R> or(Field<Boolean> condition);
@@ -291,14 +291,14 @@ public interface UpdateConditionStep<R extends Record> extends UpdateFinalStep<R
 
     /**
      * Combine the currently assembled conditions with a negated other one using
-     * the {@link Operator#OR} operator
+     * the {@link Operator#OR} operator.
      */
     @Support
     UpdateConditionStep<R> orNot(Condition condition);
 
     /**
      * Combine the currently assembled conditions with a negated other one using
-     * the {@link Operator#OR} operator
+     * the {@link Operator#OR} operator.
      */
     @Support
     UpdateConditionStep<R> orNot(Field<Boolean> condition);
@@ -320,14 +320,14 @@ public interface UpdateConditionStep<R extends Record> extends UpdateFinalStep<R
 
     /**
      * Combine the currently assembled conditions with an EXISTS clause using
-     * the {@link Operator#OR} operator
+     * the {@link Operator#OR} operator.
      */
     @Support
     UpdateConditionStep<R> orExists(Select<?> select);
 
     /**
      * Combine the currently assembled conditions with a NOT EXISTS clause using
-     * the {@link Operator#OR} operator
+     * the {@link Operator#OR} operator.
      */
     @Support
     UpdateConditionStep<R> orNotExists(Select<?> select);

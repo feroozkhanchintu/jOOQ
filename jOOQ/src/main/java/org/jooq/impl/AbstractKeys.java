@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -57,14 +57,14 @@ import org.jooq.UniqueKey;
 public abstract class AbstractKeys {
 
     /**
-     * Factory method for identities
+     * Factory method for identities.
      */
     protected static <R extends Record, T> Identity<R, T> createIdentity(Table<R> table, TableField<R, T> field) {
         return new IdentityImpl<R, T>(table, field);
     }
 
     /**
-     * Factory method for unique keys
+     * Factory method for unique keys.
      */
 
     @SafeVarargs
@@ -74,7 +74,7 @@ public abstract class AbstractKeys {
     }
 
     /**
-     * Factory method for unique keys
+     * Factory method for unique keys.
      */
 
     @SafeVarargs
@@ -84,7 +84,7 @@ public abstract class AbstractKeys {
     }
 
     /**
-     * Factory method for foreign keys
+     * Factory method for foreign keys.
      */
 
     @SafeVarargs
@@ -94,7 +94,7 @@ public abstract class AbstractKeys {
     }
 
     /**
-     * Factory method for foreign keys
+     * Factory method for foreign keys.
      */
 
     @SafeVarargs

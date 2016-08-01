@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -99,9 +99,11 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
         this.configuration = configuration;
     }
 
-    // -------------------------------------------------------------------------
-    // The Attachable and Attachable internal API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * The Attachable and Attachable internal API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final void attach(Configuration c) {
@@ -118,9 +120,11 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
         return configuration;
     }
 
-    // -------------------------------------------------------------------------
-    // The QueryPart API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * The QueryPart API
+     * -------------------------------------------------------------------------.
+     */
 
     final void toSQLSemiColon(RenderContext ctx) {
 
@@ -130,9 +134,11 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
 
     }
 
-    // -------------------------------------------------------------------------
-    // The Query API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * The Query API
+     * -------------------------------------------------------------------------.
+     */
 
     @Override
     public final List<Object> getBindValues() {
@@ -152,13 +158,13 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
     /**
      * Subclasses may override this for covariant result types
      * <p>
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @SuppressWarnings("deprecation")
     @Override
     public Query bind(String param, Object value) {
         try {
-            int index = Integer.valueOf(param);
+            int index = Integer.parseInt(param);
             return bind(index, value);
         }
         catch (NumberFormatException e) {
@@ -166,8 +172,9 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
             collector.visit(this);
             List<Param<?>> params = collector.result.get(param);
 
-            if (params == null || params.size() == 0)
-                throw new IllegalArgumentException("No such parameter : " + param);
+            if (params == null || params.size() == 0) {
+				throw new IllegalArgumentException("No such parameter : " + param);
+			}
 
             for (Param<?> p : params) {
                 p.setConverted(value);
@@ -181,15 +188,16 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
     /**
      * Subclasses may override this for covariant result types
      * <p>
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @SuppressWarnings("deprecation")
     @Override
     public Query bind(int index, Object value) {
         Param<?>[] params = getParams().values().toArray(EMPTY_PARAM);
 
-        if (index < 1 || index > params.length)
-            throw new IllegalArgumentException("Index out of range for Query parameters : " + index);
+        if (index < 1 || index > params.length) {
+			throw new IllegalArgumentException("Index out of range for Query parameters : " + index);
+		}
 
         Param<?> param = params[index - 1];
         param.setConverted(value);
@@ -228,7 +236,7 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
     /**
      * Subclasses may override this for covariant result types
      * <p>
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Query queryTimeout(int t) {
@@ -239,7 +247,7 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
     /**
      * Subclasses may override this for covariant result types
      * <p>
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public Query keepStatement(boolean k) {
@@ -341,13 +349,13 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
                     !Boolean.TRUE.equals(ctx.data(DATA_FORCE_STATIC_STATEMENT))) {
 
                     listener.bindStart(ctx);
-                    if (rendered.bindValues != null)
-                        using(c).bindContext(ctx.statement()).visit(rendered.bindValues);
+                    if (rendered.bindValues != null) {
+						using(c).bindContext(ctx.statement()).visit(rendered.bindValues);
+					}
                     listener.bindEnd(ctx);
                 }
 
-                result = execute(ctx, listener);
-                return result;
+                return execute(ctx, listener);
             }
 
             // [#3427] ControlFlowSignals must not be passed on to ExecuteListners
@@ -378,8 +386,9 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
             }
         }
         else {
-            if (log.isDebugEnabled())
-                log.debug("Query is not executable", this);
+            if (log.isDebugEnabled()) {
+				log.debug("Query is not executable", this);
+			}
 
             return 0;
         }
@@ -536,17 +545,13 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
 
 
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public final String getSQL() {
         return getSQL(getParamType(Tools.settings(configuration())));
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public final String getSQL(ParamType paramType) {
         switch (paramType) {
@@ -563,9 +568,7 @@ abstract class AbstractQuery extends AbstractQueryPart implements Query, Attacha
         throw new IllegalArgumentException("ParamType not supported: " + paramType);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     @Deprecated
     public final String getSQL(boolean inline) {

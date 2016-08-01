@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -46,7 +46,7 @@ package org.jooq;
  *      WHEN x &gt;= 2 THEN 'two'
  *      ELSE            'three'
  * END
- * </pre></code>
+ * </pre></code>.
  *
  * @param <T> The type returned by this case statement
  * @author Lukas Eder
@@ -56,7 +56,7 @@ public interface CaseConditionStep<T> extends Field<T> {
 
     /**
      * Compare a condition to the already constructed case statement, return
-     * result if the condition holds true
+     * result if the condition holds true.
      *
      * @param condition The condition to add to the case statement
      * @param result The result value if the condition holds true
@@ -67,7 +67,7 @@ public interface CaseConditionStep<T> extends Field<T> {
 
     /**
      * Compare a condition to the already constructed case statement, return
-     * result if the condition holds true
+     * result if the condition holds true.
      *
      * @param condition The condition to add to the case statement
      * @param result The result value if the condition holds true
@@ -78,7 +78,7 @@ public interface CaseConditionStep<T> extends Field<T> {
 
     /**
      * Compare a condition to the already constructed case statement, return
-     * result if the condition holds true
+     * result if the condition holds true.
      *
      * @param condition The condition to add to the case statement
      * @param result The result value if the condition holds true
@@ -88,7 +88,7 @@ public interface CaseConditionStep<T> extends Field<T> {
     CaseConditionStep<T> when(Condition condition, Select<? extends Record1<T>> result);
 
     /**
-     * Add an else clause to the already constructed case statement
+     * Add an else clause to the already constructed case statement.
      *
      * @param result The result value if no other value matches the case
      * @return The resulting field from case statement construction
@@ -97,7 +97,7 @@ public interface CaseConditionStep<T> extends Field<T> {
     Field<T> otherwise(T result);
 
     /**
-     * Add an else clause to the already constructed case statement
+     * Add an else clause to the already constructed case statement.
      *
      * @param result The result value if no other value matches the case
      * @return The resulting field from case statement construction
@@ -106,7 +106,7 @@ public interface CaseConditionStep<T> extends Field<T> {
     Field<T> otherwise(Field<T> result);
 
     /**
-     * Add an else clause to the already constructed case statement
+     * Add an else clause to the already constructed case statement.
      *
      * @param result The result value if no other value matches the case
      * @return The resulting field from case statement construction

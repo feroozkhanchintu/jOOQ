@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -108,8 +108,9 @@ final class InformationSchemaMetaImpl implements Meta {
         for (org.jooq.util.xml.jaxb.Schema xs : meta.getSchemata()) {
             InformationSchemaCatalog catalog = new InformationSchemaCatalog(xs.getCatalogName());
 
-            if (!catalogs.contains(catalog))
-                catalogs.add(catalog);
+            if (!catalogs.contains(catalog)) {
+				catalogs.add(catalog);
+			}
 
             InformationSchemaSchema is = new InformationSchemaSchema(xs.getSchemaName(), catalog);
             schemas.add(is);
@@ -129,14 +130,17 @@ final class InformationSchemaMetaImpl implements Meta {
                 Integer p1 = o1.getOrdinalPosition();
                 Integer p2 = o2.getOrdinalPosition();
 
-                if (p1 == p2)
-                    return 0;
-                if (p1 == null)
-                    return -1;
-                if (p2 == null)
-                    return 1;
+                if (p1 == p2) {
+					return 0;
+				}
+                if (p1 == null) {
+					return -1;
+				}
+                if (p2 != null) {
+					return p1.compareTo(p2);
+				}
 
-                return p1.compareTo(p2);
+                return 1;
             }
         });
 
@@ -163,14 +167,17 @@ final class InformationSchemaMetaImpl implements Meta {
                 Integer p1 = o1.getOrdinalPosition();
                 Integer p2 = o2.getOrdinalPosition();
 
-                if (p1 == p2)
-                    return 0;
-                if (p1 == null)
-                    return -1;
-                if (p2 == null)
-                    return 1;
+                if (p1 == p2) {
+					return 0;
+				}
+                if (p1 == null) {
+					return -1;
+				}
+                if (p2 != null) {
+					return p1.compareTo(p2);
+				}
 
-                return p1.compareTo(p2);
+                return 1;
             }
         });
 
@@ -269,10 +276,11 @@ final class InformationSchemaMetaImpl implements Meta {
             type = DefaultDataType.getDataType(configuration.family(), typeName);
             type = type.nullable(nullable);
 
-            if (length != 0)
-                type = type.length(length);
-            else if (precision != 0 || scale != 0)
-                type = type.precision(precision, scale);
+            if (length != 0) {
+				type = type.length(length);
+			} else if (precision != 0 || scale != 0) {
+				type = type.precision(precision, scale);
+			}
         }
         catch (SQLDialectNotSupportedException e) {
             type = SQLDataType.OTHER;
@@ -309,7 +317,7 @@ final class InformationSchemaMetaImpl implements Meta {
     private final class InformationSchemaCatalog extends CatalogImpl {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = 87038321849045492L;
 
@@ -326,7 +334,7 @@ final class InformationSchemaMetaImpl implements Meta {
     private final class InformationSchemaSchema extends SchemaImpl {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = 7290709749127378187L;
 
@@ -348,7 +356,7 @@ final class InformationSchemaMetaImpl implements Meta {
     private final class InformationSchemaTable extends TableImpl<Record> {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = 4314110578549768267L;
 
@@ -378,7 +386,7 @@ final class InformationSchemaMetaImpl implements Meta {
     private final class InformationSchemaSequence<N extends Number> extends SequenceImpl<N> {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -1246697252597049756L;
 

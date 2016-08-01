@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -42,19 +42,19 @@
 package org.jooq;
 
 /**
- * An operator used for combining conditions
+ * An operator used for combining conditions.
  *
  * @author Lukas Eder
  */
 public enum Operator {
 
     /**
-     * The and operator
+     * The and operator.
      */
     AND("and"),
 
     /**
-     * The or operator
+     * The or operator.
      */
     OR("or");
 

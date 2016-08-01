@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -121,10 +121,11 @@ final class DataMap extends AbstractMap<Object, Object> {
 
     private final Map<Object, Object> external(boolean initialise) {
         if (external == null) {
-            if (initialise)
-                external = new HashMap<Object, Object>();
-            else
-                return Collections.emptyMap();
+            if (initialise) {
+				external = new HashMap<Object, Object>();
+			} else {
+				return Collections.emptyMap();
+			}
         }
 
         return external;

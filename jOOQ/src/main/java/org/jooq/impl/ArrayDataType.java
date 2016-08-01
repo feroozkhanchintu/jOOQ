@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -44,14 +44,14 @@ import org.jooq.Configuration;
 import org.jooq.DataType;
 
 /**
- * A wrapper for anonymous array data types
+ * A wrapper for anonymous array data types.
  *
  * @author Lukas Eder
  */
 final class ArrayDataType<T> extends DefaultDataType<T[]> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 7883229760246533448L;
 

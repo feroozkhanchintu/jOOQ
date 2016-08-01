@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -63,7 +63,7 @@ import java.util.List;
 import org.jooq.exception.DataAccessException;
 
 /**
- * A {@link Query} that can provide a {@link Result} after execution
+ * A {@link Query} that can provide a {@link Result} after execution.
  *
  * @param <R> The record type being returned by this query
  * @author Lukas Eder
@@ -107,7 +107,7 @@ public interface Select<R extends Record> extends ResultQuery<R>, TableLike<R>, 
     Select<R> intersectAll(Select<? extends R> select);
 
     /**
-     * All fields selected in this query
+     * All fields selected in this query.
      */
     List<Field<?>> getSelect();
 

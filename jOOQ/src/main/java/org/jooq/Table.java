@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -72,7 +72,7 @@ import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
 
 /**
- * A table to be used in queries
+ * A table to be used in queries.
  *
  * @param <R> The record type associated with this table
  * @author Lukas Eder

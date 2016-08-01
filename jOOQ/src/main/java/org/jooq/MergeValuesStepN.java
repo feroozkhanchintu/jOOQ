@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -68,19 +68,19 @@ import java.util.Collection;
 public interface MergeValuesStepN<R extends Record> {
 
     /**
-     * Specify a <code>VALUES</code> clause
+     * Specify a <code>VALUES</code> clause.
      */
     @Support({ CUBRID, FIREBIRD_3_0, H2, HSQLDB })
     Merge<R> values(Object... values);
 
     /**
-     * Specify a <code>VALUES</code> clause
+     * Specify a <code>VALUES</code> clause.
      */
     @Support({ CUBRID, FIREBIRD_3_0, H2, HSQLDB })
     Merge<R> values(Field<?>... values);
 
     /**
-     * Specify a <code>VALUES</code> clause
+     * Specify a <code>VALUES</code> clause.
      */
     @Support({ CUBRID, FIREBIRD_3_0, H2, HSQLDB })
     Merge<R> values(Collection<?> values);

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -100,7 +100,7 @@ public final class SettingsTools {
      * If the latter is set to {@link StatementType#STATIC_STATEMENT}, then the
      * former defaults to {@link ParamType#INLINED}.
      */
-    public static final ParamType getParamType(Settings settings) {
+    public static ParamType getParamType(Settings settings) {
         if (executeStaticStatements(settings)) {
             return INLINED;
         }
@@ -118,7 +118,7 @@ public final class SettingsTools {
     /**
      * Get the statement type from the settings.
      */
-    public static final StatementType getStatementType(Settings settings) {
+    public static StatementType getStatementType(Settings settings) {
         if (settings != null) {
             StatementType result = settings.getStatementType();
 
@@ -133,7 +133,7 @@ public final class SettingsTools {
     /**
      * Get the value BackslashEscaping value.
      */
-    public static final BackslashEscaping getBackslashEscaping(Settings settings) {
+    public static BackslashEscaping getBackslashEscaping(Settings settings) {
         if (settings != null) {
             BackslashEscaping result = settings.getBackslashEscaping();
 
@@ -148,35 +148,35 @@ public final class SettingsTools {
     /**
      * Whether a {@link PreparedStatement} should be executed.
      */
-    public static final boolean executePreparedStatements(Settings settings) {
+    public static boolean executePreparedStatements(Settings settings) {
         return getStatementType(settings) == PREPARED_STATEMENT;
     }
 
     /**
      * Whether static {@link Statement} should be executed.
      */
-    public static final boolean executeStaticStatements(Settings settings) {
+    public static boolean executeStaticStatements(Settings settings) {
         return getStatementType(settings) == STATIC_STATEMENT;
     }
 
     /**
      * Whether primary keys should be updatable.
      */
-    public static final boolean updatablePrimaryKeys(Settings settings) {
+    public static boolean updatablePrimaryKeys(Settings settings) {
         return defaultIfNull(settings.isUpdatablePrimaryKeys(), false);
     }
 
     /**
      * Whether primary keys should be updatable.
      */
-    public static final boolean reflectionCaching(Settings settings) {
+    public static boolean reflectionCaching(Settings settings) {
         return defaultIfNull(settings.isReflectionCaching(), true);
     }
 
     /**
      * Lazy access to {@link RenderMapping}.
      */
-    public static final RenderMapping getRenderMapping(Settings settings) {
+    public static RenderMapping getRenderMapping(Settings settings) {
         if (settings.getRenderMapping() == null) {
             settings.setRenderMapping(new RenderMapping());
         }
@@ -198,7 +198,7 @@ public final class SettingsTools {
      * defaults</li>
      * </ul>
      */
-    public static final Settings defaultSettings() {
+    public static Settings defaultSettings() {
 
         // Clone the DEFAULT_SETTINGS to prevent modification
         return clone(DEFAULT_SETTINGS);
@@ -207,7 +207,7 @@ public final class SettingsTools {
     /**
      * Clone some settings.
      */
-    public static final Settings clone(Settings settings) {
+    public static Settings clone(Settings settings) {
         return (Settings) settings.clone();
     }
 

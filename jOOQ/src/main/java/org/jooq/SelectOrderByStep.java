@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -251,7 +251,7 @@ public interface SelectOrderByStep<R extends Record> extends SelectLimitStep<R> 
 // [jooq-tools] END [order-by-field-array]
 
     /**
-     * Add an <code>ORDER BY</code> clause to the query
+     * Add an <code>ORDER BY</code> clause to the query.
      */
     @Support
     SelectSeekStepN<R> orderBy(Field<?>... fields);
@@ -416,13 +416,13 @@ public interface SelectOrderByStep<R extends Record> extends SelectLimitStep<R> 
 
 
     /**
-     * Add an <code>ORDER BY</code> clause to the query
+     * Add an <code>ORDER BY</code> clause to the query.
      */
     @Support
     SelectSeekStepN<R> orderBy(SortField<?>... fields);
 
     /**
-     * Add an <code>ORDER BY</code> clause to the query
+     * Add an <code>ORDER BY</code> clause to the query.
      */
     @Support
     SelectSeekStepN<R> orderBy(Collection<? extends SortField<?>> fields);

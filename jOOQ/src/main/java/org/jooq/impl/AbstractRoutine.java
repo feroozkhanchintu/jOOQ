@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -110,14 +110,16 @@ import org.jooq.tools.Convert;
 public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Routine<T>, AttachableInternal {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long                 serialVersionUID = 6330037113167106443L;
     private static final Clause[]             CLAUSES          = { FIELD, FIELD_FUNCTION };
 
-    // ------------------------------------------------------------------------
-    // Meta-data attributes (the same for every call)
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Meta-data attributes (the same for every call)
+     * ------------------------------------------------------------------------.
+     */
 
     private final Schema                      schema;
     private final Package                     pkg;
@@ -137,9 +139,11 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
 
 
 
-    // ------------------------------------------------------------------------
-    // Call-data attributes (call-specific)
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Call-data attributes (call-specific)
+     * ------------------------------------------------------------------------.
+     */
 
     private final Map<Parameter<?>, Field<?>> inValues;
     private final Set<Parameter<?>>           inValuesDefaulted;
@@ -150,9 +154,11 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
     private final Map<Parameter<?>, Object>   outValues;
     private final Map<Parameter<?>, Integer>  resultIndexes;
 
-    // ------------------------------------------------------------------------
-    // Constructors
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Constructors
+     * ------------------------------------------------------------------------.
+     */
 
     protected AbstractRoutine(String name, Schema schema) {
         this(name, schema, null, null, null, null);
@@ -211,9 +217,11 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
             : type.asConvertedDataType(DefaultBinding.newBinding((Converter) converter, type, binding));
     }
 
-    // ------------------------------------------------------------------------
-    // Initialise a routine call
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Initialise a routine call
+     * ------------------------------------------------------------------------.
+     */
 
     protected final <N extends Number> void setNumber(Parameter<N> parameter, Number value) {
         setValue(parameter, Convert.convert(value, parameter.getType()));
@@ -233,8 +241,8 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
         setField(parameter, val(value, parameter.getDataType()));
     }
 
-    /*
-     * #326 - Avoid overloading setValue()
+    /**
+     * #326 - Avoid overloading setValue().
      */
     protected final void setField(Parameter<?> parameter, Field<?> value) {
         // Be sure null is correctly represented as a null field
@@ -250,9 +258,11 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
         }
     }
 
-    // ------------------------------------------------------------------------
-    // Call the routine
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Call the routine
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final void attach(Configuration c) {
@@ -324,10 +334,6 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
                         return executeSelectFromHSQLDB();
                     }
 
-                    // Fall through
-                    else {
-                    }
-
                 case H2:
 
 
@@ -387,19 +393,23 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
         DSLContext create = create(configuration);
 
         List<Field<?>> fields = new ArrayList<Field<?>>();
-        if (returnParameter != null)
-            fields.add(DSL.field(DSL.name(getName()), returnParameter.getDataType()));
-        for (Parameter<?> p : outParameters)
-            fields.add(DSL.field(DSL.name(p.getName()), p.getDataType()));
+        if (returnParameter != null) {
+			fields.add(DSL.field(DSL.name(getName()), returnParameter.getDataType()));
+		}
+        for (Parameter<?> p : outParameters) {
+			fields.add(DSL.field(DSL.name(p.getName()), p.getDataType()));
+		}
 
         Result<?> result = create.select(fields).from("{0}", asField()).fetch();
 
         int i = 0;
 
-        if (returnParameter != null)
-            outValues.put(returnParameter, returnParameter.getDataType().convert(result.getValue(0, i++)));
-        for (Parameter<?> p : outParameters)
-            outValues.put(p, p.getDataType().convert(result.getValue(0, i++)));
+        if (returnParameter != null) {
+			outValues.put(returnParameter, returnParameter.getDataType().convert(result.getValue(0, i++)));
+		}
+        for (Parameter<?> p : outParameters) {
+			outValues.put(p, p.getDataType().convert(result.getValue(0, i++)));
+		}
 
         return 0;
     }
@@ -441,8 +451,9 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
 
             // [#2925] Jaybird currently doesn't like fetching OUT parameters and consuming ResultSets
             //         http://tracker.firebirdsql.org/browse/JDBC-350
-            if (ctx.family() != FIREBIRD)
-                Tools.consumeResultSets(ctx, listener, results, null);
+            if (ctx.family() != FIREBIRD) {
+				Tools.consumeResultSets(ctx, listener, results, null);
+			}
 
             listener.outStart(ctx);
             fetchOutParameters(ctx);
@@ -474,8 +485,9 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
         try {
             listener.executeStart(ctx);
 
-            if (ctx.statement().execute())
-                ctx.resultSet(ctx.statement().getResultSet());
+            if (ctx.statement().execute()) {
+				ctx.resultSet(ctx.statement().getResultSet());
+			}
 
             listener.executeEnd(ctx);
         }
@@ -494,10 +506,11 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
 
     @Override
     public void accept(Context<?> ctx) {
-        if (ctx instanceof RenderContext)
-            toSQL0((RenderContext) ctx);
-        else
-            bind0((BindContext) ctx);
+        if (ctx instanceof RenderContext) {
+			toSQL0((RenderContext) ctx);
+		} else {
+			bind0((BindContext) ctx);
+		}
     }
 
     final void bind0(BindContext context) {
@@ -544,8 +557,9 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
         for (Parameter<?> parameter : getParameters()) {
 
             // [#1183] [#3533] Skip defaulted parameters
-            if (getInParameters().contains(parameter) && inValuesDefaulted.contains(parameter))
-                continue;
+            if (getInParameters().contains(parameter) && inValuesDefaulted.contains(parameter)) {
+				continue;
+			}
 
             bind1(context, parameter, getInValues().get(parameter) != null, resultParameter(parameter));
         }
@@ -554,8 +568,9 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
     private final void bind1(BindContext context, Parameter<?> parameter, boolean bindAsIn, boolean bindAsOut) {
         int index = context.peekIndex();
 
-        if (bindAsOut)
-            resultIndexes.put(parameter, index);
+        if (bindAsOut) {
+			resultIndexes.put(parameter, index);
+		}
 
         if (bindAsIn) {
             context.visit(getInValues().get(parameter));
@@ -563,8 +578,9 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
             // [#391] This happens when null literals are used as IN/OUT
             // parameters. They're not bound as in value, but they need to
             // be registered as OUT parameter
-            if (index == context.peekIndex() && bindAsOut)
-                context.nextIndex();
+            if (index == context.peekIndex() && bindAsOut) {
+				context.nextIndex();
+			}
         }
 
         // Skip one index for OUT parameters
@@ -577,8 +593,9 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
         toSQLDeclare(context);
         toSQLBegin(context);
 
-        if (getReturnParameter() != null)
-            toSQLAssign(context);
+        if (getReturnParameter() != null) {
+			toSQLAssign(context);
+		}
 
         toSQLCall(context);
         context.sql('(');
@@ -589,8 +606,9 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
             Parameter<?> parameter = parameters.get(i);
 
             // The return value has already been written
-            if (parameter.equals(getReturnParameter()))
-                continue;
+            if (parameter.equals(getReturnParameter())) {
+				continue;
+			}
 
             // OUT and IN OUT parameters are always written as a '?' bind variable
             if (getOutParameters().contains(parameter)) {
@@ -771,9 +789,11 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
     }
 
     private final void fetchOutParameters(ExecuteContext ctx) throws SQLException {
-        for (Parameter<?> parameter : getParameters())
-            if (resultParameter(parameter))
-                fetchOutParameter(ctx, parameter);
+        for (Parameter<?> parameter : getParameters()) {
+			if (resultParameter(parameter)) {
+				fetchOutParameter(ctx, parameter);
+			}
+		}
     }
 
     private final <U> void fetchOutParameter(ExecuteContext ctx, Parameter<U> parameter) throws SQLException {
@@ -795,23 +815,28 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
 
         // Register all out / inout parameters according to their position
         // Note that some RDBMS do not support binding by name very well
-        for (Parameter<?> parameter : getParameters())
-            if (resultParameter(parameter))
-                registerOutParameter(c, data, statement, parameter);
+        for (Parameter<?> parameter : getParameters()) {
+			if (resultParameter(parameter)) {
+				registerOutParameter(c, data, statement, parameter);
+			}
+		}
     }
 
     private final <U> void registerOutParameter(Configuration c, Map<Object, Object> data, CallableStatement statement, Parameter<U> parameter) throws SQLException {
         parameter.getBinding().register(new DefaultBindingRegisterContext<U>(c, data, statement, resultIndexes.get(parameter)));
     }
 
-    // ------------------------------------------------------------------------
-    // Fetch routine results
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Fetch routine results
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final T getReturnValue() {
-        if (returnParameter != null)
-            return getValue(returnParameter);
+        if (returnParameter != null) {
+			return getValue(returnParameter);
+		}
 
         return null;
     }
@@ -836,9 +861,11 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
         return inValues;
     }
 
-    // ------------------------------------------------------------------------
-    // Access to routine configuration objects
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Access to routine configuration objects
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final List<Parameter<?>> getOutParameters() {
@@ -943,10 +970,11 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
         inValues.put(parameter, val(null, parameter.getDataType()));
 
         // [#1183] [#3533] defaulted parameters are marked as such
-        if (parameter.isDefaulted())
-            inValuesDefaulted.add(parameter);
-        else
-            inValuesNonDefaulted.add(parameter);
+        if (parameter.isDefaulted()) {
+			inValuesDefaulted.add(parameter);
+		} else {
+			inValuesNonDefaulted.add(parameter);
+		}
     }
 
 
@@ -1009,7 +1037,7 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
      * @deprecated - Please, re-generate your routine code.
      */
     @Deprecated
-    protected static final <T> Parameter<T> createParameter(String name, DataType<T> type) {
+    protected static <T> Parameter<T> createParameter(String name, DataType<T> type) {
         return createParameter(name, type, false, null, null);
     }
 
@@ -1025,7 +1053,7 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
      * @deprecated - Please, re-generate your routine code.
      */
     @Deprecated
-    protected static final <T> Parameter<T> createParameter(String name, DataType<T> type, boolean isDefaulted) {
+    protected static <T> Parameter<T> createParameter(String name, DataType<T> type, boolean isDefaulted) {
         return createParameter(name, type, isDefaulted, null, null);
     }
 
@@ -1041,7 +1069,7 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
      * @deprecated - Please, re-generate your routine code.
      */
     @Deprecated
-    protected static final <T, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, Converter<T, U> converter) {
+    protected static <T, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, Converter<T, U> converter) {
         return createParameter(name, type, isDefaulted, converter, null);
     }
 
@@ -1057,7 +1085,7 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
      * @deprecated - Please, re-generate your routine code.
      */
     @Deprecated
-    protected static final <T, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, Binding<T, U> binding) {
+    protected static <T, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, Binding<T, U> binding) {
         return createParameter(name, type, isDefaulted, null, binding);
     }
 
@@ -1073,7 +1101,7 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
      * @deprecated - Please, re-generate your routine code.
      */
     @Deprecated
-    protected static final <T, X, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, Converter<X, U> converter, Binding<T, X> binding) {
+    protected static <T, X, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, Converter<X, U> converter, Binding<T, X> binding) {
         return createParameter(name, type, isDefaulted, false, converter, binding);
     }
 
@@ -1088,7 +1116,7 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
      * @param isUnnamed Whether the parameter is unnamed (see
      *            {@link Parameter#isUnnamed()}.
      */
-    protected static final <T> Parameter<T> createParameter(String name, DataType<T> type, boolean isDefaulted, boolean isUnnamed) {
+    protected static <T> Parameter<T> createParameter(String name, DataType<T> type, boolean isDefaulted, boolean isUnnamed) {
         return createParameter(name, type, isDefaulted, isUnnamed, null, null);
     }
 
@@ -1103,7 +1131,7 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
      * @param isUnnamed Whether the parameter is unnamed (see
      *            {@link Parameter#isUnnamed()}.
      */
-    protected static final <T, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, boolean isUnnamed, Converter<T, U> converter) {
+    protected static <T, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, boolean isUnnamed, Converter<T, U> converter) {
         return createParameter(name, type, isDefaulted, isUnnamed, converter, null);
     }
 
@@ -1118,7 +1146,7 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
      * @param isUnnamed Whether the parameter is unnamed (see
      *            {@link Parameter#isUnnamed()}.
      */
-    protected static final <T, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, boolean isUnnamed, Binding<T, U> binding) {
+    protected static <T, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, boolean isUnnamed, Binding<T, U> binding) {
         return createParameter(name, type, isDefaulted, isUnnamed, null, binding);
     }
 
@@ -1134,7 +1162,7 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
      *            {@link Parameter#isUnnamed()}.
      */
     @SuppressWarnings("unchecked")
-    protected static final <T, X, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, boolean isUnnamed, Converter<X, U> converter, Binding<T, X> binding) {
+    protected static <T, X, U> Parameter<U> createParameter(String name, DataType<T> type, boolean isDefaulted, boolean isUnnamed, Converter<X, U> converter, Binding<T, X> binding) {
         final Binding<T, U> actualBinding = DefaultBinding.newBinding(converter, type, binding);
         final DataType<U> actualType = converter == null && binding == null
             ? (DataType<U>) type
@@ -1144,12 +1172,12 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
     }
 
     /**
-     * The {@link Field} representation of this {@link Routine}
+     * The {@link Field} representation of this {@link Routine}.
      */
     private class RoutineField extends AbstractField<T> {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -5730297947647252624L;
 
@@ -1175,41 +1203,47 @@ public abstract class AbstractRoutine<T> extends AbstractQueryPart implements Ro
             for (Parameter<?> parameter : getInParameters()) {
 
                 // [#1183] [#3533] Skip defaulted parameters
-                if (inValuesDefaulted.contains(parameter))
-                    continue;
+                if (inValuesDefaulted.contains(parameter)) {
+					continue;
+				}
 
                 // Disambiguate overloaded function signatures
-                if (ctx.family() == POSTGRES)
-
-                    // [#4920] In case there are any unnamed parameters, we mustn't
-                    if (hasUnnamedParameters())
-                        if (pgArgNeedsCasting(parameter))
-                            fields.add(new Cast(getInValues().get(parameter), parameter.getDataType()));
-                        else
-                            fields.add(getInValues().get(parameter));
-                    else
-                        if (pgArgNeedsCasting(parameter))
-                            fields.add(field("{0} := {1}", name(parameter.getName()), new Cast(getInValues().get(parameter), parameter.getDataType())));
-                        else
-                            fields.add(field("{0} := {1}", name(parameter.getName()), getInValues().get(parameter)));
-                else
-                    fields.add(getInValues().get(parameter));
+                if (ctx.family() == POSTGRES) {
+					// [#4920] In case there are any unnamed parameters, we mustn't
+                    if (hasUnnamedParameters()) {
+						if (pgArgNeedsCasting(parameter)) {
+							fields.add(new Cast(getInValues().get(parameter), parameter.getDataType()));
+						} else {
+							fields.add(getInValues().get(parameter));
+						}
+					} else
+                        if (pgArgNeedsCasting(parameter)) {
+							fields.add(field("{0} := {1}", name(parameter.getName()), new Cast(getInValues().get(parameter), parameter.getDataType())));
+						} else {
+							fields.add(field("{0} := {1}", name(parameter.getName()), getInValues().get(parameter)));
+						}
+				} else {
+					fields.add(getInValues().get(parameter));
+				}
             }
 
             Field<T> result = function(local.render(), getDataType(), fields.toArray(EMPTY_FIELD));
 
 
             // [#3592] Decrease SQL -> PL/SQL context switches with Oracle Scalar Subquery Caching
-            if (TRUE.equals(settings(ctx.configuration()).isRenderScalarSubqueriesForStoredFunctions()))
-                result = DSL.select(result).asField();
+            if (TRUE.equals(settings(ctx.configuration()).isRenderScalarSubqueriesForStoredFunctions())) {
+				result = DSL.select(result).asField();
+			}
 
             ctx.visit(result);
         }
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Object API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public int hashCode() {

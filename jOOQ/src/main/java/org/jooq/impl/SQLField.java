@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -47,7 +47,7 @@ import org.jooq.QueryPart;
 final class SQLField<T> extends AbstractField<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = 6937002867156868761L;
 
@@ -59,9 +59,11 @@ final class SQLField<T> extends AbstractField<T> {
         this.delegate = delegate;
     }
 
-    // ------------------------------------------------------------------------
-    // Field API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * Field API
+     * ------------------------------------------------------------------------.
+     */
 
     @Override
     public final void accept(Context<?> ctx) {

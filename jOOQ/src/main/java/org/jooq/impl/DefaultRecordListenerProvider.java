@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -73,8 +73,9 @@ public class DefaultRecordListenerProvider implements RecordListenerProvider, Se
     public static RecordListenerProvider[] providers(RecordListener... listeners) {
         RecordListenerProvider[] result = new RecordListenerProvider[listeners.length];
 
-        for (int i = 0; i < listeners.length; i++)
-            result[i] = new DefaultRecordListenerProvider(listeners[i]);
+        for (int i = 0; i < listeners.length; i++) {
+			result[i] = new DefaultRecordListenerProvider(listeners[i]);
+		}
 
         return result;
     }
@@ -88,17 +89,13 @@ public class DefaultRecordListenerProvider implements RecordListenerProvider, Se
         this.listener = listener;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public final RecordListener provide() {
         return listener;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return listener.toString();

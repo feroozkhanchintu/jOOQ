@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -84,7 +84,7 @@ import org.jooq.SQLDialect;
 final class RowCondition extends AbstractCondition {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = -1806139685201770706L;
     private static final Clause[] CLAUSES          = { CONDITION, CONDITION_COMPARISON };
@@ -155,8 +155,8 @@ final class RowCondition extends AbstractCondition {
 
             // Whether the comparator has an equal component
             boolean equal
-                = (comparator == GREATER_OR_EQUAL)
-                ||(comparator == LESS_OR_EQUAL);
+                = comparator == GREATER_OR_EQUAL
+                ||comparator == LESS_OR_EQUAL;
 
             // The following algorithm emulates the equivalency of these expressions:
             // (A, B, C) > (X, Y, Z)
@@ -203,7 +203,7 @@ final class RowCondition extends AbstractCondition {
     private class Native extends AbstractCondition {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -2977241780111574353L;
 

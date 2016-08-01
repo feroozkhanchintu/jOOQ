@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -58,7 +58,7 @@ import org.jooq.ExecuteListener;
 public final class CallbackExecuteListener implements ExecuteListener {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long         serialVersionUID = -4135358887698253754L;
 
@@ -133,122 +133,142 @@ public final class CallbackExecuteListener implements ExecuteListener {
 
     @Override
     public final void start(ExecuteContext ctx) {
-        if (onStart != null)
-            onStart.fire(ctx);
+        if (onStart != null) {
+			onStart.fire(ctx);
+		}
     }
 
     @Override
     public final void renderStart(ExecuteContext ctx) {
-        if (onRenderStart != null)
-            onRenderStart.fire(ctx);
+        if (onRenderStart != null) {
+			onRenderStart.fire(ctx);
+		}
     }
 
     @Override
     public final void renderEnd(ExecuteContext ctx) {
-        if (onRenderEnd != null)
-            onRenderEnd.fire(ctx);
+        if (onRenderEnd != null) {
+			onRenderEnd.fire(ctx);
+		}
     }
 
     @Override
     public final void prepareStart(ExecuteContext ctx) {
-        if (onPrepareStart != null)
-            onPrepareStart.fire(ctx);
+        if (onPrepareStart != null) {
+			onPrepareStart.fire(ctx);
+		}
     }
 
     @Override
     public final void prepareEnd(ExecuteContext ctx) {
-        if (onPrepareEnd != null)
-            onPrepareEnd.fire(ctx);
+        if (onPrepareEnd != null) {
+			onPrepareEnd.fire(ctx);
+		}
     }
 
     @Override
     public final void bindStart(ExecuteContext ctx) {
-        if (onBindStart != null)
-            onBindStart.fire(ctx);
+        if (onBindStart != null) {
+			onBindStart.fire(ctx);
+		}
     }
 
     @Override
     public final void bindEnd(ExecuteContext ctx) {
-        if (onBindEnd != null)
-            onBindEnd.fire(ctx);
+        if (onBindEnd != null) {
+			onBindEnd.fire(ctx);
+		}
     }
 
     @Override
     public final void executeStart(ExecuteContext ctx) {
-        if (onExecuteStart != null)
-            onExecuteStart.fire(ctx);
+        if (onExecuteStart != null) {
+			onExecuteStart.fire(ctx);
+		}
     }
 
     @Override
     public final void executeEnd(ExecuteContext ctx) {
-        if (onExecuteEnd != null)
-            onExecuteEnd.fire(ctx);
+        if (onExecuteEnd != null) {
+			onExecuteEnd.fire(ctx);
+		}
     }
 
     @Override
     public final void outStart(ExecuteContext ctx) {
-        if (onOutStart != null)
-            onOutStart.fire(ctx);
+        if (onOutStart != null) {
+			onOutStart.fire(ctx);
+		}
     }
 
     @Override
     public final void outEnd(ExecuteContext ctx) {
-        if (onOutEnd != null)
-            onOutEnd.fire(ctx);
+        if (onOutEnd != null) {
+			onOutEnd.fire(ctx);
+		}
     }
 
     @Override
     public final void fetchStart(ExecuteContext ctx) {
-        if (onFetchStart != null)
-            onFetchStart.fire(ctx);
+        if (onFetchStart != null) {
+			onFetchStart.fire(ctx);
+		}
     }
 
     @Override
     public final void resultStart(ExecuteContext ctx) {
-        if (onResultStart != null)
-            onResultStart.fire(ctx);
+        if (onResultStart != null) {
+			onResultStart.fire(ctx);
+		}
     }
 
     @Override
     public final void recordStart(ExecuteContext ctx) {
-        if (onRecordStart != null)
-            onRecordStart.fire(ctx);
+        if (onRecordStart != null) {
+			onRecordStart.fire(ctx);
+		}
     }
 
     @Override
     public final void recordEnd(ExecuteContext ctx) {
-        if (onRecordEnd != null)
-            onRecordEnd.fire(ctx);
+        if (onRecordEnd != null) {
+			onRecordEnd.fire(ctx);
+		}
     }
 
     @Override
     public final void resultEnd(ExecuteContext ctx) {
-        if (onResultEnd != null)
-            onResultEnd.fire(ctx);
+        if (onResultEnd != null) {
+			onResultEnd.fire(ctx);
+		}
     }
 
     @Override
     public final void fetchEnd(ExecuteContext ctx) {
-        if (onFetchEnd != null)
-            onFetchEnd.fire(ctx);
+        if (onFetchEnd != null) {
+			onFetchEnd.fire(ctx);
+		}
     }
 
     @Override
     public final void end(ExecuteContext ctx) {
-        if (onEnd != null)
-            onEnd.fire(ctx);
+        if (onEnd != null) {
+			onEnd.fire(ctx);
+		}
     }
 
     @Override
     public final void exception(ExecuteContext ctx) {
-        if (onException != null)
-            onException.fire(ctx);
+        if (onException != null) {
+			onException.fire(ctx);
+		}
     }
 
     @Override
     public final void warning(ExecuteContext ctx) {
-        if (onWarning != null)
-            onWarning.fire(ctx);
+        if (onWarning != null) {
+			onWarning.fire(ctx);
+		}
     }
 
     public final CallbackExecuteListener onStart(ExecuteEventHandler newOnStart) {

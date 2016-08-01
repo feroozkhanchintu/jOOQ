@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -68,7 +68,7 @@ final class CreateSequenceImpl extends AbstractQuery implements
     CreateSequenceFinalStep {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 8904572826501186329L;
     private static final Clause[] CLAUSES          = { CREATE_SEQUENCE };
@@ -83,9 +83,11 @@ final class CreateSequenceImpl extends AbstractQuery implements
         this.ifNotExists = ifNotExists;
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: QueryPart API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: QueryPart API
+     * ------------------------------------------------------------------------
+     */
 
     private final boolean supportsIfNotExists(Context<?> ctx) {
         return !asList(DERBY, FIREBIRD).contains(ctx.family());
@@ -110,15 +112,17 @@ final class CreateSequenceImpl extends AbstractQuery implements
            .keyword(ctx.family() == CUBRID ? "serial" : "sequence")
            .sql(' ');
 
-        if (ifNotExists && supportsIfNotExists(ctx))
-            ctx.keyword("if not exists")
+        if (ifNotExists && supportsIfNotExists(ctx)) {
+			ctx.keyword("if not exists")
                .sql(' ');
+		}
 
         ctx.visit(sequence);
 
         // Some databases default to sequences starting with MIN_VALUE
-        if (asList(DERBY).contains(ctx.family()))
-            ctx.keyword("start with").sql(" 1");
+        if (asList(DERBY).contains(ctx.family())) {
+			ctx.keyword("start with").sql(" 1");
+		}
 
         ctx.end(CREATE_SEQUENCE_SEQUENCE);
     }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -173,8 +173,9 @@ public enum SQLStateClass {
     }
 
     public static SQLStateClass fromCode(String code) {
-        if (code == null || code.length() < 2)
-            return SQLStateClass.OTHER;
+        if (code == null || code.length() < 2) {
+			return SQLStateClass.OTHER;
+		}
 
         SQLStateClass result = lookup.get(code.substring(0, 2));
         return result != null ? result : SQLStateClass.OTHER;

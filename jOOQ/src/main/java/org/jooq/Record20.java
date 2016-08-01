@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -43,7 +43,7 @@ package org.jooq;
 import javax.annotation.Generated;
 
 /**
- * A model type for a records with degree <code>20</code>
+ * A model type for a records with degree <code>20</code>.
  *
  * @see Row20
  * @author Lukas Eder

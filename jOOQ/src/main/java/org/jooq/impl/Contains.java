@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -52,14 +52,14 @@ import org.jooq.Context;
 import org.jooq.Field;
 
 /**
- * Abstraction for various "contains" operations
+ * Abstraction for various "contains" operations.
  *
  * @author Lukas Eder
  */
 final class Contains<T> extends AbstractCondition {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = 6146303086487338550L;
     private static final Clause[] CLAUSES          = { CONDITION, CONDITION_COMPARISON };
@@ -101,11 +101,11 @@ final class Contains<T> extends AbstractCondition {
         else {
             Field<String> concat;
 
-            if (rhs == null) {
-                concat = DSL.concat(inline("%"), Tools.escapeForLike(value, configuration), inline("%"));
+            if (rhs != null) {
+                concat = DSL.concat(inline("%"), Tools.escapeForLike(rhs, configuration), inline("%"));
             }
             else {
-                concat = DSL.concat(inline("%"), Tools.escapeForLike(rhs, configuration), inline("%"));
+                concat = DSL.concat(inline("%"), Tools.escapeForLike(value, configuration), inline("%"));
             }
 
             return lhs.like(concat, Tools.ESCAPE);
@@ -113,12 +113,12 @@ final class Contains<T> extends AbstractCondition {
     }
 
     /**
-     * The Postgres array contains operator
+     * The Postgres array contains operator.
      */
     private class PostgresArrayContains extends AbstractCondition {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = 8083622843635168388L;
 

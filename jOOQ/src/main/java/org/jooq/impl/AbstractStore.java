@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -61,7 +61,7 @@ import org.jooq.Record;
 abstract class AbstractStore implements AttachableInternal {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long serialVersionUID = -2989496800221194411L;
 
@@ -75,9 +75,11 @@ abstract class AbstractStore implements AttachableInternal {
         this.configuration = configuration;
     }
 
-    // -------------------------------------------------------------------------
-    // The Attachable API
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * The Attachable API
+     * -------------------------------------------------------------------------.
+     */
 
     abstract List<Attachable> getAttachables();
 
@@ -91,8 +93,9 @@ abstract class AbstractStore implements AttachableInternal {
         for (int i = 0; i < size; i++) {
             Attachable attachable = attachables.get(i);
 
-            if (attachable != null)
-                attachable.attach(c);
+            if (attachable != null) {
+				attachable.attach(c);
+			}
         }
     }
 
@@ -119,7 +122,7 @@ abstract class AbstractStore implements AttachableInternal {
 
     /**
      * This method coincides with {@link Record#size()} and
-     * {@link ArrayRecord#size()}
+     * {@link ArrayRecord#size()}.
      */
     abstract int size();
 

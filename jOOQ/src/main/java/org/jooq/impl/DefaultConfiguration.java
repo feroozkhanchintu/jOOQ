@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -92,16 +92,16 @@ import org.jooq.impl.ThreadLocalTransactionProvider.ThreadLocalConnectionProvide
 public class DefaultConfiguration implements Configuration {
 
     /**
-     * Serial version UID
+     * Serial version UID.
      */
     private static final long                       serialVersionUID = 8193158984283234708L;
 
-    // Configuration objects
+    /** Configuration objects. */
     private SQLDialect                              dialect;
     private Settings                                settings;
     private ConcurrentHashMap<Object, Object>       data;
 
-    // Non-serializable Configuration objects
+    /** Non-serializable Configuration objects. */
     private transient ConnectionProvider            connectionProvider;
     private transient ExecutorProvider              executorProvider;
     private transient TransactionProvider           transactionProvider;
@@ -112,7 +112,7 @@ public class DefaultConfiguration implements Configuration {
     private transient TransactionListenerProvider[] transactionListenerProviders;
     private transient ConverterProvider             converterProvider;
 
-    // Derived objects
+    /** Derived objects. */
     private org.jooq.SchemaMapping                  mapping;
 
     // -------------------------------------------------------------------------
@@ -452,9 +452,11 @@ public class DefaultConfiguration implements Configuration {
             : new ConcurrentHashMap<Object, Object>();
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: Deriving configurations
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: Deriving configurations
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final Configuration derive() {
@@ -699,9 +701,11 @@ public class DefaultConfiguration implements Configuration {
         );
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: Changing configurations
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: Changing configurations
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final Configuration set(Connection newConnection) {
@@ -719,8 +723,9 @@ public class DefaultConfiguration implements Configuration {
 
             // TODO Factor out this API in a more formal contract between TransactionProvider and ConnectionProvider
             if (transactionProvider instanceof ThreadLocalTransactionProvider &&
-              !(newConnectionProvider instanceof ThreadLocalConnectionProvider))
-                throw new ConfigurationException("Cannot specify custom ConnectionProvider when Configuration contains a ThreadLocalTransactionProvider");
+              !(newConnectionProvider instanceof ThreadLocalConnectionProvider)) {
+				throw new ConfigurationException("Cannot specify custom ConnectionProvider when Configuration contains a ThreadLocalTransactionProvider");
+			}
 
             this.connectionProvider = newConnectionProvider;
         }
@@ -747,8 +752,9 @@ public class DefaultConfiguration implements Configuration {
         if (newTransactionProvider != null) {
             this.transactionProvider = newTransactionProvider;
 
-            if (newTransactionProvider instanceof ThreadLocalTransactionProvider)
-                this.connectionProvider = ((ThreadLocalTransactionProvider) newTransactionProvider).localConnectionProvider;
+            if (newTransactionProvider instanceof ThreadLocalTransactionProvider) {
+				this.connectionProvider = ((ThreadLocalTransactionProvider) newTransactionProvider).localConnectionProvider;
+			}
         }
         else {
             this.transactionProvider = new NoTransactionProvider();
@@ -849,97 +855,65 @@ public class DefaultConfiguration implements Configuration {
         return this;
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: Changing configurations via JavaBeans-style setters
-    // -------------------------------------------------------------------------
-
     /**
-     * @see #set(Connection)
+     * -------------------------------------------------------------------------
+     * XXX: Changing configurations via JavaBeans-style setters
+     * -------------------------------------------------------------------------
      */
+
     public final void setConnection(Connection newConnection) {
         set(newConnection);
     }
 
-    /**
-     * @see #set(DataSource)
-     */
     public final void setDataSource(DataSource newDataSource) {
         set(newDataSource);
     }
 
-    /**
-     * @see #set(ConnectionProvider)
-     */
     public final void setConnectionProvider(ConnectionProvider newConnectionProvider) {
         set(newConnectionProvider);
     }
 
-    /**
-     * @see #set(ExecutorProvider)
-     */
     public final void setExecutorProvider(ExecutorProvider newExecutorProvider) {
         set(newExecutorProvider);
     }
 
-    /**
-     * @see #set(TransactionProvider)
-     */
     public final void setTransactionProvider(TransactionProvider newTransactionProvider) {
         set(newTransactionProvider);
     }
 
-    /**
-     * @see #set(RecordMapperProvider)
-     */
     public final void setRecordMapperProvider(RecordMapperProvider newRecordMapperProvider) {
         set(newRecordMapperProvider);
     }
 
-    /**
-     * @see #set(RecordListenerProvider[])
-     */
     public final void setRecordListenerProvider(RecordListenerProvider... newRecordListenerProviders) {
         set(newRecordListenerProviders);
     }
 
-    /**
-     * @see #set(ExecuteListenerProvider[])
-     */
     public final void setExecuteListenerProvider(ExecuteListenerProvider... newExecuteListenerProviders) {
         set(newExecuteListenerProviders);
     }
 
-    /**
-     * @see #set(VisitListenerProvider[])
-     */
     public final void setVisitListenerProvider(VisitListenerProvider... newVisitListenerProviders) {
         set(newVisitListenerProviders);
     }
 
-    /**
-     * @see #set(TransactionListenerProvider[])
-     */
     public final void setTransactionListenerProvider(TransactionListenerProvider... newTransactionListenerProviders) {
         set(newTransactionListenerProviders);
     }
 
-    /**
-     * @see #set(SQLDialect)
-     */
     public final void setSQLDialect(SQLDialect newDialect) {
         set(newDialect);
     }
 
-    /**
-     * @see #set(Settings)
-     */
     public final void setSettings(Settings newSettings) {
         set(newSettings);
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: Getters
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: Getters
+     * -------------------------------------------------------------------------
+     */
 
     @Override
     public final ConnectionProvider connectionProvider() {
@@ -1058,9 +1032,11 @@ public class DefaultConfiguration implements Configuration {
             "\n]";
     }
 
-    // -------------------------------------------------------------------------
-    // XXX: Serialisation
-    // -------------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------------
+     * XXX: Serialisation
+     * -------------------------------------------------------------------------
+     */
 
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -60,7 +60,7 @@ import org.jooq.SQLDialect;
 final class Neg<T> extends AbstractField<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long        serialVersionUID = 7624782102883057433L;
 

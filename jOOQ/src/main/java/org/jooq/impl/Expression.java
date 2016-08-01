@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -92,7 +92,7 @@ import org.jooq.types.YearToMonth;
 final class Expression<T> extends AbstractFunction<T> {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long             serialVersionUID = -5522799070693019771L;
 
@@ -225,7 +225,7 @@ final class Expression<T> extends AbstractFunction<T> {
     }
 
     /**
-     * In some expressions, the lhs can be safely assumed to be a single number
+     * In some expressions, the lhs can be safely assumed to be a single number.
      */
     @SuppressWarnings("unchecked")
     private final Field<Number> lhsAsNumber() {
@@ -233,7 +233,7 @@ final class Expression<T> extends AbstractFunction<T> {
     }
 
     /**
-     * In some expressions, the rhs can be safely assumed to be a single number
+     * In some expressions, the rhs can be safely assumed to be a single number.
      */
     @SuppressWarnings("unchecked")
     private final Field<Number> rhsAsNumber() {
@@ -273,7 +273,7 @@ final class Expression<T> extends AbstractFunction<T> {
     private class DateExpression extends AbstractFunction<T> {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = 3160679741902222262L;
 
@@ -292,7 +292,7 @@ final class Expression<T> extends AbstractFunction<T> {
         }
 
         /**
-         * Return the expression to be rendered when the RHS is an interval type
+         * Return the expression to be rendered when the RHS is an interval type.
          */
         @SuppressWarnings({ "unchecked", "rawtypes" })
         private final Field<T> getIntervalExpression(Configuration configuration) {
@@ -311,15 +311,12 @@ final class Expression<T> extends AbstractFunction<T> {
 
                     if (rhs.get(0).getType() == YearToMonth.class) {
                         return field("{date_add}({0}, {interval} {1} {year_month})", getDataType(), lhs, Tools.field(interval, String.class));
-                    }
-                    else {
-                        if (dialect == CUBRID) {
-                            return field("{date_add}({0}, {interval} {1} {day_millisecond})", getDataType(), lhs, Tools.field(interval, String.class));
-                        }
-                        else {
-                            return field("{date_add}({0}, {interval} {1} {day_microsecond})", getDataType(), lhs, Tools.field(interval, String.class));
-                        }
-                    }
+                    } else if (dialect == CUBRID) {
+					    return field("{date_add}({0}, {interval} {1} {day_millisecond})", getDataType(), lhs, Tools.field(interval, String.class));
+					}
+					else {
+					    return field("{date_add}({0}, {interval} {1} {day_microsecond})", getDataType(), lhs, Tools.field(interval, String.class));
+					}
                 }
 
                 case DERBY:
@@ -496,7 +493,7 @@ final class Expression<T> extends AbstractFunction<T> {
 
         /**
          * Cast a field to its actual type if it is not a <code>TIMESTAMP</code>
-         * field
+         * field.
          */
         private final Field<T> castNonTimestamps(Configuration configuration, Field<T> result) {
             if (getDataType().getType() != Timestamp.class) {
@@ -507,7 +504,7 @@ final class Expression<T> extends AbstractFunction<T> {
         }
 
         /**
-         * Return the expression to be rendered when the RHS is a number type
+         * Return the expression to be rendered when the RHS is a number type.
          */
         @SuppressWarnings({ "unchecked", "rawtypes" })
         private final Field<T> getNumberExpression(Configuration configuration) {
@@ -639,7 +636,7 @@ final class Expression<T> extends AbstractFunction<T> {
     private class DefaultExpression extends AbstractField<T> {
 
         /**
-         * Generated UID
+         * Generated UID.
          */
         private static final long serialVersionUID = -5105004317793995419L;
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -63,7 +63,7 @@ import org.jooq.tools.StringUtils;
 public class CatalogImpl extends AbstractQueryPart implements Catalog {
 
     /**
-     * Generated UID
+     * Generated UID.
      */
     private static final long     serialVersionUID = -3650318934053960244L;
     private static final Clause[] CLAUSES          = { CATALOG, CATALOG_REFERENCE };
@@ -108,16 +108,18 @@ public class CatalogImpl extends AbstractQueryPart implements Catalog {
     /**
      * {@inheritDoc}
      * <p>
-     * Subclasses should override this method
+     * Subclasses should override this method.
      */
     @Override
     public List<Schema> getSchemas() {
         return Collections.emptyList();
     }
 
-    // ------------------------------------------------------------------------
-    // XXX: Object API
-    // ------------------------------------------------------------------------
+    /**
+     * ------------------------------------------------------------------------
+     * XXX: Object API
+     * ------------------------------------------------------------------------
+     */
 
     @Override
     public int hashCode() {
@@ -133,7 +135,7 @@ public class CatalogImpl extends AbstractQueryPart implements Catalog {
         // [#1626] CatalogImpl equality can be decided without executing the
         // rather expensive implementation of AbstractQueryPart.equals()
         if (that instanceof CatalogImpl) {
-            return StringUtils.equals(getName(), (((CatalogImpl) that).getName()));
+            return StringUtils.equals(getName(), ((CatalogImpl) that).getName());
         }
 
         return super.equals(that);

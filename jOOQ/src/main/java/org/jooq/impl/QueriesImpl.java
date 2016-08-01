@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2009-2016, Data Geekery GmbH (http://www.datageekery.com)
  * All rights reserved.
  *
@@ -83,8 +83,9 @@ final class QueriesImpl implements Queries {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (Query query : queries)
-            sb.append(query).append(";\n");
+        for (Query query : queries) {
+			sb.append(query).append(";\n");
+		}
 
         return sb.toString();
     }
