@@ -1214,7 +1214,7 @@ public class JavaGenerator extends AbstractGenerator {
         }
 
         if (generateInterfaces()) {
-            printFromAndInto(out, tableOrUdt);
+            out.printFromAndInto(tableOrUdt, scala, this);
         }
 
         if (scala) {
@@ -2836,7 +2836,7 @@ public class JavaGenerator extends AbstractGenerator {
         }
 
         if (generateInterfaces() && !generateImmutablePojos()) {
-            printFromAndInto(out, tableOrUDT);
+            out.printFromAndInto(tableOrUDT, scala, this);
         }
 
         if (tableOrUDT instanceof TableDefinition)
@@ -3026,7 +3026,7 @@ public class JavaGenerator extends AbstractGenerator {
         }
     }
 
-    private List<? extends TypedElementDefinition<? extends Definition>> getTypedElements(Definition definition) {
+    public List<? extends TypedElementDefinition<? extends Definition>> getTypedElements(Definition definition) {
         if (definition instanceof TableDefinition) {
             return ((TableDefinition) definition).getColumns();
         }
@@ -3732,43 +3732,7 @@ public class JavaGenerator extends AbstractGenerator {
     }
 
     protected void printFromAndInto(JavaWriter out, TableDefinition table) {
-        printFromAndInto(out, (Definition) table);
-    }
-
-    private void printFromAndInto(JavaWriter out, Definition tableOrUDT) {
-        String qualified = out.ref(getStrategy().getFullJavaClassName(tableOrUDT, Mode.INTERFACE));
-
-        out.tab(1).header("FROM and INTO");
-        out.tab(1).overrideInheritIf(generateInterfaces() && !generateImmutableInterfaces());
-        out.tab(1).println("public void from(%s from) {", qualified);
-
-        for (TypedElementDefinition<?> column : getTypedElements(tableOrUDT)) {
-            String setter = getStrategy().getJavaSetterName(column, Mode.INTERFACE);
-            String getter = getStrategy().getJavaGetterName(column, Mode.INTERFACE);
-
-            if (scala)
-            	out.tab(2).println("%s(from.%s)", setter, getter);
-            else
-                out.tab(2).println("%s(from.%s());", setter, getter);
-        }
-
-        out.tab(1).println("}");
-
-        if (generateInterfaces() && !generateImmutableInterfaces()) {
-            if (scala) {
-            	out.tab(1).println("public <E extends %s> E into(E into) {", qualified);
-                out.tab(2).println("into.from(this)");
-                out.tab(2).println("return into");
-                out.tab(1).println("}");
-            }
-            else {
-                out.tab(1).overrideInherit();
-                out.tab(1).println("public <E extends %s> E into(E into) {", qualified);
-                out.tab(2).println("into.from(this);");
-                out.tab(2).println("return into;");
-                out.tab(1).println("}");
-            }
-        }
+        out.printFromAndInto((Definition) table, scala, this);
     }
 
     protected void printReferences(JavaWriter out, List<? extends Definition> definitions, Class<?> type, boolean isGeneric) {

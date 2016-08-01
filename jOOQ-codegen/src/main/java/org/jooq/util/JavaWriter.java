@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jooq.tools.StringUtils;
+import org.jooq.util.GeneratorStrategy.Mode;
 
 /**
  * A wrapper for a {@link PrintWriter}
@@ -243,4 +244,34 @@ public class JavaWriter extends GeneratorWriter<JavaWriter> {
 
         return result;
     }
+
+	public void printFromAndInto(Definition tableOrUDT, boolean scala, JavaGenerator javaGenerator) {
+		String qualified = ref(javaGenerator.getStrategy().getFullJavaClassName(tableOrUDT, Mode.INTERFACE));
+		tab(1).header("FROM and INTO");
+		tab(1).overrideInheritIf(javaGenerator.generateInterfaces() && !javaGenerator.generateImmutableInterfaces());
+		tab(1).println("public void from(%s from) {", qualified);
+		for (TypedElementDefinition<?> column : javaGenerator.getTypedElements(tableOrUDT)) {
+			String setter = javaGenerator.getStrategy().getJavaSetterName(column, Mode.INTERFACE);
+			String getter = javaGenerator.getStrategy().getJavaGetterName(column, Mode.INTERFACE);
+			if (scala)
+				tab(2).println("%s(from.%s)", setter, getter);
+			else
+				tab(2).println("%s(from.%s());", setter, getter);
+		}
+		tab(1).println("}");
+		if (javaGenerator.generateInterfaces() && !javaGenerator.generateImmutableInterfaces()) {
+			if (scala) {
+				tab(1).println("public <E extends %s> E into(E into) {", qualified);
+				tab(2).println("into.from(this)");
+				tab(2).println("return into");
+				tab(1).println("}");
+			} else {
+				tab(1).overrideInherit();
+				tab(1).println("public <E extends %s> E into(E into) {", qualified);
+				tab(2).println("into.from(this);");
+				tab(2).println("return into;");
+				tab(1).println("}");
+			}
+		}
+	}
 }
